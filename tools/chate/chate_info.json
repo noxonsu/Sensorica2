@@ -1,0 +1,36 @@
+{
+    "title": "Chat on a Website",
+    "slug": "chate",
+    "img": "static/icons/business.png",
+    "description": "Interactive mascot for websites",
+    "inputs": {
+      "openai_api_key": {
+        "description": "OpenAI API key for generating responses.",
+        "error_message": "Please enter a valid OpenAI API key.",
+        "required": true
+      },
+      "main_title": {
+        "description": "Main title for the mascot interface.",
+        "error_message": "Main title is required.",
+        "required": true
+      },
+      "main_description": {
+        "description": "Main description text for the mascot interface.",
+        "error_message": "Main description is required.",
+        "required": true
+      },
+      "access_code_link": {
+        "description": "Link for users to get an access code for using the mascot.",
+        "error_message": "Access code link is required.",
+        "required": true
+      },
+      "access_code_link_text": {
+        "description": "Text for the access code link.",
+        "error_message": "Access code link text is required.",
+        "required": true
+      }
+    },
+    "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
+    "completion_message": "Your Mascot is now ready and operational!",
+    "required": true
+  }

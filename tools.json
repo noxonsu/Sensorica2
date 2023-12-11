@@ -1,0 +1,15 @@
+[
+  {
+    "title": "aigram",
+    "slug": "aigram",
+    "description": "ChatGPT integration for Telegram",
+    "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot.",
+    "img": "aigram/icon.png"
+  },
+  {
+    "title": "Chat on a Website",
+    "slug": "chate",
+    "img": "chate/icon.png",
+    "description": "Interactive mascot for websites"
+  }
+]
