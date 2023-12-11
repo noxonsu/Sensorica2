@@ -6,44 +6,61 @@
     "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot.",
     "inputs": {
       "cf_account_id": {
-        "description": "CloudFlare account ID. ",
+        "title": "CloudFlare Account ID",
+        "description": "CloudFlare account ID",
         "help_image": "https://telegram.onout.org/static/images/where-account-id.png",
         "error_message": "Please enter a valid Cloudflare account ID.",
-        "required": true
+        "required": true,
+        "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "svg_icon_id": "ico-3"
       },
       "cf_api_key": {
-        "description": "CloudFlare API Key. Follow the steps on Cloudflare to create a token for Cloudflare Workers.",
+        "title": "CloudFlare API Key",
+        "description": "CloudFlare API Key",
         "help_image": [
           "Create token <img src=https://telegram.onout.org/static/images/cf-select-create-token.png />",
           "Token for workers <img src=https://telegram.onout.org/static/images/cf-select-token-for-workers.png />",
           "Add zones <img src=https://telegram.onout.org/static/images/cf-select-all-accounts-and-zones-for-token.png />"
         ],
         "error_message": "Please enter a valid Cloudflare API key.",
-        "required": true
+        "required": true,
+        "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "svg_icon_id": "ico-3"
       },
       "openai_sk": {
+        "title": "OpenAI API Key",
         "description": "OpenAI API key. Find this in your OpenAI account under API settings.",
         "error_message": "Please enter a valid OpenAI API key that starts with 'sk-...'.",
-        "required": true
+        "required": true,
+        "placeholder": "sk-...",
+        "svg_icon_id": "ico-2"
       },
       "tg_token": {
+        "title": "Telegram Bot API Token",
         "description": "Telegram Bot API token. Get this from the BotFather on Telegram.",
         "help_text": "To create a new Telegram bot, message @BotFather on Telegram and use the /newbot command.",
         "error_message": "Please enter a valid Telegram Bot API token.",
-        "required": true
+        "required": true,
+        "placeholder": "xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+        "svg_icon_id": "ico-4"
+      },
+      "system_prompt": {
+        "title": "System Prompt",
+        "description": "Optional custom system prompt for your bot. You can set one if you like.",
+        "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
+        "required": false,
+        "placeholder": "You are an AI chatbot.",
+        "svg_icon_id": "ico-1"
+      },
+      "monetization": {
+        "title": "Monetization",
+        "description": "Optional monetization settings for your bot. Set a number of free messages and an activation code.",
+        "confirmation": "Do you wish to monetize your bot? (Yes/No)",
+        "required": false,
+        "svg_icon_id": "ico-5"
       }
     },
-    "system_prompt": {
-      "description": "Optional custom system prompt for your bot. You can set one if you like.",
-      "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
-      "required": false
-    },
-    "monetization": {
-      "description": "Optional monetization settings for your bot. Set a number of free messages and an activation code.",
-      "confirmation": "Do you wish to monetize your bot? (Yes/No)",
-      "required": false
-    },
+   
     "deployment_confirmation": "Do you want to proceed with deploying your Telegram bot with the provided details? (Yes/No)",
-    "completion_message": "Your Telegram bot is now deployed! You can access it at [Bot URL]. For any changes, you can restart this setup process.",
-    "required": true
+    "completion_message": "Your Telegram bot is now deployed! You can access it at [Bot URL]. For any changes, you can restart this setup process."
   }
