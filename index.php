@@ -1,6 +1,7 @@
 <?php
 #load required inputs as array and find for slug 
-function getToolInfo($toolSlug) {
+function getToolInfo($toolSlug)
+{
   $tools = json_decode(file_get_contents('tools.json'), true);
   foreach ($tools as $tool) {
     if ($tool['slug'] == $toolSlug) {
@@ -44,16 +45,14 @@ if ($_GET['tool']) {
     <!--/ header -->
     <main>
       <div class="row">
-      <?php  ?>
-       
-      <?php
-          if ($_GET['tool']) {
-            include("tool_single.php");
-          }
+        <?php
+        if ($_GET['tool']) {
+          include("tool_single.php");
+        }
 
-          if (!$_GET['tool']) {
-            include("select_tool.php");
-           } ?>
+        if (!$_GET['tool']) {
+          include("select_tool.php");
+        } ?>
       </div>
       <!-- footer -->
       <footer>
@@ -67,21 +66,22 @@ if ($_GET['tool']) {
           <a href="https://t.me/onoutsupportbot" target="_blank" rel="noreferrer"><svg class="icon">
               <use xlink:href="#ico-tlg"></use>
             </svg>Telegram
-          </a> 
+          </a>
         </div>
         <div class="supportWrapper">
-          Community: <a href="https://discord.com/channels/898545581591506975/1078964362783506442" target="_blank">Discord</a> or <a href="https://t.me/sensorica2" target="_blank">Telegram</a> 
+          Community: <a href="https://discord.com/channels/898545581591506975/1078964362783506442"
+            target="_blank">Discord</a> or <a href="https://t.me/sensorica2" target="_blank">Telegram</a>
         </div>
       </footer>
       <!--/ footer -->
     </main>
   </div>
-  <!-- import svg --> 
+  <!-- import svg -->
   <?php
   //import svg static/icons/icons.svg
   echo file_get_contents('static/icons/icons.svg');
   ?>
-  
+
 </body>
 
 </html>
