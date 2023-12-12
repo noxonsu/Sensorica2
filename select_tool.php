@@ -1,54 +1,75 @@
-<form method="post" action="bot/deploy">
-    <div class="tab-container">
-        <!-- tab 5 -->
-        <div class="tab-title active filled" data-content="title5">
-            <div class="headline" id="promptHeadline">
-                <span id="customIcon" style="background: #e00094"><svg class="icon">
-                        <use xlink:href="#ico-1"></use>
-                    </svg> </span>Select a tool to run
-            </div>
-            <div class="form-section" id="descriptionSection">
-                <p>
-                    After selecting a tool, you will be able to customize it and run
-                </p>
-            </div>
+<div class="sidebar">
+    <div class="title">Fill The Form Step By Step:</div>
+    <ul class="nav">
 
 
-            <ul class="accordionOptionsList" id="listOfPrompts">
-                <?php
-                //load toola from tools.json and show them <li><button data-prompt="undefined" type="button"><img src="static/icons/business.png" alt="undefined"><span>Chat on a Website</span>Interactive mascot for websites</button></li>
-                
-                $tools = json_decode(file_get_contents('tools.json'), true);
-                foreach ($tools as $tool) {
-                    if (!$tool['img']) $tool['img'] = 'tools/' . $tool['slug'] . '/icon.png';
-                    echo '<li><button onclick="window.location=\'?tool=' . $tool['slug'] . '\'" data-prompt="' . $tool['slug'] . '" type="button"><div class="image-container"><img src="'.$tool['img'].'" /></div><span>' . $tool['title'] . '</span>' . $tool['description'] . '</button></li>';
-                }
-                ?>
-            </ul>
-            <style>
-                .image-container {
-                    width: 104px;
-                    height: 104px;
-                    overflow: hidden;
-                    border-radius: 20%;
-                    margin: 0 auto 30px auto;
-                }
+        <li>
+            <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-2"></use>
+                </svg>Select tool</a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-3"></use>
+                </svg>Specify the inputs</a>
+        </li>
+        <li>
+            <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-7"></use>
+                </svg>Fetch the result</a>
+        </li>
 
-                .accordionOptionsList li button .image-container img {
-                    width: 208px;
-                    height: 208px;
-                    max-width: none;
-                }
-            </style>
-            <ul class="accordionOptionsList" id="listOfPrompts"></ul>
-            <div class="more">
-                <a href="https://onout.org/sponsor.md" target="_blank">Reuqest a tool</a>
+        <li>
+            <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-7"></use>
+                </svg>F.A.Q.</a>
+        </li>
+    </ul>
+
+</div>
+
+<!-- content -->
+<div class="content">
+    <form method="post" action="bot/deploy">
+        <div class="tab-container">
+            <!-- tab 5 -->
+            <div class="tab-title active filled" data-content="title5">
+                <div class="headline" id="promptHeadline">
+                    <span id="customIcon" style="background: #e00094"><svg class="icon">
+                            <use xlink:href="#ico-1"></use>
+                        </svg> </span>Select a tool to run
+                </div>
+                <div class="form-section" id="descriptionSection">
+                    <p>
+                        After selecting a tool, you will be able to customize it and run
+                    </p>
+                </div>
+
+
+                <ul class="accordionOptionsList" id="listOfPrompts">
+                    <?php
+                    //load toola from tools.json and show them <li><button data-prompt="undefined" type="button"><img src="static/icons/business.png" alt="undefined"><span>Chat on a Website</span>Interactive mascot for websites</button></li>
+                    
+                    $tools = json_decode(file_get_contents('tools.json'), true);
+                    foreach ($tools as $tool) {
+                        if (!$tool['img'])
+                            $tool['img'] = 'tools/' . $tool['slug'] . '/icon.png';
+                        echo '<li><button onclick="window.location=\'?tool=' . $tool['slug'] . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . $tool['img'] . '" /><span>' . $tool['title'] . '</span>' . $tool['description'] . '</button></li>';
+                    }
+                    ?>
+                </ul>
+
+                <ul class="accordionOptionsList" id="listOfPrompts"></ul>
+                <div class="more">
+                    <a href="https://onout.org/sponsor.md" target="_blank">Reuqest a tool</a>
+                </div>
+                <div class="button-wrap">
+                    <button type="submit" class="btn btn-prompt" id="resetToOriginal">Reset to Original</button><button
+                        type="button" class="btn" id="apply" data-action="save_prompt">Apply & Next step</button>
+                </div>
             </div>
-            <div class="button-wrap">
-                <button type="submit" class="btn btn-prompt" id="resetToOriginal">Reset to Original</button><button
-                    type="button" class="btn" id="apply" data-action="save_prompt">Apply & Next step</button>
-            </div>
+            <!--/ tab 5 -->
         </div>
-        <!--/ tab 5 -->
-    </div>
-</form>
+    </form>
+</div>
+<!--/ content -->

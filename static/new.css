@@ -608,6 +608,7 @@ h3 {
   height: 104px;
   display: block;
   margin: 0 auto 30px auto;
+  border-radius: 15px;
 }
 
 #customIcon {
@@ -1138,6 +1139,7 @@ ol li:before {
     width: 48px;
     height: 48px;
     margin-bottom: 15px;
+    
   }
   .accordionOptionsList li button span {
     font-style: normal;

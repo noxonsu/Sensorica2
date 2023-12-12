@@ -41,60 +41,16 @@ if ($_GET['tool']) {
     <!--/ header -->
     <main>
       <div class="row">
-        <?php
-        #hide if no tool selected
-        
-          ?>
-          <div class="sidebar">
-            <div class="title">Fill The Form Step By Step:</div>
-            <ul class="nav">
-
-              <?php
-              if ($_GET['tool']) {
-              foreach ($tool['inputs'] as $input => $input_data) {
-                echo '<li><a href="javascript:void(0);" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#'.$input_data['svg_icon_id'].'"></use></svg>' . $input_data['title'] . '</a></li>';
-              }
-            } else {
-              ?>
-              <li>
-                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
-                    <use xlink:href="#ico-2"></use>
-                  </svg>Select tool</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
-                    <use xlink:href="#ico-3"></use>
-                  </svg>Specify the inputs</a>
-              </li>
-              <li>
-                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
-                    <use xlink:href="#ico-7"></use>
-                  </svg>Fetch the result</a>
-              </li>
-              <?php
-            }
-              ?>
-              <li>
-                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
-                    <use xlink:href="#ico-7"></use>
-                  </svg>F.A.Q.</a>
-              </li>
-            </ul>
-
-          </div>
-        <?php  ?>
-        <!-- content -->
-        <div class="content">
-          <?php
+      <?php  ?>
+       
+      <?php
           if ($_GET['tool']) {
-            include("single_tool.php");
+            include("tool_single.php");
           }
 
           if (!$_GET['tool']) {
             include("select_tool.php");
            } ?>
-        </div>
-        <!--/ content -->
       </div>
       <!-- footer -->
       <footer>
@@ -108,7 +64,10 @@ if ($_GET['tool']) {
           <a href="https://t.me/onoutsupportbot" target="_blank" rel="noreferrer"><svg class="icon">
               <use xlink:href="#ico-tlg"></use>
             </svg>Telegram
-          </a>
+          </a> 
+        </div>
+        <div class="supportWrapper">
+          Community: <a href="https://discord.com/channels/898545581591506975/1078964362783506442" target="_blank">Discord</a> or <a href="https://t.me/sensorica2" target="_blank">Telegram</a> 
         </div>
       </footer>
       <!--/ footer -->

@@ -1,7 +1,7 @@
 # Sensorica2
 Create AI tools in seconds . Экспериментальный репо, более универсальная архитектура для продукта который охватит больше AI юзкейсов, т.е. можно запрашивать выше цену.
 
-Ядро берем с https://github.com/noxonsu/Sensorica/tree/master/server , вместо промптов будут тулзы. Например chatgpt in teelegram (aigram), или Mascot for the web site (Бывш chate), или OutReach agent (бот ходит по сайтам и собирает контакты - GDPR ready). Для каждой тулзы нужен свой набор инпутов, например для aigram это cf api и промпт. и тп. Конфиг расположен в tools.json по аналогии с networks.json в бч продуктах. 
+Фронтенд берем с https://github.com/noxonsu/Sensorica/tree/master/server , вместо промптов будут тулзы. Например chatgpt in teelegram (aigram), или Mascot for the web site (Бывш chate), или OutReach agent (бот ходит по сайтам и собирает контакты - GDPR ready). Для каждой тулзы нужен свой набор инпутов, например для aigram это cf api и промпт. и тп. Конфиг расположен в tools.json по аналогии с networks.json в бч продуктах. 
 
 # Плюсы
 - больше юзкейсов - выше цена
