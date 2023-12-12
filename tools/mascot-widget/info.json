@@ -1,36 +1,56 @@
 {
-    "title": "Chat on a Website",
-    "slug": "mascon-widget",
-    "img": "static/icons/business.png",
-    "description": "Interactive mascot for websites",
-    "inputs": {
-      "openai_api_key": {
-        "description": "OpenAI API key for generating responses.",
-        "error_message": "Please enter a valid OpenAI API key.",
-        "required": true
-      },
-      "main_title": {
-        "description": "Main title for the mascot interface.",
-        "error_message": "Main title is required.",
-        "required": true
-      },
-      "main_description": {
-        "description": "Main description text for the mascot interface.",
-        "error_message": "Main description is required.",
-        "required": true
-      },
-      "access_code_link": {
-        "description": "Link for users to get an access code for using the mascot.",
-        "error_message": "Access code link is required.",
-        "required": true
-      },
-      "access_code_link_text": {
-        "description": "Text for the access code link.",
-        "error_message": "Access code link text is required.",
-        "required": true
-      }
+  "title": "Chat on a Website",
+  "slug": "mascon-widget",
+  "img": "static/icons/business.png",
+  "description": "Interactive mascot for websites",
+  "inputs": {
+    "openai_api_key": {
+      "title": "OpenAI API Key",
+      "description": "OpenAI API key for generating responses.",
+      "error_message": "Please enter a valid OpenAI API key.",
+      "required": true,
+      "svg_icon_id": "ico-2"
     },
-    "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
-    "completion_message": "Your Mascot is now ready and operational!",
-    "required": true
-  }
+    "company_summary": {
+      "title": "Company Summary",
+      "description": "Describe what your company does.",
+      "error_message": "Please enter a valid summary.",
+      "required": true,
+      "help_image": [
+        "Try to describe what your company or project to do, and we will try and create a charter of mascot and his instructions on next screen"
+      ],
+      "svg_icon_id": "ico-1"
+    },
+    "main_title": {
+      "title": "Main Title",
+      "description": "Main title (name) for the mascot interface.",
+      "error_message": "Main title is required.",
+      "required": true,
+      "svg_icon_id": "ico-3"
+    },
+    "main_description": {
+      "title": "Main Description",
+      "description": "Main description text for the mascot interface.",
+      "error_message": "Main description is required.",
+      "required": true,
+      "svg_icon_id": "ico-4"
+    },
+    "access_code_link": {
+      "title": "Access",
+      "description": "Link for users to get an access code for using the mascot.",
+      "error_message": "Access code link is required.",
+      "required": true,
+      "svg_icon_id": "ico-5"
+    },
+    "access_code_link_text": {
+      "title": "Access",
+      "description": "Text for the access code link.",
+      "error_message": "Access code link text is required.",
+      "required": true,
+      "svg_icon_id": "ico-5"
+    }
+  },
+  "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
+  "completion_message": "Your Mascot is now ready and operational!",
+  "required": true
+}

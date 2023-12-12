@@ -1,15 +1,18 @@
 <?php
 #load required inputs as array and find for slug 
-$tools = json_decode(file_get_contents('tools.json'), true);
-if ($_GET['tool']) {
+function getToolInfo($toolSlug) {
+  $tools = json_decode(file_get_contents('tools.json'), true);
   foreach ($tools as $tool) {
-
-    if ($tool['slug'] == $_GET['tool']) {
+    if ($tool['slug'] == $toolSlug) {
       $tool = json_decode(file_get_contents('tools/' . $tool['slug'] . '/info.json'), true);
       break;
     }
   }
+  return $tool;
+}
 
+if ($_GET['tool']) {
+  $tool = getToolInfo($_GET['tool']);
 }
 ?>
 <html lang="en">

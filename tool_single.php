@@ -1,3 +1,9 @@
+<?php 
+if ($_GET['tool']) {
+  $tool = getToolInfo($_GET['tool']);
+}
+//print_r($tool['inputs']);
+?>
 <div class="sidebar">
   <div class="title">Fill The Form Step By Step:</div>
   <ul class="nav">
