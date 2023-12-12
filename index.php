@@ -5,7 +5,7 @@ if ($_GET['tool']) {
   foreach ($tools as $tool) {
 
     if ($tool['slug'] == $_GET['tool']) {
-      $tool = json_decode(file_get_contents('tools/' . $tool['slug'] . '/' . $tool['slug'] . '_info.json'), true);
+      $tool = json_decode(file_get_contents('tools/' . $tool['slug'] . '/info.json'), true);
       break;
     }
   }
@@ -43,18 +43,36 @@ if ($_GET['tool']) {
       <div class="row">
         <?php
         #hide if no tool selected
-        if ($_GET['tool']) {
+        
           ?>
           <div class="sidebar">
             <div class="title">Fill The Form Step By Step:</div>
             <ul class="nav">
 
               <?php
-
+              if ($_GET['tool']) {
               foreach ($tool['inputs'] as $input => $input_data) {
                 echo '<li><a href="javascript:void(0);" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#'.$input_data['svg_icon_id'].'"></use></svg>' . $input_data['title'] . '</a></li>';
               }
-
+            } else {
+              ?>
+              <li>
+                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-2"></use>
+                  </svg>Select tool</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-3"></use>
+                  </svg>Specify the inputs</a>
+              </li>
+              <li>
+                <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+                    <use xlink:href="#ico-7"></use>
+                  </svg>Fetch the result</a>
+              </li>
+              <?php
+            }
               ?>
               <li>
                 <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
@@ -64,112 +82,17 @@ if ($_GET['tool']) {
             </ul>
 
           </div>
-        <?php } ?>
+        <?php  ?>
         <!-- content -->
         <div class="content">
           <?php
           if ($_GET['tool']) {
-
-            ?>
-            <form action="" method="post">
-              <?php
-
-              foreach ($tool['inputs'] as $input => $input_data) {
-                if ($_POST[$input]) {
-                  //save input to hidden input
-                  echo '<input type="hidden" name="' . $input . '" value="' . $_POST[$input] . '" />';
-                  continue;
-                }
-
-
-                ?>
-                <div class="tab-content active" data-content="title3">
-                  <div class="headline">
-                    <span style="background: #fff"><svg class="icon" style="fill: #f6821f">
-                        <use xlink:href="#ico-3"></use>
-                      </svg></span><?php echo $input_data['title']; ?>
-                  </div>
-                  <div class="form-section">
-                    <label for="<?php echo $input; ?>">
-                      <?php echo $input_data['description']; ?>
-                    </label>
-                    <input type="text" class="form-control" name="<?php echo $input; ?>" id="<?php echo $input; ?>"
-                      placeholder="<?php echo $input_data['placeholder']; ?>" />
-                    <details>
-                      <summary>
-                        Instructions
-                        <div class="chevron">
-                          <svg class="icon">
-                            <use xlink:href="#chevron"></use>
-                          </svg>
-                        </div>
-                      </summary>
-                      <div class="summary-content">
-                        <ol>
-                          <?php
-
-                          foreach ($input_data['help_image'] as $image) {
-                            echo '<li>' . $image . '</li>';
-                          }
-
-                          ?>
-                        </ol>
-                      </div>
-                    </details>
-                  </div>
-
-                  <input type="submit" value="Apply & Next" class='btn' />
-                </div>
-                <?php
-                //show only one setting per step
-                break;
-              } ?>
-            </form>
-            <?php
+            include("single_tool.php");
           }
 
           if (!$_GET['tool']) {
-            ?>
-            <form method="post" action="bot/deploy">
-              <div class="tab-container">
-                <!-- tab 5 -->
-                <div class="tab-content active" data-content="title5">
-                  <div class="headline" id="promptHeadline">
-                    <span id="customIcon" style="background: #e00094"><svg class="icon">
-                        <use xlink:href="#ico-1"></use>
-                      </svg> </span>Select the tool to run
-                  </div>
-                  <div class="form-section" id="descriptionSection">
-                    <p>
-                      Select the tool template to deploy
-                    </p>
-                  </div>
-
-
-                  <ul class="accordionOptionsList" id="listOfPrompts">
-                    <?php
-                    //load toola from tools.json and show them <li><button data-prompt="undefined" type="button"><img src="static/icons/business.png" alt="undefined"><span>Chat on a Website</span>Interactive mascot for websites</button></li>
-                  
-                    $tools = json_decode(file_get_contents('tools.json'), true);
-                    foreach ($tools as $tool) {
-                      echo '<li><button onclick="window.location=\'?tool=' . $tool['slug'] . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . $tool['img'] . '" alt="' . $tool['slug'] . '"><span>' . $tool['title'] . '</span>' . $tool['description'] . '</button></li>';
-                    }
-                    ?>
-                  </ul>
-
-                  <ul class="accordionOptionsList" id="listOfPrompts"></ul>
-                  <div class="more">
-                    <a href="#">Get more templates</a>
-                  </div>
-                  <div class="button-wrap">
-                    <button type="submit" class="btn btn-prompt" id="resetToOriginal">Reset to Original</button><button
-                      type="button" class="btn" id="apply" data-action="save_prompt">Apply & Next step</button>
-                  </div>
-                </div>
-                <!--/ tab 5 -->
-              </div>
-            </form>
-          <?php } ?>
+            include("select_tool.php");
+           } ?>
         </div>
         <!--/ content -->
       </div>
