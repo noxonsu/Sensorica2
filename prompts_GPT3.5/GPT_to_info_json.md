@@ -3,9 +3,9 @@ analyse this instruction and create info.json
 
 {
     "title": "title of tool",
-    "slug": "research",
+    "slug": "name_without_spaces",
     "img": "",
-    "description": "GPT specializes in digital market research, offering services like keyword analysis, competitive benchmarking, and extensive data crawling for in-depth reports. Its helps clients craft superior content by providing insights into market trends, product details, pricing, and feature comparisons.",
+    "description": "description of tool",
     "inputs": {
       "name_of_input": {
         "description": "",

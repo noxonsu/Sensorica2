@@ -2,7 +2,9 @@
 if ($_GET['tool']) {
   $tool = getToolInfo($_GET['tool']);
 }
-//print_r($tool['inputs']);
+if (!$tool) {
+  die("Error: Tool not found");
+}
 ?>
 <div class="sidebar">
   <div class="title">Fill The Form Step By Step:</div>
@@ -37,7 +39,7 @@ if ($_GET['tool']) {
     if ($_POST['action'] == 'Finalize') {
       //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
       echo $tool['main_action'];
-      include("tools/".$tool['slug']."/".$tool['main_action']); //include the main action file
+      include("tools/".$tool['slug']."/".$tool['main_action_php_file']); //include the main action file
       
     } else {
       //if user click on apply and next button, save input to hidden input in use already send its value

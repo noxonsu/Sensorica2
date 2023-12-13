@@ -1,6 +1,6 @@
 {
   "title": "ChatGPT integration for Telegram",
-  "main_action": "deploy_telegram_bot.php",
+  "main_action_php_file": "deploy_telegram_bot.php",
   "slug": "aigram",
   "img": "/static/images/chat-gpt-logo.svg",
   "description": "Deploy a Telegram bot that uses the ChatGPT API to chat with users.",

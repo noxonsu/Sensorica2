@@ -4,7 +4,7 @@
   "img": "static/icons/business.png",
   "description": "Interactive mascot for websites",
   "inputs": {
-    "openai_api_key": {
+    "openai_sk": {
       "title": "OpenAI API Key",
       "description": "OpenAI API key for generating responses.",
       "error_message": "Please enter a valid OpenAI API key.",
@@ -13,25 +13,26 @@
     },
     "company_summary": {
       "title": "Company Summary",
-      "description": "Describe what your company does.",
+      "description": "Describe what your company does or paste URL",
       "error_message": "Please enter a valid summary.",
       "magic_prompt": "If this is a website open it and create summary. If not just check the grammar and make sure it is correct.",
       "required": true,
       "help_image": [
         "Try to describe what your company or project to do, and we will try and create a charter of mascot and his instructions on next screen"
       ],
-      "svg_icon_id": "ico-1"
+      "svg_icon_id": "ico-1",
+      "placeholder": "https://www.example.com"
     },
     "main_title": {
       "title": "Main Title",
-      "description": "Main title (name) for the mascot interface.",
+      "description": "Main title (name) for the chat interface.",
       "error_message": "Main title is required.",
       "required": true,
       "svg_icon_id": "ico-3"
     },
     "main_description": {
       "title": "Main Description",
-      "description": "Main description text for the mascot interface.",
+      "description": "Main description text for the interface.",
       "error_message": "Main description is required.",
       "required": true,
       "svg_icon_id": "ico-4"
