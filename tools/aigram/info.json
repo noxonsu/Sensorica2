@@ -51,9 +51,10 @@
         "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
         "required": false,
         "placeholder": "You are an AI chatbot.",
-        "svg_icon_id": "ico-1"
+        "svg_icon_id": "ico-1",
+        "textarea": true
       },
-      "monetization": {
+      "free_messages": {
         "title": "Monetization",
         "description": "Optional monetization settings for your bot. Set a number of free messages and an activation code.",
         "confirmation": "Do you wish to monetize your bot? (Yes/No)",

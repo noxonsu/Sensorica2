@@ -15,6 +15,7 @@
       "title": "Company Summary",
       "description": "Describe what your company does.",
       "error_message": "Please enter a valid summary.",
+      "magic_prompt": "If this is a website open it and create summary. If not just check the grammar and make sure it is correct.",
       "required": true,
       "help_image": [
         "Try to describe what your company or project to do, and we will try and create a charter of mascot and his instructions on next screen"
