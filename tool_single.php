@@ -16,7 +16,11 @@ if (!$tool) {
       echo '<li><a href="javascript:void(0);" data-ref="'.$input_data['title'].'" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
     }
     ?>
-
+    <li>
+      <a href="javascript:void(0);" class="tab-title <?php echo ($_POST['action'] == 'Finalize') ? 'active' : ''; ?>" data-title="title8"><svg class="icon">
+          <use xlink:href="#ico-2"></use>
+        </svg>Result</a>
+    </li>
     <li>
       <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
           <use xlink:href="#ico-7"></use>
@@ -37,7 +41,7 @@ if (!$tool) {
 
     if ($_POST['action'] == 'Finalize') {
       //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
-      echo $tool['main_action'];
+      echo "<h2>Finalization</h2>";
       include("tools/" . $tool['slug'] . "/" . $tool['main_action_php_file']); //include the main action file
     
     } else {

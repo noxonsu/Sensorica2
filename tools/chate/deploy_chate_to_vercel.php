@@ -1,309 +1,119 @@
 <?php
-function esc_attr($v)
+error_reporting(E_ALL);
+include 'connect_github.php';
+include 'connect_vercel.php';
+
+// log function
+function logToFile($filename, $msg)
 {
-    return $v;
+    $fd = fopen($filename, "a");
+    $str = "[" . date("Y/m/d h:i:s", time()) . "] " . $msg;
+    fwrite($fd, $str . "\n");
+    fclose($fd);
 }
-function esc_url($v)
-{
-    return $v;
-}
 
-// Define your environment variables
-$nextPublicDefaultSystemPrompt = $_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'];
-$openaiApiKey = $_POST['OPENAI_API_KEY'];
-$mainTitle = $_POST['main_title'];
-$yourVercelToken = $_POST['YOUR_VERCEL_TOKEN']; // Assuming 'YOUR_VERCEL_TOKEN' is the key in the POST request
-$githubAccessToken = $_POST['githubAccessToken']; // Replace with your GitHub access token
+//create log file
+$filename = "log.txt";
+$fd = fopen($filename, "w");
+fclose($fd);
 
-// Main logic
-$repoFullName = 'noot/op-deposit';
+logToFile($filename, print_r($_POST, true) ." ". print_r($_GET, true));
 
+logToFile($filename, "Start");
+
+// Environment Variables
+$defaultSystemPrompt = $_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'];
+$openAiApiKey = $_POST['OPENAI_API_KEY'];
+$mainTitle = $_POST['NEXT_PUBLIC_MAIN_TITLE'];
+$vercelToken = $_POST['YOUR_VERCEL_TOKEN'];
+$githubToken = $_POST['GITHUB_ACCESS_TOKEN'];
+
+// Repository Information
+$repositoryFullName = 'noxonsu/chate';
 $projectNameVercel = 'chate';
 
-
-
-
-
-
-if (empty($githubAccessToken)) {
-    echo "Please provide a GitHub access token.";
-    die();
-}
-// Function to make a cURL request
-function makeCurlRequest($url, $githubAccessToken, $postData = null, $customRequest = 'POST')
-{
-    $headers = [
-        "Accept: application/vnd.github+json",
-        "Authorization: Bearer $githubAccessToken",
-        "User-Agent: sensorica2" // Replace with your app name
-    ];
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $customRequest);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-
-    if (!empty($postData)) {
-        curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($postData));
-    }
-
-    $response = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Curl error: ' . curl_error($ch);
-    }
-    curl_close($ch);
-
-    return json_decode($response, true);
+// Validate GitHub Access Token
+if (empty($githubToken)) {
+    exit("Please provide a GitHub access token.");
 }
 
 
-// Fork a repository
+$response = forkRepository($repositoryFullName, $githubToken);
 
-
-$url = "https://api.github.com/repos/$repoFullName/forks";
-echo $url;
-$org = explode("/", $repoFullName);
-$repo = $org[1];
-$org = $org[0];
-$postData = [
-    "owner" => $org, // Replace with the actual organization name if needed
-    "name" => $repo,     // Replace with the desired repository name
-    "default_branch_only" => true
-];
-
-echo "Repository '$repo' forking...\n";
-$response = makeCurlRequest($url, $githubAccessToken, $postData);
-
-if ($response['error']) {
-    echo "Error: " . $response['error']['message'];
-    die();
+// Handle Fork Response
+if (!empty($response['error'])) {
+    exit("Error: " . $response['error']['message']);
 }
 
-
-
-if (isset($response['owner']['login'])) {
+if (!empty($response['owner']['login'])) {
     echo "Forked successfully. Owner: " . $response['owner']['login'];
+    $repositoryOwner = $response['owner']['login'];
+    $repositoryName = $response['name'];
+    logToFile($filename, "Forked successfully. Owner: " . $response['owner']['login']);
 } else {
-    echo "Forking failed.";
-    die();
+    exit("Forking failed.");
 }
 
-$repo = $response['name'];
-$owner = $response['owner']['login'];
+// Define Debug Mode
 
-if ($debug == true)
-    print_r($response);
-if ($debug == true)
-    echo "\n";
+$deleteResponse = deleteVercelProject($projectNameVercel, $vercelToken);
 
+logToFile($filename, "Delete Response:\n");
+logToFile($filename, print_r($deleteResponse, true));
 
-
-
-
-function deleteVercelProject($projectNameVercel, $vercelToken)
-{
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL => "https://api.vercel.com/v9/projects/$projectNameVercel",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_CUSTOMREQUEST => 'DELETE',
-        CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer $vercelToken"
-        ],
-    ]);
-
-    $response = curl_exec($ch);
-    if (curl_errno($ch)) {
-        // Handle cURL error here
-    }
-    curl_close($ch);
-
-    return $response;
-}
-
-
-
-// Step 1: Delete existing project (if it exists)
-$deleteResponse = deleteVercelProject($projectNameVercel, $yourVercelToken);
-
-if ($debug == true) {
-    print "deleteResponse:\n";
+if ($debugMode) {
+    echo "Delete Response:\n";
     print_r($deleteResponse);
+    
 }
 
-echo "<br>vercel project deleted (if exists)<br>";
-// cURL setup
-$ch = curl_init();
 
-// Set cURL options
-curl_setopt($ch, CURLOPT_URL, "https://api.vercel.com/v9/projects");
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-curl_setopt($ch, CURLOPT_POST, true);
+$vercelProjectResponse = createVercelProject($projectNameVercel, $vercelToken, $defaultSystemPrompt, $openAiApiKey, $mainTitle, $repositoryOwner, $repositoryName);
 
-// Prepare the body of the POST request
-$body = json_encode(array(
-    "name" => $projectNameVercel,
-    "buildCommand" => "next build",
-    "devCommand" => "next dev --port $PORT",
-    "environmentVariables" => array(
-        array(
-            "key" => "NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT",
-            "value" => $nextPublicDefaultSystemPrompt,
-            "type" => "plain",
-            "target" => "production"
-        ),
-        array(
-            "key" => "OPENAI_API_KEY",
-            "value" => $openaiApiKey,
-            "type" => "plain",
-            "target" => "production"
-        ),
-        array(
-            "key" => "main_title",
-            "value" => $mainTitle,
-            "type" => "plain",
-            "target" => "production"
-        )
-    ),
-    "framework" => "nextjs",
-    "gitRepository" => array(
-        "repo" => $owner . "/" . $repo,
-        "type" => "github"
-    ),
-    "publicSource" => true,
-    "skipGitConnectDuringLink" => true
-));
-
-curl_setopt($ch, CURLOPT_POSTFIELDS, $body);
-
-// Set HTTP Header for POST request
-curl_setopt($ch, CURLOPT_HTTPHEADER, array(
-    "Authorization: Bearer $yourVercelToken",
-    "Content-Type: application/json"
-));
-
-
-// Execute cURL session
-$response = curl_exec($ch);
-
-if (curl_errno($ch)) {
-    // Handle cURL error here
+if (!empty($vercelProjectResponse['error'])) {
+    exit("Error creating Vercel project: " . $vercelProjectResponse['error']['message']);
 }
 
-// Close cURL session
-curl_close($ch);
-
-$json = json_decode($response, true);
-
-
-if ($json['error']) {
-    echo "Error add project: " . $json['error']['message'];
-    die();
+if ($debugMode) {
+    echo "Vercel Project creation Response:\n";
+    print_r($vercelProjectResponse);
 }
 
-if ($json['id']) {
-    echo "Project added successfully. ID: " . $json['id'];
-} else {
-    echo "Project adding failed.";
-    die();
-}
+logToFile($filename, "Vercel Project creation Response:\n");
+logToFile($filename, print_r($vercelProjectResponse, true));
 
-// 3 trigger ci
-function createNewFile($owner, $repo, $path, $message, $content, $githubAccessToken, $sha = null)
-{
-    $url = "https://api.github.com/repos/$owner/$repo/contents/$path";
-    $data = [
-        'message' => $message,
-        'content' => base64_encode($content)
-    ];
-
-    // Add sha if it's provided (for updating an existing file)
-    if ($sha !== null) {
-        $data['sha'] = $sha;
-    }
-
-    return makeCurlRequest($url, $githubAccessToken, $data, 'PUT');
-}
-
-// Usage
+// Usage Example
 $filePath = time() . '.txt'; // Replace with your desired file name
 $commitMessage = 'Add new file'; // Your commit message
-$fileContent = time(); // The content of the new file
+$fileContent = 'Sample content for the file'; // The content of the new file
 
-// If updating an existing file, provide the SHA. Otherwise, omit it or pass null.
-$response = createNewFile($owner, $repo, $filePath, $commitMessage, $fileContent, $githubAccessToken, $sha /* or null for a new file */);
+$newFileResponse = createNewGitHubFile($repositoryOwner, $repositoryName, $filePath, $commitMessage, $fileContent, $githubToken);
 
-echo "File creation response:\n";
-if ($debug == true)
-    print_r($response);
-
-// Check success of file creation
-if (isset($response['content']) && $response['content']['path'] == $filePath) {
-    echo "File created successfully.";
-} else {
-    echo "File creation failed.";
-    print_r($response);
-    die();
+if ($debugMode) {
+    echo "New File Response:\n";
+    print_r($newFileResponse);
 }
 
-
-$debug = true;
-
-
-
-echo "check deployments\n";
-
-function getDeploymentDomain($projectNameVercel, $yourVercelToken)
-{
-    sleep(10);
-    $ch = curl_init();
-    curl_setopt_array($ch, [
-        CURLOPT_URL => "https://api.vercel.com/v9/projects/$projectNameVercel",
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_HTTPHEADER => [
-            "Authorization: Bearer $yourVercelToken"
-        ],
-    ]);
-
-    $response = curl_exec($ch);
-    if (curl_errno($ch)) {
-        echo 'Error: ' . curl_error($ch);
-    } else {
-        $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        if ($httpCode == 200) {
-            $data = json_decode($response, true); // Decode JSON response
-            print_r($data);
-            if (isset($data['latestDeployments']) && is_array($data['latestDeployments'])) {
-                foreach ($data['latestDeployments'] as $deployment) {
-                    if (isset($deployment['alias']) && is_array($deployment['alias'])) {
-                        foreach ($deployment['alias'] as $alias) {
-                            return $alias;
-                        }
-                    }
-                }
-            }
-        } else {
-            echo "HTTP Error Code: " . $httpCode;
-        }
-    }
-    curl_close($ch);
-
-    return null;
+if (!isset($newFileResponse['content']) || $newFileResponse['content']['path'] != $filePath) {
+    exit("Failed to create new file in GitHub repository.");
 }
 
-if (true) {
-    $alias = getDeploymentDomain($projectNameVercel, $yourVercelToken);
-} else {
-    $alias = "https://chate-{$owner}.vercel.app";
-}
-if (!empty($alias)) {
-    echo "Deployment domain: " . $alias;
-} else {
-    echo "No deployment found.";
-    die();
-}
+// Check Deployment Status on Vercel
 
 
-die();
-?>
+$deploymentData = checkVercelDeployment($projectNameVercel, $vercelToken);
+
+if ($debugMode) {
+    echo "Deployment Data:\n";
+    print_r($deploymentData);
+}
+
+// Display Deployment URL
+$deploymentUrl = $deploymentData['alias'][0] ?? "https://$projectNameVercel-$repositoryOwner.vercel.app";
+echo "Deployment URL: $deploymentUrl";
+
+// End of the Script
+$iframeCode = "<textarea readonly style='width:100%; height:120px;'>";
+$iframeCode .= "<iframe style='border:0; min-width:320px; min-height:600px' src='" . $deploymentUrl . "' class='' id='onoutiframe' width='100%' height='100%'></iframe>\n";
+$iframeCode .= "</textarea>";
+echo $iframeCode;

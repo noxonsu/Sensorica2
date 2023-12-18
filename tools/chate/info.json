@@ -16,7 +16,7 @@
       ],
       "svg_icon_id": "ico-1"
     },
-    "githubAccessToken":{
+    "GITHUB_ACCESS_TOKEN":{
       "title": "Github Access Token",
       "description": "Github Access Token to store the chatbot's source code in your Github's profile (it's free).",
       "error_message": "Please enter a valid Github Access Token.",
@@ -41,11 +41,11 @@
       "help_image":[
         "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
         "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",
-        "Copy the API key to your clipboard"
+        "Copy the API key to your clipboard and paste it here."
       ]
     },
-    "main_title": {
-      "title": "Main Title",
+    "NEXT_PUBLIC_MAIN_TITLE": {
+      "title": "Welcome Message",
       "description": "Main title (name) for the chat interface.",
       "error_message": "Main title is required.",
       "help_image": [
@@ -76,5 +76,6 @@
   },
   "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
   "completion_message": "Your Mascot is now ready and operational!",
-  "required": true
+  "required": true,
+  "main_action_php_file": "deploy_chate_to_vercel.php"
 }
