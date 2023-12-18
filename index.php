@@ -36,7 +36,7 @@ if ($_GET['tool']) {
     <!-- header -->
     <header>
       <div class="header-logo">
-        <img src="./static/images/chat-gpt-logo.svg" alt="" />
+      <img src="<?php echo ($tool['img']) ? $tool['img'] : ' ./static/images/chat-gpt-logo.svg'; ?>" alt="" />
       </div>
       <h2 class="deploymentPageTitle">
         <?php echo ($tool['title']) ? $tool['title'] : "AI tool creation wizard"; ?>

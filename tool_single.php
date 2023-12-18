@@ -13,8 +13,7 @@ if (!$tool) {
     <?php
 
     foreach ($tool['inputs'] as $input => $input_data) {
-      $activeClass = ($_GET['input'] == $input) ? 'active' : ''; // Check if the current input is active
-      echo '<li><a href="javascript:void(0);" class="tab-title ' . $activeClass . '" data-title="title1"><svg class="icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
+      echo '<li><a href="javascript:void(0);" data-ref="'.$input_data['title'].'" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
     }
     ?>
 
@@ -69,8 +68,8 @@ if (!$tool) {
       ?>
       <div class="tab-content active" data-content="title3">
         <div class="headline" id='promptHeadline'>
-          <span style="background: #fff"><svg class="icon" style="fill: #f6821f">
-              <use xlink:href="#ico-3"></use>
+          <span style="background: <?php if ($input_data['background_color_svg']) {echo ''.$input_data['background_color_svg']; } else { echo '#fff'; } ?>"><svg class="icon" style="<?php if ($input_data['style_svg']) {echo ''.$input_data['style_svg']; } else { echo 'fill: black'; } ?>">
+              <use xlink:href="#<?php echo $input_data['svg_icon_id']; ?>"></use>
             </svg></span>
           <?php echo $input_data['title']; ?>
         </div>
@@ -230,6 +229,11 @@ if (!$tool) {
       </div>
       <?php
       //show only one setting per step
+      ?>
+      <script>
+        jQuery("[data-ref='<?php echo $input_data['title']; ?>']").addClass('active');
+      </script>
+      <?php
       break;
     } ?>
   </form>

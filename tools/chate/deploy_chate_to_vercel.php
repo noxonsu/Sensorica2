@@ -35,7 +35,7 @@ function makeCurlRequest($url, $githubAccessToken, $postData = null, $customRequ
     $headers = [
         "Accept: application/vnd.github+json",
         "Authorization: Bearer $githubAccessToken",
-        "User-Agent: your-app-name" // Replace with your app name
+        "User-Agent: sensorica2" // Replace with your app name
     ];
 
     $ch = curl_init();

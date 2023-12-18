@@ -1,23 +1,23 @@
 [
   {
-    "title": "Telegram Bot",
+    "title": "Telegran GPT integration",
     "slug": "aigram",
-    "description": "ChatGPT integration for Telegram. Welcome to the ChatGPT Telegram Bot setup.",
+    "description": "GPT integration for Telegram. New clients for your business coming from telegram.",
     "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot."
   },
   {
-    "title": "Website Chat",
+    "title": "Website GPT Chat",
     "slug": "chate",
-     "description": "Interactive chat for websites. Increase engadement and conversion rates. Users wil chat with your website and you will get more leads."
+     "description": "Increase engadement and conversion rates. Users chating with your website and you getting more leads."
   },
   {
     "title": "Business developer",
     "slug": "website-outreach",
-    "description": "Find new partners by contacting with list of sites with your proposal, GDPR compliant"
+    "description": "Find new partners by contacting with list of sites with your proposal"
   },
   {
-    "title": "Market Research Tool",
+    "title": "Market overview research",
     "slug": "market-research",
-    "description": "This tool leverages GPT technology for market research. It specializes in keyword analysis, competitive benchmarking, data crawling, and generating comprehensive reports. "
+    "description": "Will create a study of current prices and features among competitors"
   }
 ]

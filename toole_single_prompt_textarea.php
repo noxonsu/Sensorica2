@@ -5,7 +5,7 @@ The System Prompt (instruction for GPT) consists of instructions for the bot. No
 </div>
 <button class="btn btn-prompt" type="button">Write a Prompt</button>
 <div class="textarea-wrp">
-<textarea class="prompt-area" name="system_prompt" id="promptArea">You are an AI assistent</textarea>
+<textarea class="prompt-area" name="<?php echo $input; ?>" id="promptArea">You are an AI assistent</textarea>
 </div>
 <div class="separator"><span>or</span></div>
 <div class="title" id="listOfPromptsTitle">Choose Available Prompt Templates</div>
@@ -243,10 +243,5 @@ function makeRandomString(length) {
   return result;
 }
 
-const activationCodeArea = document.getElementById("activationCodeArea");
-const generateActivationCodeBtn = document.getElementById("generateActivationCodeBtn");
 
-generateActivationCodeBtn.addEventListener("click", () => {
-  activationCodeArea.value = makeRandomString(32);
-});
 </script>

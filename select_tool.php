@@ -4,7 +4,7 @@
 
 
         <li>
-            <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+            <a href="javascript:void(0);" class="tab-title active" data-title="title8"><svg class="icon">
                     <use xlink:href="#ico-2"></use>
                 </svg>Select tool</a>
         </li>
