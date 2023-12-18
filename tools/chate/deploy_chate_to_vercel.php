@@ -13,7 +13,7 @@ function logToFile($filename, $msg)
 }
 
 //create log file
-$filename = "log.txt";
+$filename = "./log.txt";
 $fd = fopen($filename, "w");
 fclose($fd);
 

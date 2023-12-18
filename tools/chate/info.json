@@ -9,7 +9,7 @@
       "description": "Optional custom system prompt for your bot. You can set one if you like.",
       "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
       "placeholder": "You are an AI chatbot.",
-      "textarea": true,
+      "type": "prompt_textarea",
       "required": true,
       "help_image": [
         "Try to describe what your company or project to do, and we will try and create a charter of mascot and his instructions on next screen"

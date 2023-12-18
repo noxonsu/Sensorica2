@@ -1,0 +1,63 @@
+{
+  "title": "Business developer",
+  "slug": "business-developer",
+  "img": "static/icons/business.png",
+  "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
+  "inputs": {
+    "INITIAL_LIST_OF_PROJECTS":{
+      "title": "list of projects",
+      "description": "List of projects to be founded in google search.",
+      "error_message": "Please enter a valid list of projects.",
+      "required": true,
+      "svg_icon_id": "ico-1",
+      "background_color_svg": "#10a37f",
+      "help_image":[
+        "Enter a list of projects that you want to be founded in google search. For example: 'project1, project2, project3'."
+      ],
+      "type": "textarea",
+      "magic_prompt": "project1, project2, project3"
+    },
+    "SEARCH_PROMT":{
+      "title": "Instruction for googling",
+      "description": "dffdgfgdg",
+      "required": true,
+      "svg_icon_id": "ico-1",
+      "background_color_svg": "#10a37f",
+      "help_image":[
+        "Что мы должны найти в гугле по списку сайтов. Например найти официальный сайт проекта или найти в какиз каталогах представлен продукт"
+      ]
+    },
+    "GITHUB_ACCESS_TOKEN":{
+      "title": "Github Access Token",
+      "description": "Github Access Token to store the chatbot's source code in your Github's profile (it's free).",
+      "error_message": "Please enter a valid Github Access Token.",
+      "required": true,
+      "svg_icon_id": "github",
+      "svg_fill": "#000000",
+      "help_image":[
+        "Sign up for a GitHub account <a href='https://github.com' target=_blank>https://github.com</a> if you don't already have one.",
+        "Open this page and select 'All repositories' <a href='https://github.com/settings/personal-access-tokens/new' target=_blank>https://github.com/settings/personal-access-tokens/new</a> here.",
+        "In the premissions section select: Actions, Contents, Deployments, Envirements, Secrets, Variables, Workflows",
+        "Click 'Generate Token' and copy the token to your clipboard."
+      ],
+      "placeholder": "github_pat_xxxxxxxxxx_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+    },
+    "OPENAI_API_KEY": {
+      "title": "OpenAI API Key",
+      "description": "OpenAI API key for generating responses.",
+      "error_message": "Please enter a valid OpenAI API key.",
+      "required": true,
+      "svg_icon_id": "ico-2",
+      "background_color_svg": "#10a37f",
+      "help_image":[
+        "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
+        "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",
+        "Copy the API key to your clipboard and paste it here."
+      ]
+    }
+  },
+  "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
+  "completion_message": "Your Mascot is now ready and operational!",
+  "required": true,
+  "main_action_php_file": "deploy_chate_to_vercel.php"
+}
