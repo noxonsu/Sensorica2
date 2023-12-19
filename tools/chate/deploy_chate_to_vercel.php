@@ -1,11 +1,15 @@
 <?php
 error_reporting(E_ALL);
-include 'connect_github.php';
+$rootPath = $_SERVER['DOCUMENT_ROOT'];
+
+include $rootPath . '/connect_github.php';
+
 include 'connect_vercel.php';
 
 // log function
 function logToFile($filename, $msg)
 {
+    return;
     $fd = fopen($filename, "a");
     $str = "[" . date("Y/m/d h:i:s", time()) . "] " . $msg;
     fwrite($fd, $str . "\n");
@@ -40,9 +44,10 @@ if (empty($githubToken)) {
 
 $response = forkRepository($repositoryFullName, $githubToken);
 
+print_r($response);
 // Handle Fork Response
-if (!empty($response['error'])) {
-    exit("Error: " . $response['error']['message']);
+if (!empty($response['message'])) {
+    exit("Error: " . $response['message']);
 }
 
 if (!empty($response['owner']['login'])) {

@@ -1,6 +1,7 @@
 {
   "title": "Website GPT Chat",
   "slug": "chate",
+  "version":  "1.0.0",
   "img": "static/icons/business.png",
   "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
   "inputs": {
@@ -18,6 +19,7 @@
     },
     "GITHUB_ACCESS_TOKEN":{
       "title": "Github Access Token",
+      "version": "1.0.0",
       "description": "Github Access Token to store the chatbot's source code in your Github's profile (it's free).",
       "error_message": "Please enter a valid Github Access Token.",
       "required": true,

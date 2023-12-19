@@ -19,5 +19,10 @@
     "title": "Market overview research",
     "slug": "market-research",
     "description": "Will create a study of current prices and features among competitors"
+  },
+  {
+    "title": "GPT crawler",
+    "slug": "gpt-crawler",
+    "description": "Crawl a site to generate knowledge files to create your own custom GPT from a URL"
   }
 ]

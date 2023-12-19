@@ -43,6 +43,9 @@ if (!$tool) {
     if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
       //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
       echo "<h2>Finalization</h2>";
+      if (!isset($tool['main_action_php_file'])){
+        $tool['main_action_php_file'] = 'action.php';
+      }
       include("tools/" . $tool['slug'] . "/" . $tool['main_action_php_file']); //include the main action file
     
     } else {
@@ -93,46 +96,25 @@ if (!$tool) {
 
         if ($input_data['type'] == 'prompt_textarea') {
 
-          include("toole_single_prompt_textarea.php");
+          include("tool_single_prompt_textarea.php");
         } else if ($input_data['type'] == 'textarea') {
-          ?>
-            <div class="form-section">
-              <label for="<?php echo $input; ?>">
-              <?php echo $input_data['description']; ?>
-              </label>
-              <textarea class="form-control" style='min-height:300px' name="<?php echo $input; ?>" id="<?php echo $input; ?>"
-                placeholder="<?php echo @$input_data['placeholder']; ?>"></textarea>
-              <details>
-                <summary>
-                  Instructions
-                  <div class="chevron">
-                    <svg class="icon">
-                      <use xlink:href="#chevron"></use>
-                    </svg>
-                  </div>
-                </summary>
-                <div class="summary-content">
-                  <ol>
-                    <?php
-
-                    foreach ($input_data['help_image'] as $image) {
-                      echo '<li>' . $image . '</li>';
-                    }
-
-                    ?>
-                  </ol>
-                </div>
-              </details>
-            </div>
-            
-
-          <?php
+          include("tool_single_textarea.php");
+        } else if ($input_data['type'] == 'website') {
+          include("tool_single_website.php");
         } else { ?>
             <div class="form-section">
               <label for="<?php echo $input; ?>">
               <?php echo $input_data['description']; ?>
               </label>
-<input class="form-control userinput" type="text" name="<?php echo $input; ?>" id="<?php echo $input; ?>"
+              <?php 
+              //default
+              if (!isset($input_data['default'])) {
+                $input_data['default'] = '';
+              } else if ($input_data['default'] == 'window.location.href') {
+                $input_data['default'] = "https://".$_SERVER['HTTP_HOST'];
+              }
+              ?>
+<input class="form-control userinput" value="<?php echo $input_data['default'];?>" type="text" name="<?php echo $input; ?>" id="<?php echo $input; ?>"
                     placeholder="<?php echo $input_data['placeholder']; ?>" />
              
 

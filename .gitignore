@@ -163,5 +163,5 @@ cython_debug/
 
 #other
 .env
-log.xt
+log.txt
 local_*

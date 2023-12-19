@@ -12,7 +12,7 @@
       "svg_icon_id": "ico-1",
       "background_color_svg": "#10a37f",
       "help_image":[
-        "Enter a list of projects that you want to be founded in google search. For example: 'project1, project2, project3'."
+        "Enter a list of projects that you want to be founded in google search. For example: <br> project1 <br> project2 <br> project3'."
       ],
       "type": "textarea",
       "magic_prompt": "project1, project2, project3"
@@ -24,7 +24,7 @@
       "svg_icon_id": "ico-1",
       "background_color_svg": "#10a37f",
       "help_image":[
-        "Что мы должны найти в гугле по списку сайтов. Например найти официальный сайт проекта или найти в какиз каталогах представлен продукт"
+        "Что мы должны найти в гугле по списку сайтов. Например найти официальный сайт проекта или найти в каких каталогах представлен продукт"
       ]
     },
     "GITHUB_ACCESS_TOKEN":{
