@@ -6,6 +6,7 @@ The System Prompt (instruction for GPT) consists of instructions for the bot. No
 <button class="btn btn-prompt" type="button">Write a Prompt</button>
 <div class="textarea-wrp">
 <textarea class="prompt-area" name="<?php echo $input; ?>" id="promptArea">You are an AI assistent</textarea>
+<a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
 </div>
 <div class="separator"><span>or</span></div>
 <div class="title" id="listOfPromptsTitle">Choose Available Prompt Templates</div>
@@ -35,6 +36,13 @@ const prompts = [
     
 Your database
 put here your FAQ and other documents in text 
+    `
+  },
+  {
+    "img": "static/icons/resume.png",
+    "title": "Funny Mascot persona",
+    "description": "Add funny mascot to the bot",
+    "prompt": `Create a 
     `
   }, 
   {
