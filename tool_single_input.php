@@ -1,4 +1,4 @@
-?>
+
             <div class="form-section">
               <label for="<?php echo $input; ?>">
               <?php echo $input_data['description']; ?>

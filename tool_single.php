@@ -13,6 +13,9 @@ if (!$tool) {
     <?php
 
     foreach ($tool['inputs'] as $input => $input_data) {
+      if (!isset($input_data['title']) || $input_data['title'] == '') {
+        $input_data['title'] = 'Untitled';
+      }
       echo '<li><a href="javascript:void(0);" data-ref="' . $input_data['title'] . '" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
     }
     ?>
@@ -90,7 +93,11 @@ if (!$tool) {
               } ?>">
               <use xlink:href="#<?php echo $input_data['svg_icon_id']; ?>"></use>
             </svg></span>
-          <?php echo $input_data['title']; ?>
+          <?php 
+          if (!isset($input_data['title']) || $input_data['title'] == '') {
+            $input_data['title'] = 'Untitled';
+          }
+          echo $input_data['title']; ?>
         </div>
         <?php
 

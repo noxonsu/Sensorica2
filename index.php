@@ -40,7 +40,8 @@ if ($_GET['tool']) {
       </div>
       <h2 class="deploymentPageTitle">
         <?php echo ($tool['title']) ? $tool['title'] : "AI tool creation wizard"; ?>
-      </h2>
+       <br> 
+      <a style='font-size:15px' href="/">Back</a></h2>
     </header>
     <!--/ header -->
     <main>
