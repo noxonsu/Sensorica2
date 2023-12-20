@@ -1,14 +1,13 @@
 [
   {
-    "title": "Telegran GPT integration",
+    "title": "Telegram GPT Integration",
     "slug": "aigram",
-    "description": "GPT integration for Telegram. New clients for your business coming from telegram.",
-    "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot."
+    "description": "Add GPT to your Telegram to get more customers and set up your ChatGPT Bot easily."
   },
   {
-    "title": "Website GPT Chat",
-    "slug": "chate",
-     "description": "Increase engadement and conversion rates. Users chating with your website and you getting more leads."
+    "title": "Website GPT Chat & Mascot",
+    "slug": "chate-mascot",
+    "description": "Make your website more engaging with AI chat and a fun mascot. This helps get more leads and improves user experience."
   },
   {
     "title": "Business developer",
@@ -24,5 +23,10 @@
     "title": "GPT crawler",
     "slug": "gpt-crawler",
     "description": "Crawl a site to generate knowledge files to create your own custom GPT from a URL"
+  },
+  {
+    "title": "SEO & Link Building Strategy",
+    "slug": "seo-link-building",
+    "description": "Build a satellite website for more visibility in search results, get more links to increase visitors, and improve Google ranking."
   }
 ]

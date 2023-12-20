@@ -1,6 +1,6 @@
 {
   "title": "Website GPT Chat",
-  "slug": "chate",
+  "slug": "chate-mascot",
   "version":  "1.0.0",
   "img": "static/icons/business.png",
   "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
