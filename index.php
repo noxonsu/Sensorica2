@@ -24,12 +24,13 @@ if ($_GET['tool']) {
   <link rel="stylesheet" href="./static/new.css" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta name="theme-color" content="#5f48b0" />
-  <meta name="description" content="Deploy your own ChatGPT bot on Telegram" />
+  <meta name="description" content="Boost your website with our AI tools. Get better articles from market research, top Google ranks, more website visits, and user-friendly chat features. Try our Telegram bot for more customers." />
   <meta name="keywords"
     content="chatgpt bot, telegram bot, chatgpt telegram, ai bot, ai app, no-code telegram bot, earn on ai, onout" />
   <script src="https://code.jquery.com/jquery-3.7.0.min.js"
     integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
 </head>
+
 
 <body>
   <div class="wrapper">
