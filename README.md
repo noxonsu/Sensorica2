@@ -1,38 +1,141 @@
-# Sensorica2
-Create AI tools in seconds . Экспериментальный репо, более универсальная архитектура для продукта который охватит больше AI юзкейсов, т.е. можно запрашивать выше цену.
+# WordPress
 
-Фронтенд берем с https://github.com/noxonsu/Sensorica/tree/master/server , вместо промптов будут тулзы. Например chatgpt in teelegram (aigram), или Mascot for the web site (Бывш chate), или OutReach agent (бот ходит по сайтам и собирает контакты - GDPR ready). Для каждой тулзы нужен свой набор инпутов, например для aigram это cf api и промпт. и тп. Конфиг расположен в tools.json по аналогии с networks.json в бч продуктах. 
+Welcome to the WordPress development repository! Please check out the [contributor handbook](https://make.wordpress.org/core/handbook/) for information about how to open bug reports, contribute patches, test changes, write documentation, or get involved in any way you can.
 
-# Плюсы
-- больше юзкейсов - выше цена
-- нет размытия бренда. все они построены вокруг запросов к chatgpt и являются ии. 
-- sensorica двольно универсальное название
-- готовый фронтенд под новые тулзы, которых будет очень много по мере того как ИИ в целом будет развиваться. Новые тулзы надо продавать как плагины, пример  https://codecanyon.net/item/ai-chat-for-whatsapp-plugin-for-whatsbox/49487111
-- разный стек. часть тулз работает на github actions и на питоне (smartTokenList или tenders), часть в cf 
+* [Getting Started](#getting-started)
+* [Credentials](#credentials)
 
-# Минусы
-- монорепо для
-- больше поддержки, т.к. мнгого кода подтягивается чужого
-- проблема легаси после года, т.к. апдейты по идее должны быть беслпатны, а продажи могут упасть
+## Getting Started
 
-# Admin flow
-- админ выбирает кейс
-- вводит необходимые данные (см tools.json поля inputs)
-- данные отправляются на бэк см backendSchema
-- админ получает шорткод для ставки результата в любое место сайта, например для aigram это будет ссылка на бота  
+### Using GitHub Codespaces
 
+To get started, create a codespace for this repository by clicking this 👇 
 
-# English 
-Description:
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?hide_repo_select=true&ref=trunk&repo=75645659)
 
-Welcome to the WordPress GPT Integration Suite, a comprehensive collection of powerful tools designed to enhance your WordPress experience using the latest advancements in GPT technology. This all-in-one repository contains:
+A codespace will open in a web-based version of Visual Studio Code. The [dev container](.devcontainer/devcontainer.json) is fully configured with softwares needed for this project.
 
-Telegram Bot (Aigram) - Seamlessly integrate ChatGPT with Telegram to deploy interactive bots, providing a unique way to engage with your audience through messaging.
+**Note**: Dev containers is an open spec which is supported by [GitHub Codespaces](https://github.com/codespaces) and [other tools](https://containers.dev/supporting).
 
-Website Mascot (Mascot Widget) - Bring your website to life with an interactive mascot. This tool boosts user engagement and conversion rates by enabling visitors to interact with a charming, AI-powered mascot.
+In some browsers the keyboard shortcut for opening the command palette (Ctrl/Command + Shift + P) may collide with a browser shortcut. The command palette can be opened via the `F1` key or via the cog icon in the bottom left of the editor.
 
-Business Developer (Website Outreach) - Expand your network and find new partners efficiently. This tool automates outreach to a curated list of websites, presenting your proposals in a GDPR-compliant manner.
+When opening your codespace, be sure to wait for the `postCreateCommand` to finish running to ensure your WordPress install is successfully set up. This can take a few minutes.
 
-Market Research Tool - Harness the power of GPT for in-depth market research. This tool excels in keyword analysis, competitive benchmarking, data crawling, and generating detailed reports, giving you valuable insights to stay ahead in your market.
+### Local development
 
-Each tool in this suite is crafted to provide a unique solution, leveraging the capabilities of GPT to enhance user experience, outreach, and market research, all within your WordPress environment. Whether you're looking to engage with your audience, expand your business network, or gain in-depth market insights, the WordPress GPT Integration Suite is your go-to resource.
+WordPress is a PHP, MySQL, and JavaScript based project, and uses Node for its JavaScript dependencies. A local development environment is available to quickly get up and running.
+
+You will need a basic understanding of how to use the command line on your computer. This will allow you to set up the local development environment, to start it and stop it when necessary, and to run the tests.
+
+You will need Node and npm installed on your computer. Node is a JavaScript runtime used for developer tooling, and npm is the package manager included with Node. If you have a package manager installed for your operating system, setup can be as straightforward as:
+
+* macOS: `brew install node`
+* Windows: `choco install nodejs`
+* Ubuntu: `apt install nodejs npm`
+
+If you are not using a package manager, see the [Node.js download page](https://nodejs.org/en/download/) for installers and binaries.
+
+**Note:** WordPress currently only officially supports Node.js `20.x` and npm `10.x`.
+
+You will also need [Docker](https://www.docker.com/products/docker-desktop) installed and running on your computer. Docker is the virtualization software that powers the local development environment. Docker can be installed just like any other regular application.
+
+### Development Environment Commands
+
+Ensure [Docker](https://www.docker.com/products/docker-desktop) is running before using these commands.
+
+#### To start the development environment for the first time
+
+Clone the current repository using `git clone https://github.com/WordPress/wordpress-develop.git`. Then in your terminal move to the repository folder `cd wordpress-develop` and run the following commands:
+
+```
+npm install
+npm run build:dev
+npm run env:start
+npm run env:install
+```
+
+Your WordPress site will be accessible at http://localhost:8889. You can see or change configurations in the `.env` file located at the root of the project directory.
+
+#### To watch for changes
+
+If you're making changes to WordPress core files, you should start the file watcher in order to build or copy the files as necessary:
+
+```
+npm run dev
+```
+
+To stop the watcher, press `ctrl+c`.
+
+#### To run a [WP-CLI](https://make.wordpress.org/cli/handbook/) command
+
+```
+npm run env:cli -- <command>
+```
+
+WP-CLI has [many useful commands](https://developer.wordpress.org/cli/commands/) you can use to work on your WordPress site. Where the documentation mentions running `wp`, run `npm run env:cli --` instead. For example:
+
+```
+npm run env:cli -- help
+```
+
+#### To run the tests
+
+These commands run the PHP and end-to-end test suites, respectively:
+
+```
+npm run test:php
+npm run test:e2e
+```
+
+You can pass extra parameters into the PHP tests by adding `--` and then the [command-line options](https://docs.phpunit.de/en/10.4/textui.html#command-line-options):
+
+```
+npm run test:php -- --filter <test name>
+npm run test:php -- --group <group name or ticket number>
+```
+
+#### To restart the development environment
+
+You may want to restart the environment if you've made changes to the configuration in the `docker-compose.yml` or `.env` files. Restart the environment with:
+
+```
+npm run env:restart
+```
+
+#### To stop the development environment
+
+You can stop the environment when you're not using it to preserve your computer's power and resources:
+
+```
+npm run env:stop
+```
+
+#### To start the development environment again
+
+Starting the environment again is a single command:
+
+```
+npm run env:start
+```
+
+## Credentials
+
+These are the default environment credentials:
+
+* Database Name: `wordpress_develop`
+* Username: `root`
+* Password: `password`
+
+To login to the site, navigate to http://localhost:8889/wp-admin.
+
+* Username: `admin`
+* Password: `password`
+
+**Note:** With Codespaces, open the portforwarded URL from the ports tab in the terminal, and append `/wp-admin` to login to the site.
+
+To generate a new password (recommended):
+
+1. Go to the Dashboard
+2. Click the Users menu on the left
+3. Click the Edit link below the admin user
+4. Scroll down and click 'Generate password'. Either use this password (recommended) or change it, then click 'Update User'. If you use the generated password be sure to save it somewhere (password manager, etc).

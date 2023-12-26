@@ -1,35 +1,29 @@
-version: '3.8'
+version: '3.1'
 
-services: 
+services:
   app:
-    image: tomrosert/wp-codespace:latest
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-    restart: unless-stopped
+    image: wordpress
+    restart: always
+    ports:
+      - 8080:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: exampleuser
+      WORDPRESS_DB_PASSWORD: examplepass
+      WORDPRESS_DB_NAME: exampledb
     volumes:
       - ../..:/workspaces:cached
-    command: sleep infinity
 
   db:
-    image: mariadb:10.4
+    image: mariadb
     restart: unless-stopped
+    environment:
+      MYSQL_DATABASE: exampledb
+      MYSQL_USER: exampleuser
+      MYSQL_PASSWORD: examplepass
+      MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - mariadb-data:/var/lib/mysql
-    environment:
-      MYSQL_ROOT_PASSWORD: wordpress
-      MYSQL_DATABASE: wordpress
-      MYSQL_USER: wordpress
-      MYSQL_PASSWORD: wordpress
-      
-  phpmyadmin:
-    image: phpmyadmin
-    depends_on:
-      - db
-    ports:
-      - 81:80
-    environment:
-      PMA_HOST: db
+      - db:/var/lib/mysql
 
 volumes:
-  mariadb-data:
+  db:
