@@ -9,7 +9,10 @@
         "cf_account_id": {
             "title": "CloudFlare Account ID",
             "description": "CloudFlare account ID",
-            "help_image": "https://telegram.onout.org/static/images/where-account-id.png",
+            "help_image": [
+                "Log in to your <a href=https://dash.cloudflare.com/ target=_blank rel=noreferrer>Cloudflare account</a> (or create a new one).",
+                "Copy the id from address pane <img src=https://telegram.onout.org/static/images/where-account-id.png>"
+            ],
             "error_message": "Please enter a valid Cloudflare account ID.",
             "required": true,
             "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",

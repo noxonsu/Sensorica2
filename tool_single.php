@@ -20,7 +20,8 @@ if (!$tool) {
     }
     ?>
     <li>
-      <a href="javascript:void(0);" class="tab-title <?php echo (isset($_POST['action'] ) && $_POST['action'] == 'Finalize') ? 'active' : ''; ?>"
+      <a href="javascript:void(0);"
+        class="tab-title <?php echo (isset($_POST['action']) && $_POST['action'] == 'Finalize') ? 'active' : ''; ?>"
         data-title="title8"><svg class="icon">
           <use xlink:href="#ico-2"></use>
         </svg>Result</a>
@@ -46,7 +47,7 @@ if (!$tool) {
     if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
       //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
       echo "<h2>Finalization</h2>";
-      if (!isset($tool['main_action_php_file'])){
+      if (!isset($tool['main_action_php_file'])) {
         $tool['main_action_php_file'] = 'action.php';
       }
       include("tools/" . $tool['slug'] . "/" . $tool['main_action_php_file']); //include the main action file
@@ -62,7 +63,7 @@ if (!$tool) {
     foreach ($tool['inputs'] as $input => $input_data) {
       if (isset($_POST[$input])) {
         //save input to hidden input in use already send its value
-        echo '<input type="hidden" name="' . $input . '" value="' . $_POST[$input] . '" />';
+        echo '<input type="hidden" id="hd_'.$input.'" name="' . $input . '" value="' . $_POST[$input] . '" />';
 
         //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
         if ($input == end(array_keys($tool['inputs']))) {
@@ -79,21 +80,18 @@ if (!$tool) {
       ?>
       <div class="tab-content active" data-content="title3">
         <div class="headline" id='promptHeadline'>
-          <span
-            style="background: <?php if ($input_data['background_color_svg']) {
-              echo '' . $input_data['background_color_svg'];
-            } else {
-              echo '#fff';
-            } ?>"><svg
-              class="icon"
-              style="<?php if (isset($input_data['style_svg'])) {
-                echo '' . $input_data['style_svg'];
-              } else {
-                echo 'fill: black';
-              } ?>">
+          <span style="background: <?php if ($input_data['background_color_svg']) {
+            echo '' . $input_data['background_color_svg'];
+          } else {
+            echo '#fff';
+          } ?>"><svg class="icon" style="<?php if (isset($input_data['style_svg'])) {
+             echo '' . $input_data['style_svg'];
+           } else {
+             echo 'fill: black';
+           } ?>">
               <use xlink:href="#<?php echo $input_data['svg_icon_id']; ?>"></use>
             </svg></span>
-          <?php 
+          <?php
           if (!isset($input_data['title']) || $input_data['title'] == '') {
             $input_data['title'] = 'Untitled';
           }
@@ -110,14 +108,14 @@ if (!$tool) {
           include("tool_single_website.php");
         } else {
           include("tool_single_input.php");
-         } ?>
+        } ?>
 
-      <?php
-      include_once("tool_single_magic_button.php");
-      ?>
+        <?php
+        include_once("tool_single_magic_button.php");
+        ?>
 
 
- <input type="submit" value="Apply & Next" class='btn' />
+        <input type="submit" value="Apply & Next" class='btn' />
       </div>
       <?php
       //show only one setting per step
@@ -130,4 +128,58 @@ if (!$tool) {
     } ?>
   </form>
 </div>
+
+<script>
+  ; (() => {
+    const dataToEl = {
+      <?php 
+        foreach ($tool['inputs'] as $input => $input_data) {
+          echo "'".$input."': '#hd_".$input."',";
+        }
+        ?>
+    }
+    const formData = {}
+    let firstInit = false
+    const loadFormFromLS = () => {
+    try {
+      let data = localStorage.getItem('sensorica_bot_params');
+      if (data) {
+        data = JSON.parse(data);
+        console.log("Loaded Data:", data); // Debugging
+
+        Object.keys(data).forEach((dataKey) => {
+          if (dataKey && dataToEl[dataKey]) { // Check if key is not empty and exists in dataToEl
+            console.log("Key:", dataKey, "Value:", data[dataKey]); // Debugging
+
+            const element = document.querySelector(dataToEl[dataKey].replace("hd_",""));
+            if (element) {
+              element.value = data[dataKey];
+              console.log("Element found for", dataKey, ": Setting value to", data[dataKey]); // Debugging
+            } else {
+              console.log("Element not found for", dataKey); // Debugging
+            }
+          }
+        });
+      }
+    } catch (err) {
+      console.log('>> fail load form from LS', err);
+    }
+  };
+    
+    const saveFormToLS = () => {
+      
+      localStorage.setItem('sensorica_bot_params', JSON.stringify(formData))
+    }
+    
+    const inputs = document.querySelectorAll('input, textarea')
+    loadFormFromLS()
+    inputs.forEach((input) => {
+      input.addEventListener('input', () => {
+        formData[input.name] = input.value;
+        saveFormToLS();
+      });
+    })
+    
+  })()
+</script>
 <!--/ content -->

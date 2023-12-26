@@ -40,7 +40,7 @@ if ($_GET['tool']) {
       <img src="<?php echo ($tool['img']) ? $tool['img'] : ' ./static/images/chat-gpt-logo.svg'; ?>" alt="" />
       </div>
       <h2 class="deploymentPageTitle">
-        <?php echo ($tool['title']) ? $tool['title'] : "AI tool creation wizard"; ?>
+        <?php echo ($tool['title']) ? $tool['title'] : "AI tools for WordPress"; ?>
        <br> 
       <a style='font-size:15px' href="/">Back</a></h2>
     </header>

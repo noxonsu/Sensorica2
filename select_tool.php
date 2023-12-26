@@ -37,11 +37,11 @@
                 <div class="headline" id="promptHeadline">
                     <span id="customIcon" style="background: #e00094"><svg class="icon">
                             <use xlink:href="#ico-1"></use>
-                        </svg> </span>Select a tool to run
+                        </svg> </span>AI tools to increase user attraction and retention rate
                 </div>
                 <div class="form-section" id="descriptionSection">
                     <p>
-                        After selecting a tool, you will be able to customize it and run
+                        This is AI tools suite . We recomnmend run all them one by one to increase user attraction and retention rate. Please analyse your website for AI understand your business and then run tools one by one.
                     </p>
                 </div>
 
