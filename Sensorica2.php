@@ -21,10 +21,10 @@ define('SENSORICA2_PATH', plugin_dir_path(__FILE__));
 define('SENSORICA2_BASENAME', plugin_basename(__FILE__));
 
 // Include dependencies and additional files.
-require_once SENSORICA2_PATH . 'includes/sensor-functions.php';
-require_once SENSORICA2_PATH . 'includes/sensor-post-type.php';
-require_once SENSORICA2_PATH . 'includes/sensor-shortcode.php';
-require_once SENSORICA2_PATH . 'includes/sensor-metabox.php';
+//require_once SENSORICA2_PATH . 'includes/sensor-functions.php';
+//require_once SENSORICA2_PATH . 'includes/sensor-post-type.php';
+//require_once SENSORICA2_PATH . 'includes/sensor-shortcode.php';
+//require_once SENSORICA2_PATH . 'includes/sensor-metabox.php';
 
 // Enqueue s cripts and styles.
 function sensorica2_enqueue_scripts() {
@@ -52,4 +52,26 @@ register_deactivation_hook(__FILE__, 'sensorica2_deactivate');
 
 // Additional hooks and functionalities can be added here.
 
-// End of Sensorica2.php
+// add menu to admin
+function sensorica2_menu() {
+    add_menu_page('Sensorica2', 'Sensorica2', 'manage_options', 'sensorica2', 'sensorica2_admin_page', 'dashicons-admin-generic');
+}
+add_action('admin_menu', 'sensorica2_menu');
+
+// add admin page
+function sensorica2_admin_page() {
+    ?>
+    <div class="wrap">
+        <h1>Sensorica2</h1>
+        <p>Advanced sensor technology integration and analysis tools.</p>
+        <p>Version: <?php echo SENSORICA2_VERSION; ?></p>
+    </div>
+    <?php
+}
+
+// add settings link to plugin page
+function sensorica2_settings_link($links) {
+    $settings_link = '<a href="admin.php?page=sensorica2">' . __('Settings') . '</a>';
+    array_unshift($links, $settings_link);
+    return $links;
+}
