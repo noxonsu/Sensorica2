@@ -21,6 +21,15 @@ Create AI tools in seconds . Экспериментальный репо, бол
 - данные отправляются на бэк см backendSchema
 - админ получает шорткод для ставки результата в любое место сайта, например для aigram это будет ссылка на бота  
 
+# contribution
+1. Use pullrequests
+2. check tools.json and folder tools
+3. escape all inputs usong esc_attr and esc_html 
+
+1. for github codespaces and vscode use https://marketplace.visualstudio.com/items?itemName=lukasz-wronski.ftp-sync&ssr=false#review-details this extention to sync plugin due to development with remote wp-content/plugins/Sensorica2 folder for live preview. 
+
+# devops
+1. автообновления пока нет, просто пакуем в зип и заливаем как плагин в вордпресс админке или по каналам типа кодканьона
 
 # English 
 Description:
