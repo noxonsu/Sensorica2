@@ -14,6 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+
 // Define Plugin Constants.
 define('SENSORICA2_VERSION', '0.1.0');
 define('SENSORICA2_URL', plugin_dir_url(__FILE__));
@@ -41,7 +42,7 @@ add_action('init', 'sensorica2_init');
 
 // Register activation and deactivation hooks.
 function sensorica2_activate() {
-    // Activation code here here.
+    // Acftivation code here here.
 }
 register_activation_hook(__FILE__, 'sensorica2_activate');
 
@@ -54,19 +55,29 @@ register_deactivation_hook(__FILE__, 'sensorica2_deactivate');
 
 // add menu to admin
 function sensorica2_menu() {
-    add_menu_page('Sensorica2', 'Sensorica2', 'manage_options', 'sensorica2', 'sensorica2_admin_page', 'dashicons-admin-generic');
+    // Add the top-level menu page.
+    add_menu_page('Sensorica2', 'Sensorica2', 'manage_options', 'sensorica2', 'sensorica2_admin_page');
+    
+    // Add the submenus - New Run and Runs
+    add_submenu_page('sensorica2', 'Sensorica2 Runs', 'Runs', 'manage_options', 'sensorica2_runs', 'sensorica2_runs_page');
+
+    // WordPress will automatically create a submenu with the same slug as the main menu.
+    // Rename this automatically created submenu to "Settings"
+    global $submenu;
+    if (isset($submenu['sensorica2'])) {
+        $submenu['sensorica2'][0][0] = 'New Run';
+    }
 }
+
+
+
 add_action('admin_menu', 'sensorica2_menu');
+
 
 // add admin page
 function sensorica2_admin_page() {
-    ?>
-    <div class="wrap">
-        <h1>Sensorica2</h1>
-        <p>Advanced sensor technology integration and analysis tools.</p>
-        <p>Version: <?php echo SENSORICA2_VERSION; ?></p>
-    </div>
-    <?php
+    
+    include SENSORICA2_PATH . 'index.php';
 }
 
 // add settings link to plugin page

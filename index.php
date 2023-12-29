@@ -1,5 +1,10 @@
 <?php
 #load required inputs as array and find for slug 
+
+ini_set('display_errors', 1);
+error_reporting(E_ALL);
+
+
 function getToolInfo($toolSlug)
 {
   $tools = json_decode(file_get_contents('tools.json'), true);
@@ -12,7 +17,7 @@ function getToolInfo($toolSlug)
   return $tool;
 }
 
-if ($_GET['tool']) {
+if (isset($_GET['tool'])) {
   $tool = getToolInfo($_GET['tool']);
 }
 ?>
@@ -21,7 +26,7 @@ if ($_GET['tool']) {
 <head>
   <meta charset="UTF-8" />
   <title>AI wizard</title>
-  <link rel="stylesheet" href="./static/new.css" />
+  <link rel="stylesheet" href="<?php echo SENSORICA2_URL; ?>/static/new.css" />
   <meta content="width=device-width, initial-scale=1" name="viewport" />
   <meta name="theme-color" content="#5f48b0" />
   <meta name="description" content="Boost your website with our AI tools. Get better articles from market research, top Google ranks, more website visits, and user-friendly chat features. Try our Telegram bot for more customers." />
@@ -37,10 +42,10 @@ if ($_GET['tool']) {
     <!-- header -->
     <header>
       <div class="header-logo">
-      <img src="<?php echo ($tool['img']) ? $tool['img'] : ' ./static/images/chat-gpt-logo.svg'; ?>" alt="" />
+      <img src="<?php echo (isset($tool['img'])) ? $tool['img'] : ' ./static/images/chat-gpt-logo.svg'; ?>" alt="" />
       </div>
       <h2 class="deploymentPageTitle">
-        <?php echo ($tool['title']) ? $tool['title'] : "AI tools for WordPress"; ?>
+        <?php echo (isset($tool['title'])) ? $tool['title'] : "AI tools for WordPress"; ?>
        <br> 
       <a style='font-size:15px' href="/">Back</a></h2>
     </header>
@@ -48,12 +53,13 @@ if ($_GET['tool']) {
     <main>
       <div class="row">
         <?php
-        if ($_GET['tool']) {
-          include("tool_single.php");
+        if (isset($_GET['tool'])) {
+          include(SENSORICA2_PATH."tool_single.php");
         }
-
-        if (!$_GET['tool']) {
-          include("select_tool.php");
+        
+        if (!isset($_GET['tool'])) {
+          
+          include(SENSORICA2_PATH."select_tool.php");
         } ?>
       </div>
       <!-- footer -->
@@ -81,7 +87,7 @@ if ($_GET['tool']) {
   <!-- import svg -->
   <?php
   //import svg static/icons/icons.svg
-  echo file_get_contents('static/icons/icons.svg');
+  echo file_get_contents(SENSORICA2_PATH.'static/icons/icons.svg');
   ?>
 
 </body>

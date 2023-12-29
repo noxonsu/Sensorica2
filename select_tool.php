@@ -49,11 +49,14 @@
                 <ul class="accordionOptionsList" id="listOfPrompts">
                     <?php
                     //load toola from tools.json and show them <li><button data-prompt="undefined" type="button"><img src="static/icons/business.png" alt="undefined"><span>Chat on a Website</span>Interactive mascot for websites</button></li>
+                    //echo file_get_contents(SENSORICA2_PATH.'tools.json');
+                    $tools = json_decode(file_get_contents(SENSORICA2_PATH.'tools.json'), true);
                     
-                    $tools = json_decode(file_get_contents('tools.json'), true);
                     foreach ($tools as $tool) {
-                        if (!$tool['img'])
-                            $tool['img'] = 'tools/' . $tool['slug'] . '/icon.png';
+
+                        
+                        if (!isset($tool['img'])) {$tool['img'] = SENSORICA2_URL.'tools/' . $tool['slug'] . '/icon.png';}
+                        //print_r($tool);
                         echo '<li><button onclick="window.location=\'?tool=' . $tool['slug'] . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . $tool['img'] . '" /><span>' . $tool['title'] . '</span>' . $tool['description'] . '</button></li>';
                     }
                     ?>
