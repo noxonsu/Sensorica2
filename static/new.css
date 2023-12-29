@@ -58,46 +58,46 @@ body {
   color: #fff;
 }
 
-.wrapper {
+.sensorica_wrapper {
   max-width: 1140px;
   padding: 0 20px 0 20px;
   margin: 0 auto;
 }
 
 @media (min-width: 992px) {
-  .wrapper {
+  .sensorica_wrapper {
     max-width: 960px;
   }
 }
 @media (min-width: 1200px) {
-  .wrapper {
+  .sensorica_wrapper {
     max-width: 1140px;
   }
 }
 @media (min-width: 1350px) {
-  .wrapper {
+  .sensorica_wrapper {
     max-width: 1320px;
   }
 }
-.login-page .supportWrapper {
+.sensorica_login-page .sensorica_supportWrapper {
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
 }
 
-footer {
+footer.sensorica  {
   position: static;
   padding: 0;
   margin: 142px 0;
   color: #94ABCF;
 }
-footer svg {
+footer.sensorica  svg {
   display: inline-block;
   width: 16px;
   height: 16px;
   margin-right: 10px;
 }
-footer a {
+footer.sensorica  a {
   color: #1AA5AC;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -108,11 +108,11 @@ footer a {
   margin: 0 15px;
 }
 
-main footer {
+main footer.sensorica  {
   margin-left: 500px;
 }
 
-.supportWrapper {
+.sensorica_supportWrapper {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -121,48 +121,48 @@ main footer {
           align-items: center;
 }
 
-header {
+header.sensorica  {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin: 100px 0 100px 0;
 }
-header h2 {
+header.sensorica  h2 {
   font-size: 56px;
   font-weight: 600;
   line-height: 64px;
   margin: 0;
 }
 
-h3 {
+h3.sensorica  {
   margin: 0 0 80px 0;
 }
 
-.form-group {
+.sensorica_form-group {
   margin-bottom: 30px;
 }
-.form-group label {
+.sensorica_form-group label {
   font-size: 20px;
   line-height: 30px;
   font-weight: 600;
   margin-bottom: 30px;
   display: block;
 }
-.form-group .form-control {
+.sensorica_form-group .sensorica_form-control {
   height: 72px;
   background: #1E2839;
   border: 1px solid #1E2839;
   font-size: 20px;
 }
-.form-group .form-control:focus {
+.sensorica_form-group .sensorica_form-control:focus {
   border-color: #1AA5AC;
   outline: none;
 }
-.form-group .form-control:valid {
+.sensorica_form-group .sensorica_form-control:valid {
   background: #1E2839;
 }
 
-.form-control {
+.sensorica_form-control {
   width: 100%;
   padding: 14px 20px;
   height: 56px;
@@ -177,38 +177,38 @@ h3 {
   transition: all 0.25s ease-in-out;
   resize: vertical;
 }
-.form-control.form-login {
+.sensorica_form-control.form-login {
   height: 72px;
 }
-.form-control::-webkit-input-placeholder {
+.sensorica_form-control::-webkit-input-placeholder {
   color: #596B85;
   opacity: 1;
 }
-.form-control::-moz-placeholder {
+.sensorica_form-control::-moz-placeholder {
   color: #596B85;
   opacity: 1;
 }
-.form-control:-ms-input-placeholder {
+.sensorica_form-control:-ms-input-placeholder {
   color: #596B85;
   opacity: 1;
 }
-.form-control::-ms-input-placeholder {
+.sensorica_form-control::-ms-input-placeholder {
   color: #596B85;
   opacity: 1;
 }
-.form-control::placeholder {
+.sensorica_form-control::placeholder {
   color: #596B85;
   opacity: 1;
 }
-.form-control:focus {
+.sensorica_form-control:focus {
   border-color: #1AA5AC;
   outline: none;
 }
-.form-control:valid {
+.sensorica_form-control:valid {
   background: #1E2839;
 }
 
-.header-logo {
+.sensorica_header-logo {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 104px;
           flex: 0 0 104px;
@@ -218,23 +218,23 @@ h3 {
   margin-top: 10px;
 }
 
-.container {
+.sensorica_container {
   max-width: 520px;
   padding: 0 20px;
   margin: 0 auto;
 }
 
-.button-wrap {
+.sensorica_button-wrap {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   gap: 20px;
 }
-.button-wrap .btn:first-child:not(:last-child) {
+.sensorica_button-wrap .sensorica_btn:first-child:not(:last-child) {
   display: none;
 }
 
-.btn {
+.sensorica_btn {
   border-radius: 10px;
   position: relative;
   width: 100%;
@@ -264,7 +264,7 @@ h3 {
   background: -webkit-gradient(linear, left top, right top, from(#10A37F), to(#28A8E9));
   background: linear-gradient(90deg, #10A37F 0%, #28A8E9 100%);
 }
-.btn:before {
+.sensorica_btn:before {
   content: "";
   display: block;
   position: absolute;
@@ -278,7 +278,7 @@ h3 {
   transition: all 0.25s ease-in-out;
   z-index: -1;
 }
-.btn:after {
+.sensorica_btn:after {
   content: "";
   display: block;
   position: absolute;
@@ -293,20 +293,20 @@ h3 {
   opacity: 0;
   z-index: -1;
 }
-.btn:hover:before {
+.sensorica_btn:hover:before {
   opacity: 0;
 }
-.btn:hover:after {
+.sensorica_btn:hover:after {
   opacity: 1;
 }
-.btn.btn-prompt {
+.sensorica_btn.btn-prompt {
   background: #1E2839;
   margin-top: 50px;
 }
-.btn.btn-prompt:before, .btn.btn-prompt:after {
+.sensorica_btn.btn-prompt:before, .sensorica_btn.btn-prompt:after {
   display: none;
 }
-.btn.btn-prompt:hover {
+.sensorica_btn.btn-prompt:hover {
   background: #253145;
 }
 .btn[disabled] {
@@ -315,32 +315,32 @@ h3 {
   pointer-events: none;
 }
 
-.form {
+.sensorica_form {
   margin-bottom: 80px;
 }
 
-.form-link {
+.sensorica_form-link {
   color: #94ABCF;
   font-size: 20px;
 }
-.form-link a {
+.sensorica_form-link a {
   color: #1AA5AC;
 }
 
-.row {
+.sensorica_row {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
 }
 
-.sidebar {
+.sensorica_sidebar {
   -webkit-box-flex: 0;
       -ms-flex: 0 0 420px;
           flex: 0 0 420px;
   max-width: 420px;
 }
 
-.content {
+.sensorica_content {
   -webkit-box-flex: 1;
       -ms-flex: 1 1 auto;
           flex: 1 1 auto;
@@ -349,27 +349,27 @@ h3 {
   position: relative;
 }
 
-.title {
+.sensorica_title {
   font-size: 20px;
   font-weight: 600;
   line-height: 30px;
   margin-bottom: 40px;
 }
 
-.miniWarging {
+.sensorica_miniWarging {
   margin-top: -45px !important;
   padding: 7px 14px !important;
 }
-.form-section.errors-holder {
+.sensorica_form-section.errors-holder {
   color: #c50000;
 }
-.nav li {
+.sensorica_nav li {
   display: block;
 }
-.nav li:not(:last-child) {
+.sensorica_nav li:not(:last-child) {
   margin-bottom: 5px;
 }
-.nav li a {
+.sensorica_nav li a {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -385,7 +385,7 @@ h3 {
   transition: all 0.25s ease-in-out;
   border-radius: 10px;
 }
-.nav li a span {
+.sensorica_nav li a span {
   display: block;
   position: absolute;
   width: 32px;
@@ -401,26 +401,26 @@ h3 {
   border-radius: 50%;
   text-align: center;
 }
-.nav li a.active {
+.sensorica_nav li a.sensorica_active {
   color: #fff;
   background: #1E2839;
 }
-.nav li a.active span {
+.sensorica_nav li a.sensorica_active span {
   background-color: #2E3D54;
 }
-.nav li a.active svg {
+.sensorica_nav li a.sensorica_active svg {
   fill: #fff;
 }
-.nav li a:hover {
+.sensorica_nav li a:hover {
   color: #fff;
 }
-.nav li a:hover span {
+.sensorica_nav li a:hover span {
   background-color: #2E3D54;
 }
-.nav li a:hover svg {
+.sensorica_nav li a:hover svg {
   fill: #fff;
 }
-.nav svg {
+.sensorica_nav svg {
   fill: #94ABCF;
   width: 32px;
   height: 32px;
@@ -430,13 +430,13 @@ h3 {
   transition: all 0.25s ease-in-out;
 }
 
-.tab-content {
+.sensorica_tab-content {
   display: none;
 }
-.tab-content.active {
+.sensorica_tab-content.active {
   display: block;
 }
-.tab-content label {
+.sensorica_tab-content label {
   display: block;
   font-size: 20px;
   font-style: normal;
@@ -445,11 +445,11 @@ h3 {
   margin-bottom: 20px;
   color: #fff;
 }
-.tab-content label a {
+.sensorica_tab-content label a {
   color: var(--color-link);
 }
 
-.headline {
+.sensorica_headline {
   font-size: 32px;
   font-style: normal;
   font-weight: 600;
@@ -462,7 +462,7 @@ h3 {
           align-items: center;
   margin-bottom: 40px;
 }
-.headline span {
+.sensorica_headline span {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -480,16 +480,16 @@ h3 {
       -ms-flex-order: -1;
           order: -1;
 }
-.headline svg {
+.sensorica_headline svg {
   display: inline-block;
   width: 30px;
   height: 30px;
   fill: #fff;
 }
-.headline + .warning {
+.sensorica_headline + .sensorica_warning {
   margin-top: -20px;
 }
-.headline.with-image-icon img {
+.sensorica_headline.with-image-icon img {
   -webkit-box-ordinal-group: 0;
       -ms-flex-order: -1;
           order: -1;
@@ -497,7 +497,7 @@ h3 {
   height: 56px;
   margin-right: 30px;
 }
-.headline.with-image-icon button {
+.sensorica_headline.with-image-icon button {
   -webkit-box-ordinal-group: -1;
       -ms-flex-order: -2;
           order: -2;
@@ -511,20 +511,20 @@ h3 {
   cursor: pointer;
 }
 
-.container .headline {
+.sensorica_container .sensorica_headline {
   margin-bottom: 60px;
 }
 
-.separator {
+.sensorica_separator {
   text-align: center;
   position: relative;
   z-index: 1;
   margin: 60px 0;
 }
-.separator + .title {
+.sensorica_separator + .sensorica_title {
   margin-bottom: 30px;
 }
-.separator:before {
+.sensorica_separator:before {
   content: "";
   display: block;
   position: absolute;
@@ -536,7 +536,7 @@ h3 {
           transform: translateY(-50%);
   height: 2px;
 }
-.separator span {
+.sensorica_separator span {
   display: inline-block;
   background-color: #141D2B;
   padding: 0 40px;
@@ -546,7 +546,7 @@ h3 {
   font-weight: 600;
 }
 
-.accordionOptionsList {
+.sensorica_accordionOptionsList {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -555,7 +555,7 @@ h3 {
   margin-left: -10px;
   margin-right: -10px;
 }
-.accordionOptionsList li {
+.sensorica_accordionOptionsList li {
   display: block;
   -webkit-box-flex: 0;
       -ms-flex: 0 0 50%;
@@ -565,7 +565,7 @@ h3 {
   margin-bottom: 20px;
   position: relative;
 }
-.accordionOptionsList li button {
+.sensorica_accordionOptionsList li button {
   background: #1E2839;
   border: 0;
   text-align: center;
@@ -593,17 +593,17 @@ h3 {
   font-family: inherit;
   cursor: pointer;
 }
-.accordionOptionsList li button:hover {
+.sensorica_accordionOptionsList li button:hover {
   background: #253145;
 }
-.accordionOptionsList li button span {
+.sensorica_accordionOptionsList li button span {
   display: block;
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 30px;
   color: #fff;
 }
-.accordionOptionsList li button img {
+.sensorica_accordionOptionsList li button img {
   width: 104px;
   height: 104px;
   display: block;
@@ -616,7 +616,7 @@ h3 {
   transition: 0.2s;
 }
 
-.textarea-wrp {
+.sensorica_textarea-wrp {
   border-radius: 10px;
   background: -webkit-gradient(linear, left top, right top, from(#28A8E9), to(#10A37F));
   background: linear-gradient(90deg, #28A8E9 0%, #10A37F 100%);
@@ -627,16 +627,16 @@ h3 {
   display: none;
   position: relative;
 }
-.textarea-wrp.non-empty {
+.sensorica_textarea-wrp.non-empty {
   padding: 2px;
 }
-.textarea-wrp.non-empty .prompt-area {
+.sensorica_textarea-wrp.non-empty .sensorica_prompt-area {
   padding: 30px 28px 28px;
   border-radius: 8px;
   height: 433px;
 }
 
-.check-icon {
+.sensorica_check-icon {
   position: absolute;
   width: 30px;
   height: 25px;
@@ -647,15 +647,15 @@ h3 {
   border: 0;
 }
 
-.edit-mode .textarea-wrp {
+.sensorica_edit-mode .sensorica_textarea-wrp {
   display: block;
 }
-.edit-mode:not(.write-a-prompt) .button-wrap .btn.btn-prompt {
+.sensorica_edit-mode:not(.write-a-prompt) .sensorica_button-wrap .sensorica_btn.btn-prompt {
   display: block;
   margin-top: 0;
 }
 
-.prompt-area {
+.sensorica_prompt-area {
   width: 100%;
   height: 437px;
   border-radius: 8px;
@@ -674,25 +674,25 @@ h3 {
   transition: 0.2s;
 }
 
-.more {
+.sensorica_more {
   text-align: center;
   font-size: 20px;
   line-height: 30px;
   margin: 30px 0 80px 0;
 }
-.more a {
+.sensorica_more a {
   display: inline-block;
   color: var(--color-link);
 }
 
-.form-section {
+.sensorica_form-section {
   margin-bottom: 60px;
   color: #94ABCF;
   font-size: 20px;
   line-height: 30px;
 }
 
-SVG.filled_step {
+SVG.sensorica_filled_step {
   display: none;
   padding: 0px;
   margin: 0px;
@@ -701,10 +701,10 @@ SVG.filled_step {
   right: 55px;
 }
 
-A.tab-title.filled SVG.filled_step {
+A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   display: block;
 }
-.hasError {
+.sensorica_hasError {
   border: 1px solid #b70707;
 }
 
@@ -722,7 +722,7 @@ p button {
   cursor: pointer;
 }
 
-.warning {
+.sensorica_warning {
   color: #C57B64;
   border-radius: 10px;
   background: #262631;
@@ -735,7 +735,7 @@ p button {
       -ms-flex-align: center;
           align-items: center;
 }
-.warning svg {
+.sensorica_warning svg {
   display: inline-block;
   width: 26px;
   height: 25px;
@@ -749,7 +749,7 @@ p button {
   fill: #C57B64;
 }
 
-.important-warning {
+.sensorica_important-warning {
   color: #E4464F;
   border-radius: 10px;
   background: #29212F;
@@ -759,7 +759,7 @@ p button {
   display: -ms-flexbox;
   display: flex;
 }
-.important-warning svg {
+.sensorica_important-warning svg {
   display: inline-block;
   width: 26px;
   height: 25px;
@@ -796,7 +796,7 @@ p button {
   top: 2px;
 }
 
-.info-message {
+.sensorica_info-message {
   color: #94ABCF;
   border-radius: 10px;
   background: #1E2839;
@@ -806,7 +806,7 @@ p button {
   display: flex;
   margin: 40px 0;
 }
-.info-message svg {
+.sensorica_info-message svg {
   display: inline-block;
   width: 24px;
   height: 24px;
@@ -823,7 +823,7 @@ details {
   position: relative;
   margin-top: 30px;
 }
-details[open] .chevron {
+details[open] .sensorica_chevron {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }
@@ -836,35 +836,35 @@ details summary::-webkit-details-marker {
   display: none;
 }
 
-.chevron {
+.sensorica_chevron {
   position: absolute;
   left: 0;
   top: 5px;
   width: 11px;
   height: 18px;
 }
-.chevron svg {
+.sensorica_chevron svg {
   width: 11px;
   height: 18px;
   fill: #42526C;
 }
-.chevron.chevron-open {
+.sensorica_chevron.chevron-open {
   -webkit-transform: rotate(90deg);
           transform: rotate(90deg);
 }
 
-.form-section ol {
+.sensorica_form-section ol {
   margin-top: 80px;
 }
-.form-section img {
+.sensorica_form-section img {
   width: 100%;
 }
 
-ol {
+.sensorica ol {
   list-style: none;
   counter-reset: point;
 }
-ol li {
+.sensorica ol li {
   color: #94ABCF;
   font-size: 20px;
   font-weight: 400;
@@ -872,14 +872,14 @@ ol li {
   position: relative;
   padding-left: 30px;
 }
-ol li img {
+.sensorica ol li img {
   margin-top: 50px;
   border-radius: 10px;
 }
-ol li + li {
+.sensorica ol li + li {
   margin-top: 30px;
 }
-ol li:before {
+.sensorica ol li:before {
   content: counter(point) ".";
   counter-increment: point 1;
   display: block;
@@ -893,43 +893,43 @@ ol li:before {
   font-weight: 600;
 }
 
-.collapse-list {
+.sensorica_collapse-list {
   margin-top: -20px;
 }
 
-.collapse {
+.sensorica_collapse {
   overflow: hidden;
   position: relative;
   border-bottom: 2px solid #253145;
 }
-.collapse label {
+.sensorica_collapse label {
   font-weight: 400;
   margin: 0;
 }
-.collapse input[type=checkbox] {
+.sensorica_collapse input[type=checkbox] {
   position: absolute;
   left: 0;
   top: 0;
   opacity: 0;
   visibility: hidden;
 }
-.collapse input[type=checkbox]:checked ~ .collapse-content {
+.sensorica_collapse input[type=checkbox]:checked ~ .sensorica_collapse-content {
   max-height: 100vh;
   padding-bottom: 60px;
 }
-.collapse input[type=checkbox]:checked + .collapse-label svg {
+.sensorica_collapse input[type=checkbox]:checked + .sensorica_collapse-label svg {
   fill: #fff;
   -webkit-transform: translateY(-50%) rotate(-90deg);
           transform: translateY(-50%) rotate(-90deg);
 }
 
-.collapse-label {
+.sensorica_collapse-label {
   cursor: pointer;
   position: relative;
   color: #94ABCF;
   padding: 30px 30px 30px 0;
 }
-.collapse-label svg {
+.sensorica_collapse-label svg {
   width: 11px;
   height: 18px;
   position: absolute;
@@ -940,7 +940,7 @@ ol li:before {
   fill: #42526C;
 }
 
-.collapse-content {
+.sensorica_collapse-content {
   max-height: 0;
   -webkit-transition: all 0.35s;
   transition: all 0.35s;
@@ -951,10 +951,10 @@ ol li:before {
 }
 
 @media (max-width: 1349px) {
-  .nav li a {
+  .sensorica_nav li a {
     font-size: 18px;
   }
-  .sidebar {
+  .sensorica_sidebar {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 360px;
             flex: 0 0 360px;
@@ -963,10 +963,10 @@ ol li:before {
   main footer {
     margin-left: 420px;
   }
-  .content {
+  .sensorica_content {
     padding-left: 60px;
   }
-  .accordionOptionsList li button img {
+  .sensorica_accordionOptionsList li button img {
     width: 84px;
     height: 84px;
   }
@@ -974,30 +974,30 @@ ol li:before {
     font-size: 52px;
     line-height: 60px;
   }
-  .headline {
+  .sensorica_headline {
     font-size: 28px;
     line-height: 38px;
   }
 }
 @media (max-width: 1199px) {
-  .sidebar {
+  .sensorica_sidebar {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 320px;
             flex: 0 0 320px;
     max-width: 320px;
   }
-  .form-section .form-area {
+  .sensorica_form-section .sensorica_form-area {
     height: 96px;
     font-size: 16px;
   }
   main footer {
     margin-left: 380px;
   }
-  .nav li a {
+  .sensorica_nav li a {
     font-size: 16px;
     padding: 8px 85px 8px 10px;
   }
-  .nav li a span {
+  .sensorica_nav li a span {
     width: 24px;
     height: 24px;
     line-height: 24px;
@@ -1010,68 +1010,68 @@ ol li:before {
   header {
     margin-bottom: 100px;
   }
-  .header-logo {
+  .sensorica_header-logo {
     margin-top: 0;
   }
-  .accordionOptionsList li button img {
+  .sensorica_accordionOptionsList li button img {
     width: 60px;
     height: 60px;
   }
-  .headline {
+  .sensorica_headline {
     font-size: 24px;
     line-height: 34px;
   }
 }
 @media (max-width: 991px) {
-  .nav li a {
+  .sensorica_nav li a {
     font-size: 14px;
   }
-  .nav svg {
+  .sensorica_nav svg {
     width: 20px;
     height: 20px;
   }
-  .sidebar {
+  .sensorica_sidebar {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 300px;
             flex: 0 0 300px;
     max-width: 300px;
   }
-  .sidebar {
+  .sensorica_sidebar {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 100%;
             flex: 0 0 100%;
     max-width: 100%;
     margin-bottom: 40px;
   }
-  .content {
+  .sensorica_content {
     width: 100%;
     padding: 0;
   }
-  .row {
+  .sensorica_row {
     display: block;
   }
   header {
     margin: 30px 0 30px 0;
   }
-  .sidebar .title {
+  .sensorica_sidebar .sensorica_title {
     margin-bottom: 20px;
   }
-  .header-logo {
+  .sensorica_header-logo {
     -webkit-box-flex: 0;
         -ms-flex: 0 0 48px;
             flex: 0 0 48px;
     max-width: 48px;
     margin-right: 20px;
   }
-  .form {
+  .sensorica_form {
     margin-bottom: 40px;
   }
-  .form-group label {
+  .sensorica_form-group label {
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 20px;
   }
-  .form-link {
+  .sensorica_form-link {
     font-size: 14px;
     line-height: 24px;
   }
@@ -1079,76 +1079,76 @@ ol li:before {
     font-size: 24px;
     line-height: 34px;
   }
-  .title {
+  .sensorica_title {
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 30px;
   }
-  .headline span {
+  .sensorica_headline span {
     width: 32px;
     height: 32px;
     border-radius: 10px;
     margin-right: 20px;
   }
-  .headline span svg {
+  .sensorica_headline span svg {
     width: 18px;
     height: 18px;
   }
-  .headline {
+  .sensorica_headline {
     font-size: 20px;
     line-height: 30px;
     margin-bottom: 30px;
   }
-  .form-section {
+  .sensorica_form-section {
     font-size: 14px;
     line-height: 24px;
   }
   p {
     margin-bottom: 30px;
   }
-  .form-section {
+  .sensorica_form-section {
     margin-bottom: 30px;
   }
-  .btn {
+  .sensorica_btn {
     height: 48px;
     font-size: 14px;
     line-height: 24px;
   }
-  .separator {
+  .sensorica_separator {
     margin: 30px 0;
   }
-  .btn.btn-prompt {
+  .sensorica_btn.btn-prompt {
     margin-top: 30px;
   }
-  .accordionOptionsList {
+  .sensorica_accordionOptionsList {
     margin-left: -5px;
     margin-right: -5px;
   }
-  .accordionOptionsList li {
+  .sensorica_accordionOptionsList li {
     padding: 0 5px;
     margin-bottom: 10px;
   }
-  .accordionOptionsList li button {
+  .sensorica_accordionOptionsList li button {
     min-height: 195px;
     height: 100%;
     padding-top: 15px;
     font-size: 12px;
     line-height: 18px;
   }
-  .accordionOptionsList li button img {
+  .sensorica_accordionOptionsList li button img {
     width: 48px;
     height: 48px;
     margin-bottom: 15px;
     
   }
-  .accordionOptionsList li button span {
+  .sensorica_accordionOptionsList li button span {
     font-style: normal;
     font-weight: 600;
     font-size: 12px;
     line-height: 18px;
     margin-bottom: 15px;
   }
-  .more {
+  .sensorica_more {
     font-size: 14px;
     line-height: 24px;
     margin: 30px 0;
@@ -1156,18 +1156,18 @@ ol li:before {
   main footer {
     margin: 60px 0;
   }
-  .supportWrapper {
+  .sensorica_supportWrapper {
     -webkit-box-pack: center;
         -ms-flex-pack: center;
             justify-content: center;
     font-size: 12px;
   }
-  .tab-content label {
+  .sensorica_tab-content label {
     font-size: 14px;
     line-height: 24px;
     margin-bottom: 20px;
   }
-  .form-control {
+  .sensorica_form-control {
     font-size: 14px;
     line-height: 24px;
     padding: 15px 20px;
@@ -1178,71 +1178,71 @@ ol li:before {
   details summary {
     padding-left: 24px;
   }
-  .chevron {
+  .sensorica_chevron {
     width: 9px;
     height: 14px;
   }
-  .chevron svg {
+  .sensorica_chevron svg {
     width: 9px;
     height: 14px;
   }
-  .form-section ol {
+  .sensorica_form-section ol {
     margin-top: 40px;
   }
-  ol li {
+  .sensorica ol li {
     font-size: 14px;
     line-height: 24px;
     padding-left: 27px;
   }
-  ol li img {
+  .sensorica ol li img {
     margin-top: 30px;
     border-radius: 6px;
   }
-  ol li + li {
+  .sensorica ol li + li {
     margin-top: 20px;
   }
-  .important-warning {
+  .sensorica_important-warning {
     margin: 40px 0;
     font-size: 14px;
     line-height: 24px;
     padding: 15px 20px;
   }
-  .important-warning svg {
+  .sensorica_important-warning svg {
     width: 20px;
     height: 18px;
     margin-right: 15px;
   }
   .important-sucсess,
-  .info-message,
-  .warning {
+  .sensorica_info-message,
+  .sensorica_warning {
     padding: 15px 20px;
     font-size: 14px;
     line-height: 24px;
     margin: 20px 0;
   }
   .important-sucсess svg,
-  .info-message svg,
-  .warning svg {
+  .sensorica_info-message svg,
+  .sensorica_warning svg {
     margin-right: 16px;
   }
-  .headline + .warning {
+  .sensorica_headline + .sensorica_warning {
     margin-top: 0;
   }
   p button {
     font-size: 14px;
     line-height: 24px;
   }
-  .form-group {
+  .sensorica_form-group {
     margin-bottom: 20px;
   }
-  .wrapper {
+  .sensorica_wrapper {
     min-height: calc(100vh - 30px);
     position: relative;
   }
-  .login-page {
+  .sensorica_login-page {
     padding-bottom: 100px;
   }
-  .login-page footer {
+  .sensorica_login-page footer {
     position: absolute;
     bottom: 60px;
     left: 50%;
@@ -1250,38 +1250,38 @@ ol li:before {
             transform: translateX(-50%);
     margin: 0;
   }
-  .collapse .collapse-label {
+  .sensorica_collapse .sensorica_collapse-label {
     padding: 20px 40px 20px 0;
     margin-bottom: 0;
   }
-  .collapse-content {
+  .sensorica_collapse-content {
     font-size: 14px;
     line-height: 24px;
   }
-  .collapse input[type=checkbox]:checked ~ .collapse-content {
+  .sensorica_collapse input[type=checkbox]:checked ~ .sensorica_collapse-content {
     padding-bottom: 20px;
   }
-  .headline.with-image-icon button {
+  .sensorica_headline.with-image-icon button {
     width: 13px;
     height: 24px;
     margin-right: 20px;
   }
-  .form-group .form-control {
+  .sensorica_form-group .sensorica_form-control {
     height: 48px;
     font-size: 14px;
   }
-  .headline.with-image-icon img {
+  .sensorica_headline.with-image-icon img {
     width: 32px;
     height: 32px;
     margin-right: 20px;
   }
-  .container .headline {
+  .sensorica_container .sensorica_headline {
     margin-bottom: 40px;
   }
-  .form-section .form-area {
+  .sensorica_form-section .sensorica_form-area {
     font-size: 14px;
   }
-  .check-icon {
+  .sensorica_check-icon {
     width: 20px;
     height: 16px;
     top: 10px;
@@ -1290,10 +1290,10 @@ ol li:before {
   }
 }
 @media (max-width: 575px) {
-  .form-section .form-area {
+  .sensorica_form-section .sensorica_form-area {
     height: 110px;
   }
-  .container {
+  .sensorica_container {
     padding-left: 0;
     padding-right: 0;
   }

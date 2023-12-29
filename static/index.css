@@ -19,7 +19,7 @@
     U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
 
-body {
+body.sensorica {
   --bg-color: #0e1621;
   --color: #ffffff;
   --shadow-color: rgb(0, 0, 0);
@@ -79,7 +79,7 @@ body {
   background-color: var(--transparent-light-1);
 }
 
-main {
+main.sensorica {
   max-width: 900px;
   margin: 0 auto;
   padding-bottom: 120px;
@@ -91,22 +91,22 @@ main {
   }
 }
 
-code {
+.sensorica code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-label,
-input,
-button,
-textarea {
+.sensorica label,
+.sensorica input,
+.sensorica button,
+.sensorica textarea {
   cursor: pointer;
   font-size: inherit;
   font-family: inherit;
   color: var(--color);
 }
 
-input,
-textarea {
+.sensorica input,
+.sensorica textarea {
   padding: 12px 16px;
   border-radius: 20px;
   border: 0.125rem solid transparent;
@@ -114,51 +114,51 @@ textarea {
   transition: all 0.1s ease-in-out;
 }
 
-textarea {
+.sensorica textarea {
   resize: vertical;
 }
 
-input:hover,
-textarea:hover,
-input:focus,
-textarea:focus {
+.sensorica input:hover,
+.sensorica textarea:hover,
+.sensorica input:focus,
+.sensorica textarea:focus {
   border-color: var(--transparent-light-1);
   outline: none;
 }
 
-button {
+.sensorica button {
   padding: 2px 10px;
   background-color: var(--brand-color);
   border: 1px solid var(--border-color);
   border-radius: 20px;
 }
 
-details {
+.sensorica details {
   margin: 6px 0;
 }
 
-summary {
+.sensorica summary {
   cursor: pointer;
   outline: none;
   color: var(--color-notice);
 }
 
-a {
+.sensorica a {
   text-decoration: none;
   color: var(--link-color);
 }
 
-img {
+.sensorica img {
   max-width: 100%;
 }
 
-.important-warning {
+.sensorica_important-warning {
   padding: 6px 12px;
   border-radius: 12px;
   background-color: var(--color-warning-bg);
 }
 
-.primaryBtn {
+.sensorica_primaryBtn {
   font-weight: bold;
   font-size: 0.9rem;
   text-transform: uppercase;
@@ -170,27 +170,27 @@ img {
   transition: all 0.2s ease-in-out;
 }
 
-.primaryBtn:hover,
-.primaryBtn:focus {
+.sensorica_primaryBtn:hover,
+.sensorica_primaryBtn:focus {
   opacity: 0.5;
 }
 
-.primaryBtn:disabled {
+.sensorica_primaryBtn:disabled {
   cursor: not-allowed;
   opacity: 0.5;
 }
 
-.accordion {
+.sensorica_accordion {
   padding: 12px 18px;
   border-radius: 20px;
   background-color: #212e3c;
 }
 
-.accordionTitle {
+.sensorica_accordionTitle {
   color: var(--color);
 }
 
-.accordionOptionsList {
+.sensorica_accordionOptionsList {
   margin: 14px 0 0;
   padding: 0;
   display: flex;
@@ -198,11 +198,11 @@ img {
   overflow-x: scroll;
 }
 
-.accordionOptionsList li {
+.sensorica_accordionOptionsList li {
   flex: 1;
 }
 
-.accordionOptionsList button {
+.sensorica_accordionOptionsList button {
   min-width: 196px;
   margin: 6px;
   padding: 12px;
@@ -217,15 +217,15 @@ img {
   transition: all 0.1s ease-in-out;
 }
 
-.accordionOptionsList button:hover {
+.sensorica_accordionOptionsList button:hover {
   background-color: var(--transparent-light-1);
 }
 
-.accordionOptionsList img {
+.sensorica_accordionOptionsList img {
   height: 64px;
 }
 
-.accordionOptionsList span {
+.sensorica_accordionOptionsList span {
   margin: 18px 0 8px;
   font-weight: 700;
   font-size: 20px;
@@ -244,7 +244,7 @@ header {
   }
 }
 
-.centered {
+.sensorica_centered {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -253,17 +253,17 @@ header {
 
 /* Access */
 
-.accessSection {
+.sensorica_accessSection {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-.accessForm {
+.sensorica_accessForm {
   margin-bottom: 32px;
 }
 
-.accessForm .primaryBtn {
+.sensorica_accessForm .sensorica_primaryBtn {
   width: 100%;
   margin-top: 18px;
 }
@@ -273,12 +273,12 @@ header {
 /* Deployment */
 
 @media screen and (max-width: 768px) {
-  .deploymentPageTitle {
+  .sensorica_deploymentPageTitle {
     font-size: 24px;
   }
 }
 
-.deploymentSection form {
+.sensorica_deploymentSection form {
   max-width: 80%;
   margin: 0 auto;
   padding: 20px;
@@ -288,21 +288,21 @@ header {
   border: 1px solid var(--border-color);
 }
 
-.deploymentSection textarea {
+.sensorica_deploymentSection textarea {
   min-height: 150px;
 }
 
-.deploymentSection .row {
+.sensorica_deploymentSection .sensorica_row {
   margin-bottom: 28px;
   display: flex;
   flex-direction: column;
 }
 
-.deploymentSection .row label {
+.sensorica_deploymentSection .sensorica_row label {
   width: fit-content;
 }
 
-.deploymentSection .row>*:first-child {
+.sensorica_deploymentSection .row>*:first-child {
   margin-bottom: 10px;
 }
 
@@ -310,7 +310,7 @@ header {
 
 /* Footer */
 
-footer {
+.sensorica footer {
   position: absolute;
   bottom: 0;
   left: 0;
