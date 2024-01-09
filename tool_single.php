@@ -63,7 +63,7 @@ if (!$tool) {
         //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
         if ($input == end(array_keys($tool['inputs']))) {
           foreach ($tool['inputs'] as $input => $input_data) {
-            echo '<div class="form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="form-control" name="' . $input . '" id="' . $input . '" value="' . $_POST[$input] . '" disabled /></div>';
+            echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="form-control" name="' . $input . '" id="' . $input . '" value="' . $_POST[$input] . '" disabled /></div>';
           }
           echo '<input type="submit" value="Finalize" name="action" class="btn" />';
 
@@ -73,8 +73,8 @@ if (!$tool) {
       }
 
       ?>
-      <div class="tab-content active" data-content="title3">
-        <div class="headline" id='promptHeadline'>
+      <div class="sensorica_tab-content active" data-content="title3">
+        <div class="sensorica_headline" id='promptHeadline'>
           <span style="background: <?php if ($input_data['background_color_svg']) {
             echo '' . $input_data['background_color_svg'];
           } else {

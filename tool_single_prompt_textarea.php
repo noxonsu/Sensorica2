@@ -1,36 +1,36 @@
-<div class="form-section" id="descriptionSection">
+<div class="sensorica_form-section" id="descriptionSection">
   <p>
     The System Prompt (instruction for GPT) consists of instructions for the bot. Note that users will not be able to
     see this text. This field is optional.
   </p>
 </div>
-<button class="btn btn-prompt" type="button">Write a Prompt</button>
-<div class="textarea-wrp">
-  <textarea class="prompt-area" name="<?php echo $input; ?>" id="promptArea">You are an AI assistent</textarea>
+<button class="sensorica_btn btn-prompt" type="button">Write a Prompt</button>
+<div class="sensorica_textarea-wrp">
+  <textarea class="sensorica_prompt-area" name="<?php echo $input; ?>" id="promptArea">You are an AI assistent</textarea>
   <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
 </div>
-<div class="separator"><span>or</span></div>
-<div class="title" id="listOfPromptsTitle">Choose Available Prompt Templates</div>
-<ul class="accordionOptionsList" id="listOfPrompts"></ul>
-<div class="more">
+<div class="sensorica_separator"><span>or</span></div>
+<div class="sensorica_title" id="listOfPromptsTitle">Choose Available Prompt Templates</div>
+<ul class="sensorica_accordionOptionsList" id="listOfPrompts"></ul>
+<div class="sensorica_more">
   <a href="https://github.com/search?q=GPTs&type=repositories" target=_blank>Get more templates</a>
 </div>
-<div class="button-wrap">
-  <button type="button" class="btn btn-prompt" id="resetToOriginal">Reset to Original</button><button type="submit"
-    class="btn" id="apply" data-action="save_prompt">Apply & Next step</button>
+<div class="sensorica_button-wrap">
+  <button type="button" class="sensorica_btn sensorica_btn-prompt" id="resetToOriginal">Reset to Original</button><button type="submit"
+    class="sensorica_btn" id="apply" data-action="save_prompt">Apply & Next step</button>
 </div>
 
 <script>
 
   const prompts = [
     {
-      "img": "static/icons/business.png",
+      "img": "<?php echo SENSORICA2_URL; ?>static/icons/business.png",
       "title": "AI assistent",
       "description": "The bot will chat the same as ChatGPT",
       "prompt": "You are an AI assistent"
     },
     {
-      "img": "static/icons/resume.png",
+      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
       "title": "Talk to website's database",
       "description": "Add FAQ and other materials to the bot",
       "prompt": `Act like a Mascot. You are the beloved mascot of {ENTER YOUR COMPANY OR COMMUNITY THEME}. You're tasked with cheering up the community, keeping spirits high, and answering any questions they might have. Converse as if you're interacting with community members throughout an event or gathering. 
@@ -40,14 +40,14 @@ put here your FAQ and other documents in text
     `
     },
     {
-      "img": "static/icons/resume.png",
+      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
       "title": "Funny Mascot persona",
       "description": "Add funny mascot to the bot",
       "prompt": `Create a 
     `
     },
     {
-      "img": "static/icons/resume.png",
+      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
       "title": "Video Script Generator",
       "description": "Create  TikTok Video Script for a topic you want.",
       "prompt": `You are an expert in the field of topic, who wants to create engaging and informative content for TikTok. Your audience consists of young, inquisitive users who are eager to learn more about this subject. Write a TikTok video script that explains the topic in a concise yet comprehensive manner. The script should be crafted in a way that it grabs the viewer’s attention in the first few seconds, maintains the interest throughout, and ends with a call to action for further engagement. 
@@ -72,8 +72,8 @@ Write with markdown format.
   const promptArea = document.getElementById("promptArea");
   const promptHeadline = document.getElementById("promptHeadline");
   const descriptionSection = document.getElementById("descriptionSection");
-  const separator = document.getElementsByClassName("separator")[0];
-  const btnPrompt = document.getElementsByClassName("btn-prompt")[0];
+  const separator = document.getElementsByClassName("sensorica_separator")[0];
+  const btnPrompt = document.getElementsByClassName("sensorica_btn-prompt")[0];
   const more = document.getElementsByClassName("more")[0];
   const apply = document.getElementById("apply");
 

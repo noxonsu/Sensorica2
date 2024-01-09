@@ -1,10 +1,10 @@
 <?php
-              if ($input_data['magic_prompt']) {
+              if (isset($input_data['magic_prompt'])) {
                 //add small icon to form-control input to the right with link to the magic prompt
                 ?>
                 <div>
                  
-                  <div class="magic-prompt">
+                  <div class="sensorica_magic-prompt">
                     <span alt="Generate" title="Generate"><svg width="32" height="32" viewBox="0 0 32 32" fill="none"
                         xmlns="http://www.w3.org/2000/svg">
                         <path
@@ -15,7 +15,7 @@
                   </div>
                 </div>
                 <style>
-                  .magic-prompt {
+                  .sensorica_magic-prompt{
 
                     right: 15px;
                     top: 161px;

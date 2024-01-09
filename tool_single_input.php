@@ -1,5 +1,5 @@
 
-            <div class="form-section">
+            <div class="sensorica_form-section">
               <label for="<?php echo $input; ?>">
               <?php echo $input_data['description']; ?>
               </label>
@@ -25,7 +25,7 @@
                     </svg>
                   </div>
                 </summary>
-                <div class="summary-content">
+                <div class="sensorica_summary-content">
                   <ol>
                     <?php
 

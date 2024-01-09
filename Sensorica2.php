@@ -17,6 +17,7 @@ if (!defined('ABSPATH')) {
 
 // Define Plugin Constants.
 define('SENSORICA2_VERSION', '0.1.0');
+//get SENSORICA2_URL plugin dirrectory using base site url
 define('SENSORICA2_URL', plugin_dir_url(__FILE__));
 define('SENSORICA2_PATH', plugin_dir_path(__FILE__));
 define('SENSORICA2_BASENAME', plugin_basename(__FILE__));

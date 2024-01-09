@@ -2,7 +2,7 @@
   "title": "Website GPT Chat",
   "slug": "chate-mascot",
   "version":  "1.0.0",
-  "img": "static/icons/business.png",
+  "img": "https://drivingschool.wpmix.net/wp-content/plugins/Sensorica2/static/icons/business.png",
   "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
   "inputs": {
     "NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT": {
