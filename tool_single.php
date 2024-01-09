@@ -6,41 +6,36 @@ if (!$tool) {
   die("Error: Tool not found");
 }
 ?>
-<div class="sidebar">
-  <div class="title">Fill The Form Step By Step:</div>
-  <ul class="nav">
-
+<div class="sensorica_sidebar">
+  <div class="sensorica_title">Fill The Form Step By Step:</div>
+  <ul class="sensorica_nav">
     <?php
-
     foreach ($tool['inputs'] as $input => $input_data) {
       if (!isset($input_data['title']) || $input_data['title'] == '') {
         $input_data['title'] = 'Untitled';
       }
-      echo '<li><a href="javascript:void(0);" data-ref="' . $input_data['title'] . '" class="tab-title" data-title="title1"><svg class="icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
+      echo '<li><a href="javascript:void(0);" data-ref="' . $input_data['title'] . '" class="sensorica_tab-title" data-title="title1"><svg class="sensorica_icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
     }
     ?>
     <li>
       <a href="javascript:void(0);"
-        class="tab-title <?php echo (isset($_POST['action']) && $_POST['action'] == 'Finalize') ? 'active' : ''; ?>"
-        data-title="title8"><svg class="icon">
+        class="sensorica_tab-title <?php echo (isset($_POST['action']) && $_POST['action'] == 'Finalize') ? 'sensorica_active' : ''; ?>"
+        data-title="title8"><svg class="sensorica_icon">
           <use xlink:href="#ico-2"></use>
         </svg>Result</a>
     </li>
     <li>
-      <a href="javascript:void(0);" class="tab-title" data-title="title8"><svg class="icon">
+      <a href="javascript:void(0);" class="sensorica_tab-title" data-title="title8"><svg class="sensorica_icon">
           <use xlink:href="#ico-7"></use>
         </svg>F.A.Q.</a>
     </li>
   </ul>
-  <Br><br>
-  <div class="title">WP shortcode for this form:</div>
-  <code>
-      [sensorica_form tool_name='<?php echo $tool['slug']; ?>']
-    </code>
+  <br><br>
+  <div class="sensorica_title">WP shortcode for this form:</div>
+  <code>[sensorica_form tool_name='<?php echo $tool['slug']; ?>']</code>
 </div>
-
 <!-- content -->
-<div class="content">
+<div class="sensorica_content">
   <form action="" method="post">
     <?php
 
@@ -63,7 +58,7 @@ if (!$tool) {
     foreach ($tool['inputs'] as $input => $input_data) {
       if (isset($_POST[$input])) {
         //save input to hidden input in use already send its value
-        echo '<input type="hidden" id="hd_'.$input.'" name="' . $input . '" value="' . $_POST[$input] . '" />';
+        echo '<input type="hidden" id="hd_' . $input . '" name="' . $input . '" value="' . $_POST[$input] . '" />';
 
         //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
         if ($input == end(array_keys($tool['inputs']))) {
@@ -98,16 +93,15 @@ if (!$tool) {
           echo $input_data['title']; ?>
         </div>
         <?php
-
-        if ($input_data['type'] == 'prompt_textarea') {
+        if (!isset($input_data['type'])) {
+          include("tool_single_input.php");
+        } else if ($input_data['type'] == 'prompt_textarea') {
 
           include("tool_single_prompt_textarea.php");
         } else if ($input_data['type'] == 'textarea') {
           include("tool_single_textarea.php");
         } else if ($input_data['type'] == 'website') {
           include("tool_single_website.php");
-        } else {
-          include("tool_single_input.php");
         } ?>
 
         <?php
@@ -132,45 +126,45 @@ if (!$tool) {
 <script>
   ; (() => {
     const dataToEl = {
-      <?php 
-        foreach ($tool['inputs'] as $input => $input_data) {
-          echo "'".$input."': '#hd_".$input."',";
-        }
-        ?>
+      <?php
+      foreach ($tool['inputs'] as $input => $input_data) {
+        echo "'" . $input . "': '#hd_" . $input . "',";
+      }
+      ?>
     }
     const formData = {}
     let firstInit = false
     const loadFormFromLS = () => {
-    try {
-      let data = localStorage.getItem('sensorica_bot_params');
-      if (data) {
-        data = JSON.parse(data);
-        console.log("Loaded Data:", data); // Debugging
+      try {
+        let data = localStorage.getItem('sensorica_bot_params');
+        if (data) {
+          data = JSON.parse(data);
+          console.log("Loaded Data:", data); // Debugging
 
-        Object.keys(data).forEach((dataKey) => {
-          if (dataKey && dataToEl[dataKey]) { // Check if key is not empty and exists in dataToEl
-            console.log("Key:", dataKey, "Value:", data[dataKey]); // Debugging
+          Object.keys(data).forEach((dataKey) => {
+            if (dataKey && dataToEl[dataKey]) { // Check if key is not empty and exists in dataToEl
+              console.log("Key:", dataKey, "Value:", data[dataKey]); // Debugging
 
-            const element = document.querySelector(dataToEl[dataKey].replace("hd_",""));
-            if (element) {
-              element.value = data[dataKey];
-              console.log("Element found for", dataKey, ": Setting value to", data[dataKey]); // Debugging
-            } else {
-              console.log("Element not found for", dataKey); // Debugging
+              const element = document.querySelector(dataToEl[dataKey].replace("hd_", ""));
+              if (element) {
+                element.value = data[dataKey];
+                console.log("Element found for", dataKey, ": Setting value to", data[dataKey]); // Debugging
+              } else {
+                console.log("Element not found for", dataKey); // Debugging
+              }
             }
-          }
-        });
+          });
+        }
+      } catch (err) {
+        console.log('>> fail load form from LS', err);
       }
-    } catch (err) {
-      console.log('>> fail load form from LS', err);
-    }
-  };
-    
+    };
+
     const saveFormToLS = () => {
-      
+
       localStorage.setItem('sensorica_bot_params', JSON.stringify(formData))
     }
-    
+
     const inputs = document.querySelectorAll('input, textarea')
     loadFormFromLS()
     inputs.forEach((input) => {
@@ -179,7 +173,7 @@ if (!$tool) {
         saveFormToLS();
       });
     })
-    
+
   })()
 </script>
 <!--/ content -->

@@ -1,0 +1,33 @@
+[
+  {
+    "title": "1. Analyse your site",
+    "slug": "gpt-crawler",
+    "description": "🌐 Analyzes site content and save for GPT uses. 🎯 Identifies key elements of your businees.",
+    "group": "utils"
+  }, 
+  {
+    "title": "2. Do competitor research",
+    "slug": "market-research",
+    "description": "🏷️ Create listicles (<a style='display:contents' href='https://blog.hubspot.com/blog/tabid/6307/bid/32105/the-top-10-qualities-of-high-quality-list-posts.aspx'>?</a>) titled '[Product/Service Name], Features and Prices'. To attract leads"
+  ,"group": "traffic"
+  },
+  {
+    "title": "3. Publish new SEO content",
+    "slug": "content-publishing",
+    "description": "📰 Publishes independent articles on various platforms. 🎣 Attracts leads with high-quality, search engine-friendly content."
+    ,"group": "traffic"
+  },  
+  {
+    "title": "4. Website GPT Chat & Mascot",
+    "slug": "chate-mascot",
+    "description": "🗨️ Engages visitors with AI chat and mascot. 🚀 Improves user experience and lead generation."
+    , "group": "retention"
+  },
+  {
+    "title": "5. Telegram GPT Integration",
+    "slug": "aigram",
+    "description": "💬 Boosts engagement with AI-powered Telegram bot. 📈 Creates a viral effect for more customer interactions."
+  , "group": "retention"
+  }
+  
+]
