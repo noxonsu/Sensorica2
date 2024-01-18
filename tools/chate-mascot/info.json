@@ -17,22 +17,6 @@
       ],
       "svg_icon_id": "ico-1"
     },
-    "GITHUB_ACCESS_TOKEN":{
-      "title": "Github Access Token",
-      "version": "1.0.0",
-      "description": "Github Access Token to store the chatbot's source code in your Github's profile (it's free).",
-      "error_message": "Please enter a valid Github Access Token.",
-      "required": true,
-      "svg_icon_id": "github",
-      "svg_fill": "#000000",
-      "help_image":[
-        "Sign up for a GitHub account <a href='https://github.com' target=_blank>https://github.com</a> if you don't already have one.",
-        "Open this page and select 'All repositories' <a href='https://github.com/settings/personal-access-tokens/new' target=_blank>https://github.com/settings/personal-access-tokens/new</a> here.",
-        "In the premissions section select: Actions, Contents, Deployments, Envirements, Secrets, Variables, Workflows",
-        "Click 'Generate Token' and copy the token to your clipboard."
-      ],
-      "placeholder": "github_pat_xxxxxxxxxx_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
-    },
     "OPENAI_API_KEY": {
       "title": "OpenAI API Key",
       "description": "OpenAI API key for generating responses.",
@@ -56,24 +40,6 @@
       "required": true,
       "svg_icon_id": "ico-1",
       "magic_prompt": "Welcome to our website. I am a mascot of our company. I can help you with any questions you have."
-    },
-    "YOUR_VERCEL_TOKEN": {
-      "title": "Your Vercel API token",
-      "required": true,
-      "placeholder": "44JvE71y4zJDHET44deqsnZu6",
-      "help_image": [
-        "Sign up for Vercel.com <a href='https://vercel.com/signup' target=_blank>https://vercel.com/signup</a> using your GitHub account.",
-        "Connect Vercel app to your GitHub account here <a href='https://github.com/apps/vercel'>https://github.com/apps/vercel</a> (allow access to all repositories) <img src='tools/chate/vercelAllRepositories.png' width='100%'> ",
-        "Access Tokens can be created and managed from inside your <a href='https://vercel.com/account/tokens' target='_blank'>account settings.</a> <img src='tools/chate/create-token-light.avif' width='100%'> ",
-        "In the upper-right corner of your dashboard, click your profile picture, then select Settings",
-        "Select Tokens from the sidebar",
-        "Enter a descriptive name for the token",
-        "Choose the scope from the list of Teams in the drop-down menu. The scope ensures that only your specified Team(s) can use an Access Token",
-        "From the drop-down, select an expiration date for the Token",
-        "Click Create Token",
-        "Once you've created an Access Token, securely store the value as it will not be shown again."
-      ],
-      "svg_icon_id": "vercel"
     }
   },
   "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
