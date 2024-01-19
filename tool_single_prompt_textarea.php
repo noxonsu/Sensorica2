@@ -17,7 +17,7 @@
 </div>
 <div class="sensorica_button-wrap">
   <button type="button" class="sensorica_btn sensorica_btn-prompt" id="resetToOriginal">Reset to Original</button><button type="submit"
-    class="sensorica_btn" id="apply" data-action="save_prompt">Apply & Next step</button>
+    class="sensorica_btn" id="sensorica_apply" data-action="save_prompt">Apply & Next step</button>
 </div>
 
 <script>
@@ -59,9 +59,9 @@ put here your FAQ and other documents in text
   const promptHeadline = document.getElementById("promptHeadline");
   const descriptionSection = document.getElementById("descriptionSection");
   const separator = document.getElementsByClassName("sensorica_separator")[0];
-  const btnPrompt = document.getElementsByClassName("sensorica_btn-prompt")[0];
-  const more = document.getElementsByClassName("more")[0];
-  const apply = document.getElementById("apply");
+  const btnPrompt = document.getElementsByClassName("sensorica_btn btn-prompt")[0];
+  const more = document.getElementsByClassName("sensorica_more")[0];
+  const apply = document.getElementById("sensorica_apply");
 
   const createBackButton = () => {
     const button = document.createElement("button");
@@ -107,7 +107,7 @@ put here your FAQ and other documents in text
   const whiteAPrompt = () => {
     document.body.classList.add("write-a-prompt");
     const icon = document.getElementById("customIcon");
-    icon.style.background = "#2D3A4F";
+    //icon.style.background = "#2D3A4F";
   };
 
   btnPrompt.addEventListener("click", function () {
@@ -163,7 +163,7 @@ put here your FAQ and other documents in text
   };
 
   apply.addEventListener("click", () => {
-    // addCheckToTextareaWrp();
+     addCheckToTextareaWrp();
   });
 
   const createPrompts = () => {

@@ -1,7 +1,7 @@
 {
   "title": "Website GPT Chat",
   "slug": "chate-mascot",
-  "version":  "1.0.0",
+  "version":  "1.0.2",
   "img": "https://drivingschool.wpmix.net/wp-content/plugins/Sensorica2/static/icons/business.png",
   "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
   "inputs": {
@@ -45,5 +45,5 @@
   "deployment_confirmation": "Are you ready to deploy your Mascot with these settings? (Yes/No)",
   "completion_message": "Your Mascot is now ready and operational!",
   "required": true,
-  "main_action_php_file": "deploy_chate_to_vercel.php"
+  "main_action_php_file": "save_chat_and_create_shortcode.php"
 }

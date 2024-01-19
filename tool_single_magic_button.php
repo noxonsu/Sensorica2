@@ -60,14 +60,14 @@
                 </style>
                 <script>
                   //call ajax.php?magic_prompt=1&userinput= and put value instead of userinput
-                  $(document).ready(function () {
-                    $('.magic-prompt').click(function () {
-                      var userinput = $(this).parent().find('.userinput').val();
-                      $.ajax({
+                  jQuery(document).ready(function () {
+                    jQuery('.magic-prompt').click(function () {
+                      var userinput = jQuery(this).parent().find('.userinput').val();
+                      jQuery.ajax({
                         url: "ajax.php?magic_prompt=1&userinput=" + userinput,
                         //show 'stop' icon in .magic-prompt while loading
                         beforeSend: function () {
-                          var magicPrompt = $('.magic-prompt');
+                          var magicPrompt = jQuery('.magic-prompt');
                           magicPrompt.removeClass('fade-in').addClass('fade-out');
 
                           // Wait for the fade-out animation to complete 
@@ -80,7 +80,7 @@
                         },
 
                         complete: function () {
-                          var magicPrompt = $('.magic-prompt');
+                          var magicPrompt = jQuery('.magic-prompt');
                           magicPrompt.removeClass('fade-in').addClass('fade-out');
 
                           // Wait for the fade-out animation to complete 
@@ -97,7 +97,7 @@
                           //json
                           var obj = JSON.parse(result);
                           //put the result in the input
-                          $('.userinput').val(obj.message);
+                          jQuery('.userinput').val(obj.message);
                         }
                       });
                     });
