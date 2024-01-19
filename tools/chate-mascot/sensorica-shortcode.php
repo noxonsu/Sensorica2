@@ -21,45 +21,15 @@ function sensorica_chat_shortcode($atts)
 {
     // Get the 'id' attribute from the shortcode
     $atts = shortcode_atts(array(
-        'id' => ''
+        'id' => 'newshortcode',
+        'title' => ''
     ), $atts);
-
+    $envato_key = get_option('sensorica_envato_key', '');
     // Check if the user is an admin
-    $current_user = wp_get_current_user();
-    $is_admin = in_array('administrator', $current_user->roles);
 
-    // Admin view: Display saved inputs
-    if ($is_admin && !empty($atts['id'])) {
-        $saved_inputs = get_post_meta($atts['id'], '_sensorica_chat_saved_inputs', true);
+    $iframe_url = 'https://apisensorica13006.onout.org/?site=' . urlencode($envato_key) . '&id=' . urlencode($atts['id']);
 
-        if ($saved_inputs) {
-            ob_start();
-            echo '<pre>';
-            print_r($saved_inputs);
-            echo '</pre>';
-            return ob_get_clean();
-        }
-    }
-
-
-
-    // Non-admin user view: Display the form
-    ob_start();
-    ?>
-    <form method="post">
-        <label for="NEXT_PUBLIC_MAIN_TITLE">Main Title:</label>
-        <input type="text" name="NEXT_PUBLIC_MAIN_TITLE" id="NEXT_PUBLIC_MAIN_TITLE" /><br>
-
-        <label for="OPENAI_API_KEY">OpenAI API Key:</label>
-        <input type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY" /><br>
-
-        <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
-        <textarea name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT" id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"></textarea><br>
-
-        <input type="submit" value="Submit">
-    </form>
-    <?php
-    return ob_get_clean();
+    return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe>';
 }
 add_shortcode('sensorica_chat', 'sensorica_chat_shortcode');
 
@@ -153,4 +123,77 @@ function sensorica2_shortcodes_page()
 
 
 
+function sensorica2_enqueue_block_editor_assets() {
+    wp_enqueue_script(
+        'sensorica2-blocks',
+        SENSORICA2_URL . 'tools/chate-mascot/blocks.js?rand=' . rand(1,22222),
+        array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
+        SENSORICA2_VERSION,
+        true
+    );
+
+    wp_enqueue_style(
+        'sensorica2-block-editor-css',
+        SENSORICA2_URL . 'tools/chate-mascot/block-editor.css',
+        array('wp-edit-blocks'),
+        SENSORICA2_VERSION
+    );
+}
+add_action('enqueue_block_editor_assets', 'sensorica2_enqueue_block_editor_assets');
+
+
+function sensorica2_get_chats() {
+    $chats_query = new WP_Query(array(
+        'post_type' => 'post',
+        'post_status' => 'publish',
+        'tax_query' => array(
+            array(
+                'taxonomy' => 'sensorica_chats',
+                'field' => 'term_id',
+                'terms' => get_terms('sensorica_chats', array('fields' => 'ids')),
+            ),
+        ),
+        'posts_per_page' => -1,
+    ));
+
+    $chats = array();
+    if ($chats_query->have_posts()) {
+        while ($chats_query->have_posts()) {
+            $chats_query->the_post();
+            $chats[] = array(
+                'id' => get_the_ID(),
+                'title' => get_the_title(),
+            );
+        }
+    }
+    return new WP_REST_Response($chats, 200);
+}
+
+add_action('rest_api_init', function () {
+    register_rest_route('sensorica2/v1', '/chats/', array(
+        'methods' => 'GET',
+        'callback' => 'sensorica2_get_chats',
+    ));
+});
+
+add_action('rest_api_init', function () {
+    register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'sensorica2_get_shortcode_data',
+        'permission_callback' => function() {
+            return current_user_can('edit_posts');
+        }
+    ));
+});
+
+function sensorica2_get_shortcode_data($data) {
+    $shortcode_id = $data['id'];
+    $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
+
+    if (!$saved_inputs) {
+        return new WP_Error('no_data', 'No data found', array('status' => 404));
+    }
+
+    return new WP_REST_Response($saved_inputs, 200);
+}
 

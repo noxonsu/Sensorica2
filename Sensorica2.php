@@ -114,20 +114,3 @@ function sensorica2_settings_link($links)
 }
 
 
-add_action('rest_api_init', function () {
-    register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
-        'methods' => 'GET',
-        'callback' => 'sensorica2_get_shortcode_data'
-    ));
-});
-
-function sensorica2_get_shortcode_data($data) {
-    $shortcode_id = $data['id'];
-    $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
-
-    if (!$saved_inputs) {
-        return new WP_Error('no_data', 'No data found', array('status' => 404));
-    }
-
-    return new WP_REST_Response($saved_inputs, 200);
-}
