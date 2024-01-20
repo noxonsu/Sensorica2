@@ -27,7 +27,7 @@ function sensorica_chat_shortcode($atts)
     $envato_key = get_option('sensorica_envato_key', '');
     // Check if the user is an admin
 
-    $iframe_url = 'https://apisensorica13006.onout.org/?site=' . urlencode($envato_key) . '&id=' . urlencode($atts['id']);
+    $iframe_url = SENSORICA2_URL.'vendor_source/index.html?site=' . urlencode($envato_key) . '&shortcodeid=' . urlencode($atts['id']);
 
     return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe>';
 }
@@ -180,15 +180,15 @@ add_action('rest_api_init', function () {
     register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
         'methods' => 'GET',
         'callback' => 'sensorica2_get_shortcode_data',
-        'permission_callback' => function() {
-            return current_user_can('edit_posts');
-        }
+        
     ));
 });
 
 function sensorica2_get_shortcode_data($data) {
     $shortcode_id = $data['id'];
     $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
+
+    unset($saved_inputs['API_KEY']);
 
     if (!$saved_inputs) {
         return new WP_Error('no_data', 'No data found', array('status' => 404));
