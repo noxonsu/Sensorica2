@@ -24,15 +24,13 @@ if (!$tool) {
           <use xlink:href="#ico-2"></use>
         </svg>Result</a>
     </li>
-    <li>
-      <a href="javascript:void(0);" class="sensorica_tab-title" data-title="title8"><svg class="sensorica_icon">
-          <use xlink:href="#ico-7"></use>
-        </svg>F.A.Q.</a>
-    </li>
+   
   </ul>
-  <br><br>
-  <div class="sensorica_title">WP shortcode for this form:</div>
-  <code>[sensorica_form tool_name='<?php echo $tool['slug']; ?>']</code>
+  <?php if (is_admin()) { ?>
+    <br><br>
+    <div class="sensorica_title">WP shortcode for this form:</div>
+    <code>[sensorica_form tool_name='<?php echo $tool['slug']; ?>']</code>
+  <?php } ?>
 </div>
 <!-- content -->
 <div class="sensorica_content">
@@ -61,13 +59,20 @@ if (!$tool) {
         echo '<input type="hidden" id="hd_' . $input . '" name="' . $input . '" value="' . $_POST[$input] . '" />';
 
         //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
-        if ($input == end(array_keys($tool['inputs']))) {
+        // Assign the array keys to a variable
+        $keys = array_keys($tool['inputs']);
+
+        // Now use end() on the variable
+        if ($input == end($keys)) {
           foreach ($tool['inputs'] as $input => $input_data) {
-            echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="form-control" name="' . $input . '" id="' . $input . '" value="' . $_POST[$input] . '" disabled /></div>';
+            // Check if $_POST[$input] is set to avoid undefined index notice
+            $postValue = isset($_POST[$input]) ? $_POST[$input] : '';
+
+            echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="form-control" name="' . $input . '" id="' . $input . '" value="' . $postValue . '" disabled /></div>';
           }
           echo '<input type="submit" value="Finalize" name="action" class="btn" />';
-
         }
+
         //if this input is not the last one, continue
         continue;
       }

@@ -197,3 +197,25 @@ function sensorica2_get_shortcode_data($data) {
     return new WP_REST_Response($saved_inputs, 200);
 }
 
+function sensorica_form_shortcode($atts) {
+
+    wp_enqueue_script('jquery');
+    wp_enqueue_style('sensorica2-style', SENSORICA2_URL . 'static/new.css', array(), SENSORICA2_VERSION, 'all');
+  
+    // Set the tool parameter
+    $_GET['tool'] = 'chate-mascot';
+
+    // Define the path to the file
+    $file_path = SENSORICA2_PATH . 'index.php';
+
+    // Check if the file exists
+    if (file_exists($file_path)) {
+        ob_start();
+        include $file_path;
+        $output = ob_get_clean();
+        return $output;
+    } else {
+        return '<p>Error: File not found.</p>';
+    }
+}
+add_shortcode('sensorica_form', 'sensorica_form_shortcode');

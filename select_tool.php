@@ -17,11 +17,7 @@
                     <use xlink:href="#ico-7"></use>
                 </svg>Fetch the result</a>
         </li>
-        <li>
-            <a href="javascript:void(0);" class="sensorica_tab-title" data-title="title8"><svg class="sensorica_icon">
-                    <use xlink:href="#ico-7"></use>
-                </svg>F.A.Q.</a>
-        </li>
+        
     </ul>
 </div>
 
@@ -37,9 +33,7 @@
                 </div>
                 <div class="sensorica_form-section" id="descriptionSection">
                     <p>
-                        This is AI tools suite. We recommend running all of them one by one to increase user attraction
-                        and retention rate. Please analyze your website for AI to understand your business and then run
-                        tools one by one.
+                        This is AI tools suite. 
                     </p>
                 </div>
 

@@ -5,41 +5,18 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-function getToolInfo($toolSlug)
-{
-  $tools = json_decode(file_get_contents(SENSORICA2_PATH.'tools.json'), true);
-  foreach ($tools as $tool) {
-    if ($tool['slug'] == $toolSlug) {
-      $tool = json_decode(file_get_contents(SENSORICA2_PATH.'tools/' . $tool['slug'] . '/info.json'), true);
-      break;
-    }
-  }
-  return $tool;
-}
+
 
 if (isset($_GET['tool'])) {
   $tool = getToolInfo($_GET['tool']);
 }
-// Check if we are inside a WordPress page
-if (!function_exists('add_action')) {
-  // Not a WordPress page
-  echo '<html lang="en"><head><meta charset="UTF-8" /><title>AI wizard</title>';
-  echo '<link rel="stylesheet" href="'. SENSORICA2_URL .'/static/new.css" />';
-  echo '<meta content="width=device-width, initial-scale=1" name="viewport" />';
-  echo '<meta name="theme-color" content="#5f48b0" />';
-  echo '<meta name="description" content="Boost your website with our AI tools. Get better articles from market research, top Google ranks, more website visits, and user-friendly chat features. Try our Telegram bot for more customers." />';
-  echo '<meta name="keywords" content="chatgpt bot, telegram bot, chatgpt telegram, ai bot, ai app, no-code telegram bot, earn on ai, onout" />';
-  // Use wp_enqueue_script to add jQuery
-  echo '<script src="https://code.jquery.com/jquery-3.7.0.min.js" integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>';
-  
-  echo '</head><body class=\'sensorica_body\'>';
-} else {
+
 
   //wp_enqueue_script('jquery'); and css
   wp_enqueue_script('jquery');
   wp_enqueue_style('sensorica2-style', SENSORICA2_URL . 'static/new.css', array(), SENSORICA2_VERSION, 'all');
 
-} ?>
+?>
   <div class="sensorica_wrapper">
     <!-- header -->
     <header>
@@ -90,10 +67,3 @@ if (!function_exists('add_action')) {
   //import svg static/icons/icons.svg
   echo file_get_contents(SENSORICA2_PATH.'static/icons/icons.svg');
   ?>
-
-<?
-// Check again to close the tags if not in WordPress
-if (!function_exists('add_action')) {
-  echo '</body></html>';
-}
-?>
