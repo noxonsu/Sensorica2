@@ -1,5 +1,5 @@
 <?php
-
+use phpseclib\Crypt\RSA;
 function register_sensorica_chats_taxonomy()
 {
     $labels = array(
@@ -16,7 +16,6 @@ function register_sensorica_chats_taxonomy()
     );
     register_taxonomy('sensorica_chats', 'post', $args);
 }
-add_action('init', 'register_sensorica_chats_taxonomy');
 function sensorica_chat_shortcode($atts)
 {
     // Get the 'id' attribute from the shortcode
@@ -26,12 +25,12 @@ function sensorica_chat_shortcode($atts)
     ), $atts);
     $envato_key = get_option('sensorica_envato_key', '');
     // Check if the user is an admin
-
-    $iframe_url = SENSORICA2_URL.'vendor_source/index.html?site=' . urlencode($envato_key) . '&shortcodeid=' . urlencode($atts['id']);
+    $sensorica_rest_url = site_url() . '/wp-json/sensorica2/v1/shortcode/' . $atts['id'];
+    $sensorica_rest_url = base64_encode($sensorica_rest_url);
+    $iframe_url = SENSORICA2_URL.'vendor_source/index.html?site=' . urlencode($envato_key) . '&chat='.$sensorica_rest_url;
 
     return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe>';
 }
-add_shortcode('sensorica_chat', 'sensorica_chat_shortcode');
 
 
 function sensorica2_shortcodes_page()
@@ -42,9 +41,8 @@ function sensorica2_shortcodes_page()
         'taxonomy' => 'sensorica_chats',
         'hide_empty' => false,
     ));
-    echo '<pre>';
-    print_r($terms); // This will show all terms in the 'sensorica_chats' taxonomy
-    echo '</pre>';
+    
+    
 
     // Check if a specific post is being edited
     $editing_post_id = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
@@ -57,8 +55,16 @@ function sensorica2_shortcodes_page()
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
         $system_prompt = sanitize_textarea_field($_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'] ?? '');
 
+        // Update the post title
+        if ($editing_post_id > 0) {
+            $post_data = array(
+                'ID' => $editing_post_id,
+                'post_title' => $main_title,
+            );
+            wp_update_post($post_data);
+        }
+
         update_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', array(
-            'MAIN_TITLE' => $main_title,
             'API_KEY' => $api_key,
             'SYSTEM_PROMPT' => $system_prompt,
         ));
@@ -132,14 +138,7 @@ function sensorica2_enqueue_block_editor_assets() {
         true
     );
 
-    wp_enqueue_style(
-        'sensorica2-block-editor-css',
-        SENSORICA2_URL . 'tools/chate-mascot/block-editor.css',
-        array('wp-edit-blocks'),
-        SENSORICA2_VERSION
-    );
 }
-add_action('enqueue_block_editor_assets', 'sensorica2_enqueue_block_editor_assets');
 
 
 function sensorica2_get_chats() {
@@ -169,32 +168,36 @@ function sensorica2_get_chats() {
     return new WP_REST_Response($chats, 200);
 }
 
-add_action('rest_api_init', function () {
-    register_rest_route('sensorica2/v1', '/chats/', array(
-        'methods' => 'GET',
-        'callback' => 'sensorica2_get_chats',
-    ));
-});
-
-add_action('rest_api_init', function () {
-    register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
-        'methods' => 'GET',
-        'callback' => 'sensorica2_get_shortcode_data',
-        
-    ));
-});
-
 function sensorica2_get_shortcode_data($data) {
     $shortcode_id = $data['id'];
     $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
 
     unset($saved_inputs['API_KEY']);
 
+    // Create a new RSA object
+    $rsa = new RSA();
+
+    // Extract the private key and public key
+    extract($rsa->createKey());
+
+    echo $publickey;
+    // Encrypt the data using the public key
+    $rsa->loadKey($publickey);
+    $encrypted = $rsa->encrypt(json_encode($saved_inputs));
+
+    echo "Encrypted: " . base64_encode($encrypted) . "\n";
+
+    // Decrypt the data using the private key
+    $rsa->loadKey($privatekey);
+    $decrypted = $rsa->decrypt($encrypted);
+
+    echo "Decrypted: " . $decrypted . "\n";
+
     if (!$saved_inputs) {
         return new WP_Error('no_data', 'No data found', array('status' => 404));
     }
 
-    return new WP_REST_Response($saved_inputs, 200);
+    return new WP_REST_Response(base64_encode($encrypted), 200);
 }
 
 function sensorica_form_shortcode($atts) {
@@ -218,4 +221,25 @@ function sensorica_form_shortcode($atts) {
         return '<p>Error: File not found.</p>';
     }
 }
+
+add_shortcode('sensorica_chat', 'sensorica_chat_shortcode');
+add_action('init', 'register_sensorica_chats_taxonomy');
+
+add_action('enqueue_block_editor_assets', 'sensorica2_enqueue_block_editor_assets');
+
 add_shortcode('sensorica_form', 'sensorica_form_shortcode');
+add_action('rest_api_init', function () {
+    register_rest_route('sensorica2/v1', '/chats/', array(
+        'methods' => 'GET',
+        'callback' => 'sensorica2_get_chats',
+        'permission_callback' => '__return_true'
+    ));
+});
+
+add_action('rest_api_init', function () {
+    register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
+        'methods' => 'GET',
+        'callback' => 'sensorica2_get_shortcode_data',
+        'permission_callback' => '__return_true',
+    ));
+});

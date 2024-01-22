@@ -24,7 +24,7 @@ if (!$tool) {
           <use xlink:href="#ico-2"></use>
         </svg>Result</a>
     </li>
-   
+
   </ul>
   <?php if (is_admin()) { ?>
     <br><br>
@@ -35,7 +35,6 @@ if (!$tool) {
 <!-- content -->
 <div class="sensorica_content">
   <form action="" method="post">
-    <h2><?php esc_html_e("Confirm & finalize"); ?></h2>
     <?php
 
     if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
@@ -64,16 +63,17 @@ if (!$tool) {
         $keys = array_keys($tool['inputs']);
 
         // Now use end() on the variable
-        if ($input == end($keys)) {
+        if ($input == end($keys) && !isset($sensorica_hide_final_form)) {
+          echo '<div class="sensorica_title">Confirm & finalize</div>';
           foreach ($tool['inputs'] as $input => $input_data) {
             // Check if $_POST[$input] is set to avoid undefined index notice
             $postValue = isset($_POST[$input]) ? $_POST[$input] : '';
             if ($input == 'NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT') {
-              echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><textarea class="sensorica_prompt-area" name="' . $input . '" id="' . $input . '">' . $postValue . '</textarea></div>';
+              echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><textarea class="sensorica_prompt-area" disabled name="' . $input . '" id="' . $input . '">' . $postValue . '</textarea></div>';
             } else {
               echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="sensorica_form-control sensorica_userinput" name="' . $input . '" id="' . $input . '" value="' . $postValue . '" disabled /></div>';
             }
-           
+
           }
           echo '<input type="submit" value="Finalize" name="action" class="sensorica_btn" />';
         }
@@ -142,6 +142,8 @@ if (!$tool) {
       }
       ?>
     }
+</script>
+<script>
     const formData = {}
     let firstInit = false
     const loadFormFromLS = () => {
