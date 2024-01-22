@@ -35,7 +35,7 @@
       "description": "Main title (name) for the chat interface.",
       "error_message": "Main title is required.",
       "help_image": [
-        "A welcome message (1) <img src='https://onout.org/Chate/admin.png' width='100%'> "
+        "A welcome title will be shown to user before he send a message <img src='https://onout.org/Chate/admin.png' width='100%'> "
       ],
       "required": true,
       "svg_icon_id": "ico-1",

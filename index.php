@@ -19,14 +19,14 @@ if (isset($_GET['tool'])) {
 ?>
   <div class="sensorica_wrapper">
     <!-- header -->
-    <header>
+    <header class='sensorica_header'>
       <div class="sensorica_header-logo">
         <img src="<?php echo (isset($tool['img'])) ? $tool['img'] : ' ./static/images/chat-gpt-logo.svg'; ?>" alt="" />
       </div>
       <h2 class="sensorica_deploymentPageTitle">
         <?php echo (isset($tool['title'])) ? $tool['title'] : "AI tools for WordPress"; ?>
        <br> 
-      <a style='font-size:15px' href="/">Back</a></h2>
+      
     </header>
     <!--/ header -->
     <main>

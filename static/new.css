@@ -121,13 +121,13 @@ main footer.sensorica  {
           align-items: center;
 }
 
-header.sensorica  {
+.sensorica_header  {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   margin: 100px 0 100px 0;
 }
-header.sensorica  h2 {
+.sensorica_header  h2 {
   font-size: 56px;
   font-weight: 600;
   line-height: 64px;
@@ -162,13 +162,13 @@ h3.sensorica  {
   background: #1E2839;
 }
 
-.sensorica_form-control {
+.sensorica_form-section .sensorica_form-control {
   width: 100%;
   padding: 14px 20px;
   height: 56px;
   background: #1E2839;
   border: 0;
-  color: #fff;
+  color: #fff!important;
   border-radius: 10px;
   font-size: 20px;
   font-family: inherit;
@@ -484,7 +484,7 @@ h3.sensorica  {
   display: inline-block;
   width: 30px;
   height: 30px;
-  fill: #fff;
+  fill: #fff!important;
 }
 .sensorica_headline + .sensorica_warning {
   margin-top: -20px;
@@ -647,10 +647,10 @@ h3.sensorica  {
   border: 0;
 }
 
-.sensorica_edit-mode .sensorica_textarea-wrp {
+.edit-mode .sensorica_textarea-wrp {
   display: block;
 }
-.sensorica_edit-mode:not(.write-a-prompt) .sensorica_button-wrap .sensorica_btn.btn-prompt {
+.edit-mode:not(.write-a-prompt) .sensorica_button-wrap .sensorica_btn.btn-prompt {
   display: block;
   margin-top: 0;
 }
@@ -970,9 +970,10 @@ details summary::-webkit-details-marker {
     width: 84px;
     height: 84px;
   }
-  header h2 {
+  .sensorica_header h2 {
     font-size: 52px;
     line-height: 60px;
+    color:white
   }
   .sensorica_headline {
     font-size: 28px;
@@ -1003,11 +1004,11 @@ details summary::-webkit-details-marker {
     line-height: 24px;
     right: 10px;
   }
-  header h2 {
+  .sensorica_header h2 {
     font-size: 42px;
     line-height: 50px;
   }
-  header {
+  .sensorica_header {
     margin-bottom: 100px;
   }
   .sensorica_header-logo {
@@ -1050,7 +1051,7 @@ details summary::-webkit-details-marker {
   .sensorica_row {
     display: block;
   }
-  header {
+  .sensorica_header {
     margin: 30px 0 30px 0;
   }
   .sensorica_sidebar .sensorica_title {
@@ -1075,7 +1076,7 @@ details summary::-webkit-details-marker {
     font-size: 14px;
     line-height: 24px;
   }
-  header h2 {
+  .sensorica_header h2 {
     font-size: 24px;
     line-height: 34px;
   }
@@ -1297,4 +1298,8 @@ details summary::-webkit-details-marker {
     padding-left: 0;
     padding-right: 0;
   }
+}
+
+.sensorica_deploymentPageTitle {
+  color:white
 }

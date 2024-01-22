@@ -5,7 +5,7 @@
             <a href="javascript:void(0);" class="sensorica_tab-title sensorica_active" data-title="title8"><svg
                     class="sensorica_icon">
                     <use xlink:href="#ico-2"></use>
-                </svg>Select tool</a>
+                </svg>Select a tool</a>
         </li>
         <li>
             <a href="javascript:void(0);" class="sensorica_tab-title" data-title="title8"><svg class="sensorica_icon">
