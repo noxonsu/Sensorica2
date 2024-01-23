@@ -20,6 +20,12 @@ function register_sensorica_chats_taxonomy()
     );
     register_taxonomy('sensorica_chats', 'post', $args);
 }
+
+function sensorica_get_iframe_url($post_id)
+{
+    $iframe_url = SENSORICA2_URL . 'tools/chate-mascot/vendor_source/Chat.php?post_id=' . $post_id;
+    return $iframe_url;
+}
 function sensorica_chat_shortcode($atts)
 {
     // Get the 'id' attribute from the shortcode
@@ -31,7 +37,7 @@ function sensorica_chat_shortcode($atts)
     // Check if the user is an admin
     
     //iframre rest api call 'sensorica2/v1', '/chat/(?P<id>\d+)'
-    $iframe_url = SENSORICA2_URL . 'tools/chate-mascot/vendor_source/Chat.php?post_id='.$atts['id'];
+    $iframe_url = sensorica_get_iframe_url($atts['id']);
 
 
     return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe><br><a style="color:gray" href="https://onout.org/embedGPT">embed chatgpt</a>';

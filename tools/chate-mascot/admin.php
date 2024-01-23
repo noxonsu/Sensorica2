@@ -90,7 +90,7 @@ function sensorica2_shortcodes_page()
 
             <label for="NEXT_PUBLIC_MAIN_TITLE">Main Title:</label>
             <input type="text" name="NEXT_PUBLIC_MAIN_TITLE" id="NEXT_PUBLIC_MAIN_TITLE"
-                value="<?php echo esc_attr($saved_inputs['MAIN_TITLE'] ?? ''); ?>"><br>
+                value="<?php echo get_the_title($editing_post_id); ?>"><br>
 
             <label for="OPENAI_API_KEY">OpenAI API Key:</label>
             <input type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY"
@@ -100,7 +100,19 @@ function sensorica2_shortcodes_page()
             <textarea name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
                 id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea><br>
 
-            <input type="submit" value="Update">
+            <input type="submit" class="btn btn-primary" value="Update">
+            <hr>
+            Shortcode: <code>[sensorica2_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
+            <hr>
+            HTML widget: <textarea rows="3" cols="50"><?php 
+                $shortcode_html = sensorica_chat_shortcode(array(
+                    'id' => $editing_post_id,
+                ));
+                echo esc_textarea($shortcode_html);
+                ?>
+            </textarea>
+            <hr>
+            Direct url to this chat iframe: <code><?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?></code>
         </form>
         <?php
     } else {

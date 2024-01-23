@@ -1,5 +1,9 @@
 <?php 
-
+//allow origin
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: *");
+header("Access-Control-Allow-Methods: *");
+header("Access-Control-Allow-Credentials: true");
 // Initialize the WordPress environment without themes.
 define('WP_USE_THEMES', false);
 $wordpress_root_dir = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__)))))) . '/';
@@ -12,7 +16,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
     $post_id = intval($_GET['post_id']);
     $post = get_post($post_id);
 
-    if ($post && current_user_can('read_post', $post_id)) {
+    if ($post) {
         // Include your HTML file here if the post exists and the user has permission.
         $proxy = get_option("sensorica_openaiproxy");
         $proxy = str_replace("telegram.", "apisensorica13015.", $proxy);
