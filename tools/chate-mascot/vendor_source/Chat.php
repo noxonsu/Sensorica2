@@ -1,0 +1,34 @@
+<?php 
+
+// Initialize the WordPress environment without themes.
+define('WP_USE_THEMES', false);
+$wordpress_root_dir = dirname(dirname(dirname(dirname(dirname(dirname(__DIR__)))))) . '/';
+
+// Now include wp-load.php
+require_once $wordpress_root_dir.'wp-load.php';
+
+// Security check: Ensure that there is a valid post ID and the current user has permission to view it.
+if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
+    $post_id = intval($_GET['post_id']);
+    $post = get_post($post_id);
+
+    if ($post && current_user_can('read_post', $post_id)) {
+        // Include your HTML file here if the post exists and the user has permission.
+        echo '<script>';
+        echo 'let sensorica_client_id = "' . get_option("sensorica_client_id") . '";';
+        echo 'let post_id = "' .esc_attr($post_id). '";';
+        //echo 'let sensorica_backend_rsa_openkey_base64 = "' . get_option("sensorica_backend_rsa_openkey_base64") . '";';
+        echo 'let sensorica_openaiproxy = "' . get_option("sensorica_openaiproxy") . '";';
+        echo '</script>';
+        
+        include("index.html");
+    } else {
+        // Handle the case where the post doesn't exist or the user doesn't have permission.
+        echo 'You do not have permission to view this page or the page does not exist.';
+    }
+} else {
+    // Handle the case where the post ID is not set or is not valid.
+    echo 'Invalid post ID.';
+}
+
+?>
