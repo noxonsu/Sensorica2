@@ -25,7 +25,7 @@ function sensorica2_settings_page()
 
     $post_data = [
       'rsa_private_key' => $rsa_key['privatekey'],
-      'registeredurl' => base64_encode(SENSORICA2_URL),
+      'registeredurl' => base64_encode(home_url()."/wp-json/sensorica2/v1/shortcode/806"),
       'key' => $envato_key
     ];
 
@@ -108,7 +108,7 @@ function sensorica2_settings_page()
                   </th>
                   <td>
                     <input type="text" name="sensorica_openaiproxy" id="sensorica_openaiproxy"
-                      value="<?php esc_attr_e(get_option('sensorica_openaiproxy', 'https://apisensorica13006.onout.org/')) ?>" />
+                      value="<?php esc_attr_e(get_option('sensorica_openaiproxy', 'https://telegram.onout.org/')) ?>" />
                     <p class="description">
                       <?php esc_html_e('This backend requires. You may setup own with instruction or use shared'); ?>
                     </p>

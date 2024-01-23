@@ -14,11 +14,14 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
 
     if ($post && current_user_can('read_post', $post_id)) {
         // Include your HTML file here if the post exists and the user has permission.
+        $proxy = get_option("sensorica_openaiproxy");
+        $proxy = str_replace("telegram.", "apisensorica13015.", $proxy);
+        $proxy = 'https://apisensorica13015.onout.org/';
         echo '<script>';
-        echo 'let sensorica_client_id = "' . get_option("sensorica_client_id") . '";';
-        echo 'let post_id = "' .esc_attr($post_id). '";';
+        echo 'window.sensorica_client_id = "' . get_option("sensorica_client_id") . '";';
+        echo 'window.post_id = "' .esc_attr($post_id). '";';
         //echo 'let sensorica_backend_rsa_openkey_base64 = "' . get_option("sensorica_backend_rsa_openkey_base64") . '";';
-        echo 'let sensorica_openaiproxy = "' . get_option("sensorica_openaiproxy") . '";';
+        echo 'window.sensorica_openaiproxy = "' . $proxy . '";';
         echo '</script>';
         
         include("index.html");
