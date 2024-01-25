@@ -17,7 +17,7 @@ function sensorica_settings_page()
 
     $sensorica_back = sanitize_text_field($_POST['sensorica_openaiproxy']);
     update_option('sensorica_envato_key', sanitize_text_field($_POST['sensorica_envato_key']));
-
+    update_option('OPENAI_API_KEY', sanitize_text_field($_POST['OPENAI_API_KEY']));
     //check the envato license and save domain to whitelist
     $envato_key = sanitize_text_field($_POST['sensorica_envato_key']);
 
@@ -136,6 +136,20 @@ function sensorica_settings_page()
                       </p>
                     </td>
                   </tr>
+                  
+                  <tr>
+                    <th scope="row">
+                      <label>
+                        <?php echo esc_html('Default OpenAI API key', 'sensorica'); ?>
+                      </label>
+                    </th>
+                    <td>
+                      <input type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY"
+                        value="<?php esc_attr_e(get_option('OPENAI_API_KEY')) ?>" />
+                      <p class="description">
+                        <?php esc_html_e('Put here your OpenAI API key here'); ?>
+                      </p>
+                    </td>
                   <?php
                 }
                 ?>

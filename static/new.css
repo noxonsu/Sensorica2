@@ -1384,6 +1384,11 @@ details summary::-webkit-details-marker {
   border-color: #1AA5AC;
 }
 
+.sensorica_light_theme .sensorica_form-control:valid {
+  border-color: #1AA5AC;
+  background-color: #fff;
+}
+
 .sensorica_light_theme .sensorica_form-control.sensorica_userinput::-webkit-input-placeholder {
   color: #1E2839;
 }

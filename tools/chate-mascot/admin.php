@@ -111,25 +111,25 @@ function sensorica_shortcodes_page()
                                 value="<?php echo esc_attr($saved_inputs['API_KEY'] ?? ''); ?>"><br>
                         </div>
                         <div class="sensorica_form-section">
-                            
 
-                                <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
-                                <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
-                                    id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
-                                <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
-                            
+
+                            <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
+                            <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
+                                id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
+                            <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
+
                         </div>
                         <input type="submit" class="sensorica_btn" value="Update">
-                        
+
                         <div class="sensorica_separator"><span>Codes for embeding: </span></div>
                         <?php
                         sensorica_show_output_links_and_iframes($editing_post_id);
 
                         ?>
-                        </div>
-                    </form>
                 </div>
-            </main>
+                </form>
+        </div>
+        </main>
         </div>
         <?php
     } else {
@@ -147,18 +147,69 @@ function sensorica_shortcodes_page()
         );
 
         $query = new WP_Query($args);
+        ?>
+        <table class='wp-list-table widefat fixed striped table-view-list'>
+            <thead>
+                <tr>
+                    <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
+                        <span>Title</span>
+                    </th>
+                    <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
+                        <span>Shortcode</span>
+                    </th>
+                    <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
+                        <span>Embed</span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody id="the-list">
+                <?php
+                if ($query->have_posts()) {
+                    while ($query->have_posts()) {
+                        $query->the_post();
+                        $post_id = get_the_ID();
+                        $post_title = get_the_title();
+                        $post_permalink = get_the_permalink();
+                        $post_edit_link = admin_url('admin.php?page=sensorica_shortcodes&edit=' . get_the_ID());
+                        $post_shortcode = '[sensorica_chat id="' . $post_id . '"]';
+                        $post_embed = '<iframe src="' . $post_permalink . '" width="100%" height="500px"></iframe>';
+                        ?>
+                        <tr>
+                            <td class="title column-title has-row-actions column-primary page-title" data-colname="Title">
+                                <strong>
+                                    <a class="row-title" href="<?php echo esc_url($post_edit_link); ?>"
+                                        aria-label="“<?php echo esc_attr($post_title); ?>” (Edit)">
+                                        <?php echo esc_html($post_title); ?>
+                                    </a>
+                                </strong>
+                                <div class="row-actions">
+                                    <span class="edit">
+                                        <a href="<?php echo esc_url($post_edit_link); ?>"
+                                            aria-label="Edit “<?php echo esc_attr($post_title); ?>”">Edit</a> |
+                                    </span>
+                                    <span class="trash">
+                                        <a href="<?php echo get_delete_post_link($post_id); ?>" class="submitdelete"
+                                            aria-label="Move “<?php echo esc_attr($post_title); ?>” to the Trash"
+                                            onclick="return confirm('Are you sure you want to delete this shortcode?');">Trash</a>
+                                    </span>
+                                </div>
+                            </td>
+                            <td class="shortcode column-shortcode" data-colname="Shortcode">
+                                <input type="text" readonly="readonly" class="large-text">
+                                <button class="button button-secondary"
+                                    onclick="copyToClipboard('<?php echo esc_attr($post_shortcode); ?>')">Copy</button>
+                            </td>
+                            <td class="shortcode column-shortcode" data-colname="Embed">
+                                <input type="text" readonly="readonly" class="large-text">
+                                <button class="button button-secondary"
+                                    onclick="copyToClipboard('<?php echo esc_attr($post_embed); ?>')">Copy</button>
+                            </td>
+                        </tr>
+                        <?php
+                    }
+                }
 
-        if ($query->have_posts()) {
-            echo '<ul>';
-            while ($query->have_posts()) {
-                $query->the_post();
-                echo '<li><a href="' . admin_url('admin.php?page=sensorica_shortcodes&edit=' . get_the_ID()) . '">' . get_the_title() . '</a></li>';
-            }
-            echo '</ul>';
-        } else {
-            echo '<p>No posts found with the specified taxonomy.</p>';
-        }
 
-        wp_reset_postdata();
+                wp_reset_postdata();
     }
 }

@@ -29,13 +29,8 @@ function sensorica_get_iframe_url($post_id)
 function sensorica_chat_shortcode($atts)
 {
     // Get the 'id' attribute from the shortcode
-    $atts = shortcode_atts(array(
-        'id' => 'newshortcode',
-        'title' => ''
-    ), $atts);
-    $envato_key = get_option('sensorica_envato_key', '');
-    // Check if the user is an admin
-    
+   
+
     //iframre rest api call 'sensorica/v1', '/chat/(?P<id>\d+)'
     $iframe_url = sensorica_get_iframe_url($atts['id']);
 

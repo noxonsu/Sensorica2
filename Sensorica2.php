@@ -30,7 +30,7 @@ define('sensorica_BASENAME', plugin_basename(__FILE__));
 require_once sensorica_PATH . '/vendor/autoload.php';
 include sensorica_PATH . 'tools/chate-mascot/sensorica-shortcode.php';
 include sensorica_PATH . 'settings.php';
-
+include sensorica_PATH . 'promptbase_shortcode.php';
 function sensorica_default_slug()
 {
     return 'sensorica';
@@ -81,7 +81,7 @@ function sensorica_settings_link($links)
 
 function getToolInfo($toolSlug)
 {
-  $tools = json_decode(file_get_contents(sensorica_PATH.'tools.json'), true);
+  $tools = json_decode(file_get_contents(sensorica_PATH.'platforms.json'), true);
   foreach ($tools as $tool) {
     if ($tool['slug'] == $toolSlug) {
       $tool = json_decode(file_get_contents(sensorica_PATH.'tools/' . $tool['slug'] . '/info.json'), true);
@@ -113,3 +113,4 @@ function admin_body_class( $classes ) {
 
 add_filter("admin_body_class", "admin_body_class", 9999); 
 //apply_filters( 'admin_body_class', 'sensorica_body_class' );
+

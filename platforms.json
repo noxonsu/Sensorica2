@@ -1,12 +1,12 @@
 [
   {
-    "title": "Website GPT Chat",
+    "title": "Website",
     "slug": "chate-mascot",
     "description": "🗨️ Engages visitors with AI chat and mascot. 🚀 Improves user experience and lead generation."
     , "group": "retention"
   },
   {
-    "title": "Telegram GPT Chat",
+    "title": "Telegram",
     "slug": "aigram",
     "description": "💬 Boosts engagement with AI-powered Telegram bot. 📈 Creates a viral effect for more customer interactions."
   , "group": "retention"

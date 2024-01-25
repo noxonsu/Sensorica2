@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# noxon! check Chate repo. then on aws . 
+# cd /home/ubuntu/chate_13015 && git pull && pm2 restart ecosystem.config.js && pm2 logs chat_13015
+# check (need ~ 1 min) https://apisensorica13015.onout.org/ is up and running
+
 # Change directory to vendor_source
 cd vendor_source
 rm -rf .next
