@@ -31,17 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['NEXT_PUBLIC_MAIN_TITL
 
         wp_set_object_terms($post_id, 'sensorica-chat', 'sensorica_chats');
 
-        echo '<div class="sensorica_title">';
+        echo '<div class="sensorica_form-section">';
         esc_html_e("Shortcode created successfully. Copy and paste the following shortcode into a page or post to display the chat form.");
-        
-        // Return the shortcode with the new ID
-        echo '<input class="sensorica_form-control"  value="[sensorica_chat id="' . $post_id . '"]" type="text"';
-
-        echo '</div>';
-
-        echo "This shorcote is available in the list of shortcodes in the admin panel.";
-        
+        sensorica_show_output_links_and_iframes($post_id);
         $sensorica_hide_final_form = true;
+        echo '</div>';
     }
 }
 

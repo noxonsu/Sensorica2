@@ -11,15 +11,15 @@
                 $input_data['default'] = "https://".$_SERVER['HTTP_HOST'];
               }
               ?>
-<input class="form-control userinput" value="<?php echo $input_data['default'];?>" type="text" name="<?php echo $input; ?>" id="<?php echo $input; ?>"
-                    placeholder="<?php echo $input_data['placeholder']; ?>" />
+<input class="sensorica_form-control sensorica_userinput" value="<?php echo $input_data['default'];?>" type="text" name="<?php echo $input; ?>" id="<?php echo $input; ?>"
+                    placeholder="<?php echo @$input_data['placeholder']; ?>" />
              
 
 
               <details>
                 <summary>
                   Instructions
-                  <div class="chevron">
+                  <div class="sensorica_chevron">
                     <svg class="icon">
                       <use xlink:href="#chevron"></use>
                     </svg>

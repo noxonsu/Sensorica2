@@ -25,7 +25,7 @@
     <form method="post" action="bot/deploy">
         <div class="sensorica_tab-container">
             <!-- tab 5 -->
-            <div class="sensorica_tab-title sensorica_active sensorica_filled" data-content="title5">
+            <div class="sensorica_active sensorica_filled" data-content="title5">
                 <div class="sensorica_headline" id="promptHeadline">
                     <span id="customIcon" style="background: #e00094"><svg class="sensorica_icon">
                             <use xlink:href="#ico-1"></use>
@@ -41,15 +41,15 @@
                 <ul class="sensorica_accordionOptionsList" id="listOfPrompts">
                     <?php
                     // Load tools from tools.json and show them
-                    $tools = json_decode(file_get_contents(SENSORICA2_PATH . 'tools.json'), true);
+                    $tools = json_decode(file_get_contents(sensorica_PATH . 'tools.json'), true);
 
                     foreach ($tools as $tool) {
                         if (!isset($tool['img'])) {
-                            $tool['img'] = SENSORICA2_URL . 'tools/' . $tool['slug'] . '/icon.png';
+                            $tool['img'] = sensorica_URL . 'tools/' . $tool['slug'] . '/icon.png';
                         }
                         // Use admin_url() to generate the correct admin URL with query parameters
                         $tool_url = esc_url(add_query_arg(array(
-                            'page' => 'sensorica2',
+                            'page' => 'sensorica',
                             'tool' => $tool['slug'],
                         ), admin_url('admin.php')));
 

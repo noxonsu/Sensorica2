@@ -1,11 +1,11 @@
 <?php
 /**
- * Plugin Name: Sensorica2
- * Description: Advanced sensor technology integration and analysis tools.
+ * Plugin Name: Sensorica
+ * Description: Run own AI wrapper.
  * Author: Aleksandr Noxon
- * Version: 0.1.0
+ * Version: 0.1.2
  * Requires PHP: 7.1
- * Text Domain: sensorica2
+ * Text Domain: sensorica
  * Domain Path: /languages
  */
 
@@ -15,21 +15,21 @@ if (!defined('ABSPATH')) {
 }
 
 // Define Plugin Constants.
-define('SENSORICA2_VERSION', '0.1.0');
+define('sensorica_VERSION', '0.1.2');
 $plugin_url = plugins_url('', __FILE__);
 
 // Check if the site is accessed via HTTPS and adjust the URL if necessary
 if ((isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') || (isset($_SERVER['HTTP_X_FORWARDED_PROTO']) && $_SERVER['HTTP_X_FORWARDED_PROTO'] === 'https')) {
     $plugin_url = str_replace('http://', 'https://', $plugin_url)."/";
 }
-//get SENSORICA2_URL plugin dirrectory using base site url
-define('SENSORICA2_URL', $plugin_url);
-define('SENSORICA2_PATH', plugin_dir_path(__FILE__));
-define('SENSORICA2_BASENAME', plugin_basename(__FILE__));
+//get sensorica_URL plugin dirrectory using base site url
+define('sensorica_URL', $plugin_url);
+define('sensorica_PATH', plugin_dir_path(__FILE__));
+define('sensorica_BASENAME', plugin_basename(__FILE__));
 
-require_once SENSORICA2_PATH . '/vendor/autoload.php';
-include SENSORICA2_PATH . 'tools/chate-mascot/sensorica-shortcode.php';
-include SENSORICA2_PATH . 'templates/settings.php';
+require_once sensorica_PATH . '/vendor/autoload.php';
+include sensorica_PATH . 'tools/chate-mascot/sensorica-shortcode.php';
+include sensorica_PATH . 'settings.php';
 
 function sensorica_default_slug()
 {
@@ -46,34 +46,34 @@ function sensorica_page_slug()
 }
 
 
-function sensorica2_menu()
+function sensorica_menu()
 {
     // Add the top-level menu page.
-    add_menu_page('Sensorica2', 'Sensorica2', 'manage_options', 'sensorica2', 'sensorica2_admin_page');
+    add_menu_page('Sensorica', 'Sensorica', 'manage_options', 'sensorica', 'sensorica_admin_page');
 
     // Add the submenus - New Run and Runs
-    add_submenu_page('sensorica2', 'Sensorica2 Shortcodes', 'Shortcodes', 'manage_options', 'sensorica2_shortcodes', 'sensorica2_shortcodes_page');
-    add_submenu_page('sensorica2', 'Sensorica2 Settings', 'Settings', 'manage_options', 'sensorica2_settings', 'sensorica2_settings_page');
+    add_submenu_page('sensorica', 'Sensorica Shortcodes', 'All Prompts', 'manage_options', 'sensorica_shortcodes', 'sensorica_shortcodes_page');
+    add_submenu_page('sensorica', 'Sensorica Settings', 'Settings', 'manage_options', 'sensorica_settings', 'sensorica_settings_page');
     
     
     // WordPress will automatically create a submenu with the same slug as the main menu.
     // Rename this automatically created submenu to "Settings"
     global $submenu;
-    if (isset($submenu['sensorica2'])) {
-        $submenu['sensorica2'][0][0] = 'New Shortcode';
+    if (isset($submenu['sensorica'])) {
+        $submenu['sensorica'][0][0] = 'New AI Prompt';
     }
 }
 
 
-function sensorica2_admin_page()
+function sensorica_admin_page()
 {
-    include SENSORICA2_PATH . 'index.php';
+    include sensorica_PATH . 'index.php';
 }
 
 // add settings link to plugin page
-function sensorica2_settings_link($links)
+function sensorica_settings_link($links)
 {
-    $settings_link = '<a href="admin.php?page=sensorica2">' . __('Settings') . '</a>';
+    $settings_link = '<a href="admin.php?page=sensorica">' . __('Settings') . '</a>';
     array_unshift($links, $settings_link);
     return $links;
 }
@@ -81,14 +81,35 @@ function sensorica2_settings_link($links)
 
 function getToolInfo($toolSlug)
 {
-  $tools = json_decode(file_get_contents(SENSORICA2_PATH.'tools.json'), true);
+  $tools = json_decode(file_get_contents(sensorica_PATH.'tools.json'), true);
   foreach ($tools as $tool) {
     if ($tool['slug'] == $toolSlug) {
-      $tool = json_decode(file_get_contents(SENSORICA2_PATH.'tools/' . $tool['slug'] . '/info.json'), true);
+      $tool = json_decode(file_get_contents(sensorica_PATH.'tools/' . $tool['slug'] . '/info.json'), true);
       break;
     }
   }
   return $tool;
 }
 
-add_action('admin_menu', 'sensorica2_menu');
+function sensorica_body_class($classes)
+{ 
+  $sensorica_theme = get_option('sensorica_theme', 'light');
+  $classes[] = $sensorica_theme;
+  return $classes;
+}
+
+
+add_action('admin_menu', 'sensorica_menu');
+
+
+
+add_filter('body_class', 'sensorica_body_class');
+
+function admin_body_class( $classes ) {
+     $classes .= ' 4 '.get_option('sensorica_theme', 'light');
+
+    return $classes;
+}
+
+add_filter("admin_body_class", "admin_body_class", 9999); 
+//apply_filters( 'admin_body_class', 'sensorica_body_class' );

@@ -1,7 +1,7 @@
 <?php
 use phpseclib\Crypt\RSA;
 
-include SENSORICA2_PATH.'tools/chate-mascot/admin.php';
+include sensorica_PATH.'tools/chate-mascot/admin.php';
 
 
 function register_sensorica_chats_taxonomy()
@@ -23,7 +23,7 @@ function register_sensorica_chats_taxonomy()
 
 function sensorica_get_iframe_url($post_id)
 {
-    $iframe_url = SENSORICA2_URL . 'tools/chate-mascot/vendor_source/Chat.php?post_id=' . $post_id;
+    $iframe_url = sensorica_URL . 'tools/chate-mascot/vendor_source/Chat.php?post_id=' . $post_id;
     return $iframe_url;
 }
 function sensorica_chat_shortcode($atts)
@@ -36,7 +36,7 @@ function sensorica_chat_shortcode($atts)
     $envato_key = get_option('sensorica_envato_key', '');
     // Check if the user is an admin
     
-    //iframre rest api call 'sensorica2/v1', '/chat/(?P<id>\d+)'
+    //iframre rest api call 'sensorica/v1', '/chat/(?P<id>\d+)'
     $iframe_url = sensorica_get_iframe_url($atts['id']);
 
 
@@ -45,7 +45,7 @@ function sensorica_chat_shortcode($atts)
 
 
 
-function sensorica2_get_shortcode_data($data) {
+function sensorica_get_shortcode_data($data) {
     $shortcode_id = $data['id'];
     $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
 
@@ -74,13 +74,13 @@ function sensorica2_get_shortcode_data($data) {
 function sensorica_form_shortcode($atts) {
 
     wp_enqueue_script('jquery');
-    wp_enqueue_style('sensorica2-style', SENSORICA2_URL . 'static/new.css', array(), SENSORICA2_VERSION, 'all');
+    wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION."_".rand(1,44), 'all');
   
     // Set the tool parameter
     $_GET['tool'] = 'chate-mascot';
 
     // Define the path to the file
-    $file_path = SENSORICA2_PATH . 'index.php';
+    $file_path = sensorica_PATH . 'index.php';
 
     // Check if the file exists
     if (file_exists($file_path)) {
@@ -93,26 +93,51 @@ function sensorica_form_shortcode($atts) {
     }
 }
 
+function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
+    <hr>
+    
+    Shortcode: <code>[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
+    <hr>
+    <div class="sensorica_form-section">
+        <label>HTML widget:</label>
+        <textarea rows="3" cols="50" readonly><?php 
+            $shortcode_html = sensorica_chat_shortcode(array(
+                'id' => $editing_post_id,
+            ));
+            echo esc_textarea($shortcode_html);
+            ?>
+        </textarea>
+    </div>
+    <hr>
+    <div class="sensorica_form-section">
+        <label>Direct url to this chat iframe:</label>
+        <input class="sensorica_form-control" type="text"
+               value="<?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?>" readonly>
+    </div>
+    <?php
+    }
+    
+
 
 
 add_shortcode('sensorica_chat', 'sensorica_chat_shortcode');
 add_action('init', 'register_sensorica_chats_taxonomy');
 
-add_action('enqueue_block_editor_assets', 'sensorica2_enqueue_block_editor_assets');
+add_action('enqueue_block_editor_assets', 'sensorica_enqueue_block_editor_assets');
 
 add_shortcode('sensorica_form', 'sensorica_form_shortcode');
 add_action('rest_api_init', function () {
-    register_rest_route('sensorica2/v1', '/chats/', array(
+    register_rest_route('sensorica/v1', '/chats/', array(
         'methods' => 'GET',
-        'callback' => 'sensorica2_get_chats',
+        'callback' => 'sensorica_get_chats',
         'permission_callback' => '__return_true'
     ));
 });
 
 add_action('rest_api_init', function () {
-    register_rest_route('sensorica2/v1', '/shortcode/(?P<id>\d+)', array(
+    register_rest_route('sensorica/v1', '/shortcode/(?P<id>\d+)', array(
         'methods' => 'GET',
-        'callback' => 'sensorica2_get_shortcode_data',
+        'callback' => 'sensorica_get_shortcode_data',
         'permission_callback' => '__return_true',
     ));
 });

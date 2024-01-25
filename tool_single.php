@@ -39,7 +39,6 @@ if (!$tool) {
 
     if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
       //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
-      echo "<h2 class='sensorica_title'>Finalization</h2>";
       if (!isset($tool['main_action_php_file'])) {
         $tool['main_action_php_file'] = 'action.php';
       }
@@ -85,7 +84,7 @@ if (!$tool) {
       ?>
       <div class="sensorica_tab-content active" data-content="title3">
         <div class="sensorica_headline" id='promptHeadline'>
-          <span style="background: <?php if ($input_data['background_color_svg']) {
+          <span style="background: <?php if (@$input_data['background_color_svg']) {
             echo '' . $input_data['background_color_svg'];
           } else {
             echo '#fff';
@@ -119,7 +118,8 @@ if (!$tool) {
         ?>
 
 
-        <input type="submit" value="Apply & Next" class='sensorica_btn' />
+        <input type="submit" id="sensorinca_next" value="Apply & Next" class='sensorica_btn' />
+      
       </div>
       <?php
       //show only one setting per step
@@ -134,7 +134,7 @@ if (!$tool) {
 </div>
 
 <script>
-  ; (() => {
+  
     const dataToEl = {
       <?php
       foreach ($tool['inputs'] as $input => $input_data) {
@@ -142,8 +142,11 @@ if (!$tool) {
       }
       ?>
     }
+  
+
 </script>
 <script>
+  ; (() => {
     const formData = {}
     let firstInit = false
     const loadFormFromLS = () => {

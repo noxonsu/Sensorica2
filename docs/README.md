@@ -1,7 +1,7 @@
-# Sensorica2
+# sensorica
 
 create telegram bots or embed to website
-![image](https://github.com/noxonsu/Sensorica2/assets/2914674/30f68aeb-3089-4abe-9e86-8c9d613d8267)
+![image](https://github.com/noxonsu/sensorica/assets/2914674/30f68aeb-3089-4abe-9e86-8c9d613d8267)
 
 
 # devops

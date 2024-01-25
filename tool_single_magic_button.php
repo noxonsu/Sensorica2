@@ -70,7 +70,7 @@ if (isset($input_data['magic_prompt'])) {
         // Call the OpenAI API
         OpenaiFetchAPI(userinput, function (response) {
           // Handle the API response
-            jQuery('.sensorica_userinput').val(response.choices[0].message.content.replace(/"/g, ''));
+            jQuery('.sensorica_userinput').val(response.choices[0].message.content.replace(/(\r\n|\n|\r|\")/gm, " "));
 
           // Mimic complete functionality
           complete();
@@ -104,7 +104,7 @@ if (isset($input_data['magic_prompt'])) {
     }
 
     function OpenaiFetchAPI(userInput, callback) {
-      console.log("Calling GPT3");
+      console.log("Calling GPT");
       
       var url = "https://api.openai.com/v1/chat/completions";
       var bearer = 'Bearer ' + document.getElementById('hd_OPENAI_API_KEY').value;

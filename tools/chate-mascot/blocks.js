@@ -1,10 +1,10 @@
 (function (blocks, editor, element, components, apiFetch) {
     var el = element.createElement;
     var SelectControl = components.SelectControl;
-    var useEffect = element.useEffect;
     var useState = element.useState;
-
-    blocks.registerBlockType('sensorica2/sensorica-chat', {
+    var useEffect = element.useEffect; // Correctly access useEffect
+    
+    blocks.registerBlockType('sensorica/sensorica-chat', {
         title: 'Sensorica Chat',
         icon: 'universal-access-alt',
         category: 'common',
@@ -19,25 +19,27 @@
             var setAttributes = props.setAttributes;
             var [options, setOptions] = useState([{ value: '', label: 'Select a Chat' }]);
 
-            var currentPostId = wp.data.select('core/editor').getCurrentPostId();
-
-            // Add the 'Context Chat' option with the current post ID
+            // Fetch chats and update options
             useEffect(function () {
-                apiFetch({ path: '?rest_route=/sensorica2/v1/chats/' }).then(function (chats) {
+                apiFetch({ path: '?rest_route=/sensorica/v1/chats/' }).then(function (chats) {
                     var newOptions = chats.map(function (chat) {
                         return { value: chat.id.toString(), label: chat.title };
                     });
-                    setOptions([
-                        { value: '', label: 'Select a Chat' },
-                        { value: currentPostId.toString(), label: 'Context Chat' }, // Set value to current post ID
-                        ...newOptions
-                    ]);
+                    setOptions([{ value: '', label: 'Select a Chat' }, ...newOptions]);
                 });
-            }, [currentPostId]); // Dependency array to update if currentPostId changes
+            }, []); // Empty dependency array means this runs once when the component mounts
+
+            function onChangeSelectChat(newChat) {
+                setAttributes({ selectedChat: newChat });
+            }
+
+            function getEditUrl(postId) {
+                return `${wp.data.select("core/editor").getEditorSettings().editPostURLRoot}post.php?post=${postId}&action=edit`;
+            }
 
             // Function to render the "Edit Prompt" link
             function renderEditLink() {
-                if (selectedChat && selectedChat !== '' && selectedChat !== currentPostId.toString()) {
+                if (selectedChat && selectedChat !== '') {
                     return el(
                         'a',
                         {
@@ -50,26 +52,6 @@
                 }
                 return null;
             }
-            // Function to display a message for 'Context Chat'
-            function renderContextChatMessage() {
-                if (selectedChat === currentPostId.toString()) { // Check if 'Context Chat' is selected
-                    return el(
-                        'p',
-                        {},
-                        'System prompt loads the content of the current post, and the user will chat, ask questions, etc.'
-                    );
-                }
-                return null;
-            }
-            function onChangeSelectChat(newChat) {
-                setAttributes({ selectedChat: newChat });
-            }
-
-            function getEditUrl(postId) {
-                return `${wp.data.select("core/editor").getEditorSettings().editPostURLRoot}post.php?post=${postId}&action=edit`;
-            }
-
-
 
             return el(
                 'div', { className: props.className },
@@ -82,8 +64,7 @@
                         onChange: onChangeSelectChat
                     }
                 ),
-                renderEditLink(), // Render the edit link (if applicable)
-                renderContextChatMessage() // Render the message for 'Context Chat'
+                renderEditLink() // Render the edit link (if applicable)
             );
         },
         save: function (props) {

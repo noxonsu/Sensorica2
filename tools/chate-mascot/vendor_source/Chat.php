@@ -24,8 +24,9 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         echo '<script>';
         echo 'window.sensorica_client_id = "' . get_option("sensorica_client_id") . '";';
         echo 'window.post_id = "' .esc_attr($post_id). '";';
-        //echo 'let sensorica_backend_rsa_openkey_base64 = "' . get_option("sensorica_backend_rsa_openkey_base64") . '";';
+        echo 'window.main_title = "' .esc_attr($post->post_title). '";';
         echo 'window.sensorica_openaiproxy = "' . $proxy . '";';
+        //echo 'alert(document.referrer)';
         echo '</script>';
         
         include("index.html");

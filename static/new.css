@@ -13,60 +13,46 @@ html {
           box-sizing: inherit;
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p,
-ol,
-ul {
-  margin: 0;
-  padding: 0;
-  font-weight: normal;
-}
 
-ol,
-ul {
+
+.sensorica_wrapper ol,
+.sensorica_wrapper ul {
   list-style: none;
 }
 
-img {
+.sensorica_wrapper img {
   max-width: 100%;
   height: auto;
 }
 
-* {
+.sensorica_wrapper * {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
-:root {
+.sensorica_wrapper :root {
   --color-link: #1AA5AC;
 }
 
-a {
+.sensorica_wrapper a {
   text-decoration: none;
   color: #1AA5AC;
 }
 
-body {
-  background-color: #141D2B;
-  font-family: "Montserrat", sans-serif;
-  color: #fff;
-}
 
 .sensorica_wrapper {
-  max-width: 1140px;
+  max-width: 1140px!important;
   padding: 0 20px 0 20px;
   margin: 0 auto;
 }
 
+
 @media (min-width: 992px) {
   .sensorica_wrapper {
     max-width: 960px;
+  }
+  .sensorica_wrapper main {
+    margin-top: 50px;
   }
 }
 @media (min-width: 1200px) {
@@ -168,7 +154,7 @@ h3.sensorica  {
   height: 56px;
   background: #1E2839;
   border: 0;
-  color: #fff!important;
+  color: #fff;
   border-radius: 10px;
   font-size: 20px;
   font-family: inherit;
@@ -1303,3 +1289,110 @@ details summary::-webkit-details-marker {
 .sensorica_deploymentPageTitle {
   color:white
 }
+
+.sensorica_light_theme {
+  background-color: #fff;
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_header {
+  background-color: #fff;
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_header h2 {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_header-logo {
+  background-color: #fff;
+}
+
+.sensorica_light_theme .sensorica_header-logo svg {
+  fill: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_nav li a {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_nav li a span {
+  background-color: #fff;
+}
+
+.sensorica_light_theme .sensorica_nav li a svg {
+  fill: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_form-group label {
+  color: #1E2839;
+}
+
+.sensorica_nav .sensorica_light_theme .sensorica_active {
+  background-color: gainsboro!important;
+  color: #1E2839;
+}
+.sensorica_light_theme .sensorica_tab-title.sensorica_active {
+  background-color: gainsboro!important;
+  color: #1E2839;
+}
+.sensorica_light_theme .sensorica_form-section  {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_accordionOptionsList li button {
+  background: #fff;
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_accordionOptionsList li button span {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_accordionOptionsList li button:hover {
+  background: #ededed;
+}
+
+.sensorica_light_theme .sensorica_separator span {
+  background-color: #fff;
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_prompt-area {
+  background-color: #fff;
+  color: #1E2839;
+  border: 1px solid #1E2839;
+}
+
+.sensorica_light_theme .sensorica_prompt-area:focus {
+  border-color: #1AA5AC;
+}
+
+.sensorica_light_theme .sensorica_prompt-area::-webkit-input-placeholder {
+  color: #1E2839;
+}
+
+
+
+.sensorica_light_theme .sensorica_form-control.sensorica_userinput {
+  background-color: #fff;
+  color: #1E2839;
+  border: 2px solid #1E2839;
+}
+
+.sensorica_light_theme .sensorica_form-control.sensorica_userinput:focus {
+  border-color: #1AA5AC;
+}
+
+.sensorica_light_theme .sensorica_form-control.sensorica_userinput::-webkit-input-placeholder {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_form-control.sensorica_userinput::placeholder {
+  color: #1E2839;
+}
+
+.sensorica_light_theme .sensorica_form-control.sensorica_userinput:-ms-input-placeholder {
+  color: #1E2839;
+}
+

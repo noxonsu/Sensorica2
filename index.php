@@ -13,35 +13,31 @@ if (isset($_GET['tool'])) {
 
 
   //wp_enqueue_script('jquery'); and css
-  wp_enqueue_script('jquery');
-  wp_enqueue_style('sensorica2-style', SENSORICA2_URL . 'static/new.css', array(), SENSORICA2_VERSION, 'all');
+wp_enqueue_script('jquery');
+wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
+
+//add get_option sensorica_theme class to body
+
 
 ?>
-  <div class="sensorica_wrapper">
-    <!-- header -->
-    <header class='sensorica_header'>
-      <div class="sensorica_header-logo">
-        <img src="<?php echo (isset($tool['img'])) ? $tool['img'] : SENSORICA2_URL.'static/images/chat-gpt-logo.svg'; ?>" alt="" />
-      </div>
-      <h2 class="sensorica_deploymentPageTitle">
-        <?php echo (isset($tool['title'])) ? $tool['title'] : "AI tools for WordPress"; ?>
-       <br> 
-      
-    </header>
-    <!--/ header -->
+  <div class="sensorica_wrapper <?php echo get_option('sensorica_theme', 'sensorica_light_theme'); ?>">
+  
     <main>
       <div class="sensorica_row">
         <?php
         if (isset($_GET['tool'])) {
-          include(SENSORICA2_PATH."tool_single.php");
+          include(sensorica_PATH."tool_single.php");
         }
         
         if (!isset($_GET['tool'])) {
-          include(SENSORICA2_PATH."select_tool.php");
+          include(sensorica_PATH."select_tool.php");
         } ?>
       </div>
       <!-- footer -->
-      <footer class='sensorica'>
+      
+      <footer class='sensorica'><?php //only FOR ADMIN
+      if (current_user_can('administrator')) {
+      ?>
         <div class="sensorica_supportWrapper">
           Support:
           <a href="mailto:support@onout.org" target="_blank" rel="noreferrer"><svg class="icon">
@@ -56,14 +52,16 @@ if (isset($_GET['tool'])) {
         </div>
         <div class="sensorica_supportWrapper">
           Community: <a href="https://discord.com/channels/898545581591506975/1078964362783506442"
-            target="_blank">Discord</a> or <a href="https://t.me/sensorica2" target="_blank">Telegram</a>
+            target="_blank">Discord</a> or <a href="https://t.me/sensorica" target="_blank">Telegram</a>
         </div>
+        <?php } ?>
       </footer>
+      
       <!--/ footer -->
     </main>
   </div>
   <!-- import svg -->
   <?php
   //import svg static/icons/icons.svg
-  echo file_get_contents(SENSORICA2_PATH.'static/icons/icons.svg');
+  echo file_get_contents(sensorica_PATH.'static/icons/icons.svg');
   ?>

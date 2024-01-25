@@ -1,19 +1,23 @@
+<?php
 
-<?php 
 
-function sensorica2_enqueue_block_editor_assets() {
+
+
+function sensorica_enqueue_block_editor_assets()
+{
     wp_enqueue_script(
-        'sensorica2-blocks',
-        SENSORICA2_URL . 'tools/chate-mascot/blocks.js?rand=' . rand(1,22222),
+        'sensorica-blocks',
+        sensorica_URL . 'tools/chate-mascot/blocks.js?rand=' . rand(1, 22222),
         array('wp-blocks', 'wp-i18n', 'wp-element', 'wp-editor'),
-        SENSORICA2_VERSION,
+        sensorica_VERSION,
         true
     );
 
 }
 
 
-function sensorica2_get_chats() {
+function sensorica_get_chats()
+{
     $chats_query = new WP_Query(array(
         'post_type' => 'post',
         'post_status' => 'publish',
@@ -40,23 +44,25 @@ function sensorica2_get_chats() {
     return new WP_REST_Response($chats, 200);
 }
 
-function sensorica2_shortcodes_page()
+function sensorica_shortcodes_page()
 {
-    echo '<h2>Sensorica2 Shortcodes</h2>';
+    wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
+
+    echo '<h2>Sensorica Prompts</h2>';
     // Debugging: Check if the taxonomy has any terms and associated posts
     $terms = get_terms(array(
         'taxonomy' => 'sensorica_chats',
         'hide_empty' => false,
     ));
-    
-    
+
+
 
     // Check if a specific post is being edited
     $editing_post_id = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
 
     // Handle form submission for edits
     if ('POST' === $_SERVER['REQUEST_METHOD'] && $editing_post_id > 0) {
-        check_admin_referer('sensorica2_edit_shortcode');
+        check_admin_referer('sensorica_edit_shortcode');
 
         $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
@@ -84,36 +90,47 @@ function sensorica2_shortcodes_page()
         $saved_inputs = get_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', true);
 
         ?>
-        <form method="post">
-            <?php wp_nonce_field('sensorica2_edit_shortcode'); ?>
-            <input type="hidden" name="edit_id" value="<?php echo esc_attr($editing_post_id); ?>">
+        <div class="sensorica_wrapper">
 
-            <label for="NEXT_PUBLIC_MAIN_TITLE">Main Title:</label>
-            <input type="text" name="NEXT_PUBLIC_MAIN_TITLE" id="NEXT_PUBLIC_MAIN_TITLE"
-                value="<?php echo get_the_title($editing_post_id); ?>"><br>
+            <main>
+                <div class="sensorica_row">
+                    <form method="post">
+                        <?php wp_nonce_field('sensorica_edit_shortcode'); ?>
+                        <input type="hidden" name="edit_id" value="<?php echo esc_attr($editing_post_id); ?>">
+                        <div class="sensorica_form-section">
 
-            <label for="OPENAI_API_KEY">OpenAI API Key:</label>
-            <input type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY"
-                value="<?php echo esc_attr($saved_inputs['API_KEY'] ?? ''); ?>"><br>
+                            <label for="NEXT_PUBLIC_MAIN_TITLE">Main Title:</label>
+                            <input class="sensorica_form-control" type="text" name="NEXT_PUBLIC_MAIN_TITLE"
+                                id="NEXT_PUBLIC_MAIN_TITLE" value="<?php echo get_the_title($editing_post_id); ?>"><br>
 
-            <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
-            <textarea name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
-                id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea><br>
+                        </div>
+                        <div class="sensorica_form-section">
 
-            <input type="submit" class="btn btn-primary" value="Update">
-            <hr>
-            Shortcode: <code>[sensorica2_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
-            <hr>
-            HTML widget: <textarea rows="3" cols="50"><?php 
-                $shortcode_html = sensorica_chat_shortcode(array(
-                    'id' => $editing_post_id,
-                ));
-                echo esc_textarea($shortcode_html);
-                ?>
-            </textarea>
-            <hr>
-            Direct url to this chat iframe: <code><?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?></code>
-        </form>
+                            <label for="OPENAI_API_KEY">OpenAI API Key:</label>
+                            <input class="sensorica_form-control" type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY"
+                                value="<?php echo esc_attr($saved_inputs['API_KEY'] ?? ''); ?>"><br>
+                        </div>
+                        <div class="sensorica_form-section">
+                            
+
+                                <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
+                                <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
+                                    id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
+                                <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
+                            
+                        </div>
+                        <input type="submit" class="sensorica_btn" value="Update">
+                        
+                        <div class="sensorica_separator"><span>Codes for embeding: </span></div>
+                        <?php
+                        sensorica_show_output_links_and_iframes($editing_post_id);
+
+                        ?>
+                        </div>
+                    </form>
+                </div>
+            </main>
+        </div>
         <?php
     } else {
         // List all posts with 'sensorica_chats' taxonomy
@@ -135,7 +152,7 @@ function sensorica2_shortcodes_page()
             echo '<ul>';
             while ($query->have_posts()) {
                 $query->the_post();
-                echo '<li><a href="' . admin_url('admin.php?page=sensorica2_shortcodes&edit=' . get_the_ID()) . '">' . get_the_title() . '</a></li>';
+                echo '<li><a href="' . admin_url('admin.php?page=sensorica_shortcodes&edit=' . get_the_ID()) . '">' . get_the_title() . '</a></li>';
             }
             echo '</ul>';
         } else {

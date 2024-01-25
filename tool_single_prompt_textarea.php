@@ -10,7 +10,7 @@
   <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
 </div>
 <div class="sensorica_separator"><span>or</span></div>
-<div class="sensorica_title" id="listOfPromptsTitle">Choose Available Prompt Templates</div>
+<div class="sensorica_title" id="listOfPromptsTitle">Select one of the prompt examples</div>
 <ul class="sensorica_accordionOptionsList" id="listOfPrompts"></ul>
 <div class="sensorica_more">
   <a href="https://github.com/search?q=GPTs&type=repositories" target=_blank>Get more templates</a>
@@ -24,30 +24,29 @@
 
   const prompts = [
     {
-      "img": "<?php echo SENSORICA2_URL; ?>static/icons/business.png",
+      "img": "<?php echo sensorica_URL; ?>static/icons/business.png",
       "title": "AI assistent",
       "description": "The bot will chat the same as ChatGPT",
       "prompt": "You are an AI assistent"
     },
     {
-      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
-      "title": "Talk to website's database",
-      "description": "Add FAQ and other materials to the bot",
-      "prompt": `Act like a Mascot. You are the beloved mascot of {ENTER YOUR COMPANY OR COMMUNITY THEME}. You're tasked with cheering up the community, keeping spirits high, and answering any questions they might have. Converse as if you're interacting with community members throughout an event or gathering. 
-    
-Your database
+      "img": "<?php echo sensorica_URL; ?>static/icons/resume.png",
+      "title": "Pre-sale consultant",
+      "description": "Will talk about your product/service with users",
+      "prompt": `Act like a knowledgeable and approachable presale consultant who is demonstrating a {your prdoduct name}. 
+
 put here your FAQ and other documents in text 
     `
     },
     {
-      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
+      "img": "<?php echo sensorica_URL; ?>static/icons/resume.png",
       "title": "Funny Mascot persona",
       "description": "Add funny mascot to the bot",
       "prompt": `Create a 
     `
     },
     {
-      "img": "<?php echo SENSORICA2_URL; ?>static/icons/resume.png",
+      "img": "<?php echo sensorica_URL; ?>static/icons/resume.png",
       "title": "Single page content answering",
       "description": "Allow user to talk with a single page (publication) content",
       "prompt": `You answer a questions based on current page content. Content:`
@@ -205,7 +204,7 @@ put here your FAQ and other documents in text
     const goBackButton = event.target;
     if (goBackButton && goBackButton.id === "goBackButton") {
       createPrompts();
-      changeSection(false, "Choose Available Prompt Templates");
+      changeSection(false, "Prompt examples");
       promptHeadline.classList.remove("with-image-icon");
       promptHeadline.innerHTML = "Write or Choose Prompt";
       const icon = document.createElement("span");
@@ -239,4 +238,6 @@ put here your FAQ and other documents in text
   }
 
 
-</script>
+</script><style>
+  #sensorinca_next {display:none}
+</style>

@@ -1,13 +1,20 @@
 <?php
 use phpseclib\Crypt\RSA;
 
-function sensorica2_settings_page()
+function sensorica_settings_page()
 {
   //check admin permission
   if (!current_user_can('manage_options')) {
     return;
   }
   if (isset($_POST['sensorica_envato_key'])) {
+
+    //save settings
+
+    $sensorica_theme = sanitize_text_field($_POST['sensorica_theme']);
+    update_option('sensorica_theme', $sensorica_theme);
+  
+
     $sensorica_back = sanitize_text_field($_POST['sensorica_openaiproxy']);
     update_option('sensorica_envato_key', sanitize_text_field($_POST['sensorica_envato_key']));
 
@@ -25,7 +32,7 @@ function sensorica2_settings_page()
 
     $post_data = [
       'rsa_private_key' => $rsa_key['privatekey'],
-      'registeredurl' => base64_encode(home_url()."/wp-json/sensorica2/v1/shortcode/806"),
+      'registeredurl' => base64_encode(home_url()."/wp-json/sensorica/v1/shortcode/{id}"),
       'key' => $envato_key
     ];
 
@@ -96,10 +103,44 @@ function sensorica2_settings_page()
                     <input type="text" name="sensorica_envato_key" id="sensorica_envato_key"
                       value="<?php esc_attr_e(get_option('sensorica_envato_key', '...')) ?>" />
                     <p class="description">
-                      <?php esc_html_e('Put here your envato license kety'); ?>
+                      <?php esc_html_e('Put here your envato license key here'); ?>
                     </p>
                   </td>
                 </tr>
+                <?php 
+                //dark or light theme selector
+                $sensorica_theme = get_option('sensorica_theme', 'light');
+                if (isset($sensorica_theme)) {
+                  ?>
+                  <tr>
+                    <th scope="row">
+                      <label>
+                        <?php echo esc_html('Theme', 'sensorica'); ?>
+                      </label>
+                    </th>
+                    <td>
+                      <select name="sensorica_theme" id="sensorica_theme">
+                        <option value="sensorica_light_theme" <?php if ($sensorica_theme == 'sensorica_light_theme') {
+                                              echo 'selected';
+                                            } ?>>
+                          <?php esc_html_e('Light', 'sensorica'); ?>
+                        </option>
+                        <option value="sensorica_dark_theme" <?php if ($sensorica_theme == 'sensorica_dark_theme') {
+                                              echo 'selected';
+                                            } ?>>
+                          <?php esc_html_e('Dark', 'sensorica'); ?>
+                        </option>
+                      </select>
+                      <p class="description">
+                        <?php esc_html_e('Select theme'); ?>
+                      </p>
+                    </td>
+                  </tr>
+                  <?php
+                }
+                ?>
+                
+
                 <tr>
                   <th scope="row">
                     <label>
@@ -118,7 +159,7 @@ function sensorica2_settings_page()
                 <?php
                 $sensorica_client_id = get_option('sensorica_client_id', '');
                 $sensorica_backend_rsa_openkey_base64 = get_option('sensorica_backend_rsa_openkey_base64', '');
-
+                
                 if ($sensorica_client_id !== '' && $sensorica_backend_rsa_openkey_base64 !== '') {
                   ?>
                   <tr>
@@ -128,7 +169,7 @@ function sensorica2_settings_page()
                       </label>
                     </th>
                     <td>
-                      <input type="text" name="sensorica_client_id" id="sensorica_client_id"
+                      <input type="text" disabled name="sensorica_client_id" id="sensorica_client_id"
                         value="<?php esc_attr_e($sensorica_client_id) ?>" />
                       <p class="description">
                         <?php esc_html_e('Your client id'); ?>
@@ -142,7 +183,7 @@ function sensorica2_settings_page()
                       </label>
                     </th>
                     <td>
-                      <textarea name="sensorica_backend_rsa_openkey_base64" id="sensorica_backend_rsa_openkey_base64"
+                      <textarea disabled name="sensorica_backend_rsa_openkey_base64" id="sensorica_backend_rsa_openkey_base64"
                         rows="10"
                         cols="100"><?php esc_attr_e(base64_decode($sensorica_backend_rsa_openkey_base64)); ?></textarea>
                       <p class="description">
