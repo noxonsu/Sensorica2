@@ -26,7 +26,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         echo 'window.post_id = "' .esc_attr($post_id). '";';
         echo 'window.main_title = "' .esc_attr($post->post_title). '";';
         echo 'window.sensorica_openaiproxy = "' . $proxy . '";';
-        //echo 'alert(document.referrer)';
+        echo 'window.chatUniqId = "' . get_option("sensorica_client_id") . '_' . esc_attr($post_id) . '";';
         echo '</script>';
         
         include("index.html");
