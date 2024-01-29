@@ -19,7 +19,7 @@ wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), s
     <div class="sensorica_row">
       <?php
       if (isset($_GET['tool'])) {
-        include(sensorica_PATH . "tool_single.php");
+        include(sensorica_PATH . "create/tool_single.php");
       }
       
       if (!isset($_GET['tool'])) {

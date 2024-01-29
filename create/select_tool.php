@@ -47,12 +47,12 @@
                             $tool['img'] = sensorica_URL . 'tools/' . $tool['slug'] . '/icon.png';
                         }
                         // Use admin_url() to generate the correct admin URL with query parameters
-                        $tool_url = esc_url(add_query_arg(array(
+                        $create_tool_url = esc_url(add_query_arg(array(
                             'page' => 'sensorica',
                             'tool' => $tool['slug'],
                         ), admin_url('admin.php')));
 
-                        echo '<li><button onclick="window.location=\'' . $tool_url . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . esc_url(plugin_dir_url(__FILE__) . 'tools/' . $tool['slug'] . '/icon.png') . '" /><span>' . esc_html($tool['title']) . '</span>' . esc_html($tool['description']) . '</button></li>';
+                        echo '<li><button onclick="window.location=\'' . $create_tool_url . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . esc_url(plugin_dir_url(__FILE__) . 'tools/' . $tool['slug'] . '/icon.png') . '" /><span>' . esc_html($tool['title']) . '</span>' . esc_html($tool['description']) . '</button></li>';
                     }
                     ?>
                 </ul>

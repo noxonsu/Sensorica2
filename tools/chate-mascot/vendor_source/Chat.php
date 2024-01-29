@@ -21,7 +21,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         $proxy = get_option("sensorica_openaiproxy");
         $proxy = str_replace("telegram.", "apisensorica13015.", $proxy);
         $proxy = 'https://apisensorica13015.onout.org/';
-        if (get_option("sensorica_use_openaiproxy") == "1") {
+        if (get_option("sensorica_use_openaiproxy") != "1") {
             $proxy = home_url()."/wp-json/sensorica/v1/shortcode/".$post_id;
         }
         echo '<script>';

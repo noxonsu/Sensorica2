@@ -1,0 +1,8 @@
+{
+  "devDependencies": {
+    "jshint": "^2.13.6"
+  },
+  "scripts": {
+    "lint": "jshint ./static/js/"
+  }
+}

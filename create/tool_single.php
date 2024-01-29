@@ -34,7 +34,7 @@ if (!$tool) {
     <div class="sensorica_title">
       <?php esc_html_e('WP shortcode for this form:', 'sensorica'); ?>
     </div>
-    <code>[sensorica_form tool_name='<?php echo esc_attr($tool['slug']); ?>']</code>
+    <code>[sensorica_form create/tool_name='<?php echo esc_attr($tool['slug']); ?>']</code>
   <?php } ?>
 </div>
 
@@ -110,18 +110,18 @@ if (!$tool) {
         </div>
         <?php
         if (!isset($input_data['type'])) {
-          include("tool_single_input.php");
+          include(sensorica_PATH."create/tool_single_input.php");
         } else if ($input_data['type'] == 'prompt_textarea') {
 
-          include("tool_single_prompt_textarea.php");
+          include(sensorica_PATH."create/tool_single_prompt_textarea.php");
         } else if ($input_data['type'] == 'textarea') {
-          include("tool_single_textarea.php");
+          include(sensorica_PATH."create/tool_single_textarea.php");
         } else if ($input_data['type'] == 'website') {
-          include("tool_single_website.php");
+          include(sensorica_PATH."create/tool_single_website.php");
         } ?>
 
         <?php
-        include_once("tool_single_magic_button.php");
+        include_once(sensorica_PATH."create/tool_single_magic_button.php");
         ?>
 
 
@@ -153,7 +153,7 @@ if (!$tool) {
 </script>
 <?php 
 function enqueue_custom_script() {
-  wp_enqueue_script( 'custom-script', get_template_directory_uri() . '/static/js/tool_single.js', array(), '1.0', true );
+  wp_enqueue_script( 'custom-script', get_template_directory_uri() . '/static/js/create/tool_single.js', array(), '1.0', true );
 }
 add_action( 'wp_enqueue_scripts', 'enqueue_custom_script' );
 ?><!--/ content -->
