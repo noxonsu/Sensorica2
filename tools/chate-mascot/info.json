@@ -1,10 +1,23 @@
 {
   "title": "Website GPT Chat",
   "slug": "chate-mascot",
-  "version":  "1.0.2",
+  "version": "1.0.2",
   "img": "https://drivingschool.wpmix.net/wp-content/plugins/sensorica/static/icons/business.png",
   "description": "Interactive mascot for websites. Load your database to AI chat and youser will be able to ask questions and get answers.",
   "inputs": {
+    "OPENAI_API_KEY": {
+      "title": "OpenAI API Key",
+      "description": "OpenAI API key for generating responses.",
+      "error_message": "Please enter a valid OpenAI API key.",
+      "required": true,
+      "svg_icon_id": "ico-2",
+      "background_color_svg": "#10a37f",
+      "help_image": [
+        "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
+        "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",
+        "Copy the API key to your clipboard and paste it here."
+      ]
+    },
     "NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT": {
       "title": "System Prompt",
       "description": "Optional custom system prompt for your bot. You can set one if you like.",
@@ -17,19 +30,6 @@
       ],
       "svg_icon_id": "ico-1",
       "background_color_svg": "rgb(224, 0, 148)"
-    },
-    "OPENAI_API_KEY": {
-      "title": "OpenAI API Key",
-      "description": "OpenAI API key for generating responses.",
-      "error_message": "Please enter a valid OpenAI API key.",
-      "required": true,
-      "svg_icon_id": "ico-2",
-      "background_color_svg": "#10a37f",
-      "help_image":[
-        "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
-        "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",
-        "Copy the API key to your clipboard and paste it here."
-      ]
     },
     "NEXT_PUBLIC_MAIN_TITLE": {
       "title": "Welcome Message",

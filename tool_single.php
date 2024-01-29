@@ -7,31 +7,37 @@ if (!$tool) {
 }
 ?>
 <div class="sensorica_sidebar">
-  <div class="sensorica_title">Fill The Form Step By Step:</div>
+  <div class="sensorica_title">
+    <?php esc_html_e('Fill The Form Step By Step:', 'sensorica'); ?>
+  </div>
   <ul class="sensorica_nav">
     <?php
     foreach ($tool['inputs'] as $input => $input_data) {
       if (!isset($input_data['title']) || $input_data['title'] == '') {
-        $input_data['title'] = 'Untitled';
+        $input_data['title'] = esc_html__('Untitled', 'sensorica'); // Use esc_html__() for assignment
       }
-      echo '<li><a href="javascript:void(0);" data-ref="' . $input_data['title'] . '" class="sensorica_tab-title" data-title="title1"><svg class="sensorica_icon"><use xlink:href="#' . $input_data['svg_icon_id'] . '"></use></svg>' . $input_data['title'] . '</a></li>';
+      echo '<li><a href="javascript:void(0);" data-ref="' . esc_attr($input_data['title']) . '" class="sensorica_tab-title" data-title="title1"><svg class="sensorica_icon"><use xlink:href="#' . esc_attr($input_data['svg_icon_id']) . '"></use></svg>' . esc_html($input_data['title']) . '</a></li>';
     }
     ?>
     <li>
       <a href="javascript:void(0);"
         class="sensorica_tab-title <?php echo (isset($_POST['action']) && $_POST['action'] == 'Finalize') ? 'sensorica_active' : ''; ?>"
         data-title="title8"><svg class="sensorica_icon">
-          <use xlink:href="#ico-2"></use>
-        </svg>Result</a>
+          <use xlink:href="#ico-7"></use>
+        </svg>
+        <?php esc_html_e('Result', 'sensorica'); ?>
+      </a>
     </li>
-
   </ul>
   <?php if (is_admin()) { ?>
     <br><br>
-    <div class="sensorica_title">WP shortcode for this form:</div>
-    <code>[sensorica_form tool_name='<?php echo $tool['slug']; ?>']</code>
+    <div class="sensorica_title">
+      <?php esc_html_e('WP shortcode for this form:', 'sensorica'); ?>
+    </div>
+    <code>[sensorica_form tool_name='<?php echo esc_attr($tool['slug']); ?>']</code>
   <?php } ?>
 </div>
+
 <!-- content -->
 <div class="sensorica_content">
   <form action="" method="post">
@@ -85,21 +91,22 @@ if (!$tool) {
       <div class="sensorica_tab-content active" data-content="title3">
         <div class="sensorica_headline" id='promptHeadline'>
           <span style="background: <?php if (@$input_data['background_color_svg']) {
-            echo '' . $input_data['background_color_svg'];
+            echo esc_attr($input_data['background_color_svg']);
           } else {
-            echo '#fff';
+            esc_html_e('#fff', 'sensorica');
           } ?>"><svg class="icon" style="<?php if (isset($input_data['style_svg'])) {
-             echo '' . $input_data['style_svg'];
+             echo esc_attr($input_data['style_svg']);
            } else {
-             echo 'fill: black';
+             esc_html_e('fill: black', 'sensorica');
            } ?>">
-              <use xlink:href="#<?php echo $input_data['svg_icon_id']; ?>"></use>
+              <use xlink:href="#<?php echo esc_attr($input_data['svg_icon_id']); ?>"></use>
             </svg></span>
+
           <?php
           if (!isset($input_data['title']) || $input_data['title'] == '') {
-            $input_data['title'] = 'Untitled';
+            $input_data['title'] = esc_html_e('HTML widget:', 'sensorica');
           }
-          echo $input_data['title']; ?>
+          echo esc_html_e($input_data['title'], 'sensorica'); ?>
         </div>
         <?php
         if (!isset($input_data['type'])) {
@@ -118,8 +125,9 @@ if (!$tool) {
         ?>
 
 
-        <input type="submit" id="sensorinca_next" value="Apply & Next" class='sensorica_btn' />
-      
+        <input type="submit" id="sensorinca_next" value="<?php esc_html_e("Apply & Next", "sensorica") ?>"
+          class='sensorica_btn' />
+
       </div>
       <?php
       //show only one setting per step
@@ -134,61 +142,18 @@ if (!$tool) {
 </div>
 
 <script>
-  
-    const dataToEl = {
-      <?php
-      foreach ($tool['inputs'] as $input => $input_data) {
-        echo "'" . $input . "': '#hd_" . $input . "',";
-      }
-      ?>
+  //neseserry inline script. can't be moved to separate file
+  const dataToEl = {
+    <?php
+    foreach ($tool['inputs'] as $input => $input_data) {
+      echo "'" . $input . "': '#hd_" . $input . "',";
     }
-  
-
+    ?>
+  }
 </script>
-<script>
-  ; (() => {
-    const formData = {}
-    let firstInit = false
-    const loadFormFromLS = () => {
-      try {
-        let data = localStorage.getItem('sensorica_bot_params');
-        if (data) {
-          data = JSON.parse(data);
-          console.log("Loaded Data:", data); // Debugging
-
-          Object.keys(data).forEach((dataKey) => {
-            if (dataKey && dataToEl[dataKey]) { // Check if key is not empty and exists in dataToEl
-              console.log("Key:", dataKey, "Value:", data[dataKey]); // Debugging
-
-              const element = document.querySelector(dataToEl[dataKey].replace("hd_", ""));
-              if (element) {
-                element.value = data[dataKey];
-                console.log("Element found for", dataKey, ": Setting value to", data[dataKey]); // Debugging
-              } else {
-                console.log("Element not found for", dataKey); // Debugging
-              }
-            }
-          });
-        }
-      } catch (err) {
-        console.log('>> fail load form from LS', err);
-      }
-    };
-
-    const saveFormToLS = () => {
-
-      localStorage.setItem('sensorica_bot_params', JSON.stringify(formData))
-    }
-
-    const inputs = document.querySelectorAll('input, textarea')
-    loadFormFromLS()
-    inputs.forEach((input) => {
-      input.addEventListener('input', () => {
-        formData[input.name] = input.value;
-        saveFormToLS();
-      });
-    })
-
-  })()
-</script>
-<!--/ content -->
+<?php 
+function enqueue_custom_script() {
+  wp_enqueue_script( 'custom-script', get_template_directory_uri() . '/static/js/tool_single.js', array(), '1.0', true );
+}
+add_action( 'wp_enqueue_scripts', 'enqueue_custom_script' );
+?><!--/ content -->

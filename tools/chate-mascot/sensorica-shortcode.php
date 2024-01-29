@@ -35,7 +35,7 @@ function sensorica_chat_shortcode($atts)
     $iframe_url = sensorica_get_iframe_url($atts['id']);
 
 
-    return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe><br><a style="color:gray" href="https://onout.org/embedGPT">embed chatgpt</a>';
+    return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe> '.get_option('sensorica_chat_footer', '');
 }
 
 
@@ -91,10 +91,10 @@ function sensorica_form_shortcode($atts) {
 function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
     <hr>
     
-    Shortcode: <code>[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
+    <?php esc_html_e('Shortcode:', 'sensorica'); ?> <code>[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
     <hr>
     <div class="sensorica_form-section">
-        <label>HTML widget:</label>
+        <?php esc_html_e('HTML widget:', 'sensorica'); ?>
         <textarea rows="3" cols="50" readonly><?php 
             $shortcode_html = sensorica_chat_shortcode(array(
                 'id' => $editing_post_id,
@@ -105,12 +105,13 @@ function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
     </div>
     <hr>
     <div class="sensorica_form-section">
-        <label>Direct url to this chat iframe:</label>
+        <?php esc_html_e('Direct url to this chat iframe:', 'sensorica'); ?>
         <input class="sensorica_form-control" type="text"
                value="<?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?>" readonly>
     </div>
     <?php
-    }
+}
+
     
 
 
@@ -136,5 +137,6 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ));
 });
+
 
 

@@ -14,6 +14,9 @@
                 default: ''
             }
         },
+        supports: {
+            align: ['wide', 'full', 'center', 'left', 'right'],
+        },
         edit: function (props) {
             var selectedChat = props.attributes.selectedChat;
             var setAttributes = props.setAttributes;

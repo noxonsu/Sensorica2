@@ -17,7 +17,12 @@ function sensorica_promptbase($atts)
         //https://raw.githubusercontent.com/linexjlin/GPTs/main/prompts/devrelguide.md
         $url = 'https://raw.githubusercontent.com/linexjlin/GPTs/main/prompts/' . esc_attr($prompt) . '.md';
 
-        $response = wp_remote_get($url);
+        $response = get_transient('sensorica_promptbase_response');
+
+        if (false === $response) {
+            $response = wp_remote_get($url);
+            set_transient('sensorica_promptbase_response', $response, 3600); // Cache for 1 hour
+        }
         
         $body = wp_remote_retrieve_body($response);
         $main_title = sanitize_text_field($prompt." (auto)");

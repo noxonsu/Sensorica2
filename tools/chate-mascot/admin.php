@@ -61,8 +61,8 @@ function sensorica_shortcodes_page()
     $editing_post_id = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
 
     // Handle form submission for edits
-    if ('POST' === $_SERVER['REQUEST_METHOD'] && $editing_post_id > 0) {
-        check_admin_referer('sensorica_edit_shortcode');
+    if ('POST' === $_SERVER['REQUEST_METHOD'] && $editing_post_id > 0 && is_admin()) {
+        
 
         $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
@@ -116,7 +116,7 @@ function sensorica_shortcodes_page()
                             <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
                             <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
                                 id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
-                            <a style='color:black' href="?tool=gpt-crawler">Attach a database</a>
+                            
 
                         </div>
                         <input type="submit" class="sensorica_btn" value="Update">
@@ -134,6 +134,13 @@ function sensorica_shortcodes_page()
         <?php
     } else {
         // List all posts with 'sensorica_chats' taxonomy
+        $pagenum = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
+        $limit = 30;
+        $offset = ( $pagenum - 1 ) * $limit;
+        global $wpdb;
+        $total = $wpdb->get_var( "SELECT COUNT(`ID`) FROM {$wpdb->posts} WHERE `post_type` = 'post' AND `post_status` = 'publish' AND `post_title` != ''" );
+        $num_of_pages = ceil( $total / $limit );
+
         $args = array(
             'post_type' => 'post',
             'post_status' => 'publish',
@@ -144,6 +151,8 @@ function sensorica_shortcodes_page()
                     'terms' => 'sensorica-chat', // Replace with the correct term slug
                 ),
             ),
+            'posts_per_page' => $limit,
+            'offset' => $offset,
         );
 
         $query = new WP_Query($args);
@@ -211,5 +220,27 @@ function sensorica_shortcodes_page()
 
 
                 wp_reset_postdata();
+                
+                ?>
+            </tbody>
+        </table>
+        <?php
+        //add pagination here
+        
+        $page_links = paginate_links( array(
+            'base' => add_query_arg( 'pagenum', '%#%' ),
+            'format' => '',
+            'prev_text' => __( '&laquo;', 'text-domain' ),
+            'next_text' => __( '&raquo;', 'text-domain' ),
+            'total' => $num_of_pages,
+            'current' => $pagenum
+        ) );
+        
+        if ( $page_links ) {
+            echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">' . $page_links . '</div></div>';
+        }
+        ?>
+        <?php
+
     }
 }

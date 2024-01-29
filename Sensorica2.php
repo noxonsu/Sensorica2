@@ -112,5 +112,4 @@ function admin_body_class( $classes ) {
 }
 
 add_filter("admin_body_class", "admin_body_class", 9999); 
-//apply_filters( 'admin_body_class', 'sensorica_body_class' );
 

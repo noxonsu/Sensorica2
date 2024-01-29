@@ -6,12 +6,7 @@ html {
   font-size: 16px;
 }
 
-*,
-*:before,
-*:after {
-  -webkit-box-sizing: inherit;
-          box-sizing: inherit;
-}
+
 
 
 
@@ -44,6 +39,12 @@ html {
   max-width: 1140px!important;
   padding: 0 20px 0 20px;
   margin: 0 auto;
+  
+}
+
+.sensorica_dark_theme  {
+  background-color:#141d2b;
+  color: #fff;
 }
 
 
@@ -1387,6 +1388,7 @@ details summary::-webkit-details-marker {
 .sensorica_light_theme .sensorica_form-control:valid {
   border-color: #1AA5AC;
   background-color: #fff;
+  color: #1E2839;
 }
 
 .sensorica_light_theme .sensorica_form-control.sensorica_userinput::-webkit-input-placeholder {
@@ -1401,3 +1403,15 @@ details summary::-webkit-details-marker {
   color: #1E2839;
 }
 
+.sensorica_light_theme .sensorica ol {
+  counter-reset: my-counter;
+}
+
+.sensorica_light_theme .sensorica ol li {
+  color: #1E2839;
+  counter-increment: my-counter;
+}
+
+.sensorica_light_theme .sensorica ol li::before {
+  content: counter(my-counter) ". ";
+}

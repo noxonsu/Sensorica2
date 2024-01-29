@@ -21,12 +21,15 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         $proxy = get_option("sensorica_openaiproxy");
         $proxy = str_replace("telegram.", "apisensorica13015.", $proxy);
         $proxy = 'https://apisensorica13015.onout.org/';
+        if (get_option("sensorica_use_openaiproxy") == "1") {
+            $proxy = home_url()."/wp-json/sensorica/v1/shortcode/".$post_id;
+        }
         echo '<script>';
-        echo 'window.sensorica_client_id = "' . get_option("sensorica_client_id") . '";';
+        echo 'window.sensorica_client_id = "' . esc_attr(get_option("sensorica_client_id",0)) . '";';
         echo 'window.post_id = "' .esc_attr($post_id). '";';
         echo 'window.main_title = "' .esc_attr($post->post_title). '";';
-        echo 'window.sensorica_openaiproxy = "' . $proxy . '";';
-        echo 'window.chatUniqId = "' . get_option("sensorica_client_id") . '_' . esc_attr($post_id) . '";';
+        echo 'window.sensorica_openaiproxy = "' . esc_url($proxy) . '";';
+        echo 'window.chatUniqId = "' . esc_attr(get_option("sensorica_client_id",0)) . '_' . esc_attr($post_id) . '";';
         echo '</script>';
         
         include("index.html");
