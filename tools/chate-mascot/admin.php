@@ -62,7 +62,7 @@ function sensorica_shortcodes_page()
 
     // Handle form submission for edits
     if ('POST' === $_SERVER['REQUEST_METHOD'] && $editing_post_id > 0 && is_admin()) {
-        
+
 
         $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
@@ -88,58 +88,57 @@ function sensorica_shortcodes_page()
     // Edit form for a specific post
     if ($editing_post_id > 0) {
         $saved_inputs = get_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', true);
-
+        //check if admin is editing the post
+        if (!current_user_can('edit_post', $editing_post_id)) {
+            wp_die('You do not have sufficient permissions to access this page.');
+        }
         ?>
         <div class="sensorica_wrapper">
-
             <main>
                 <div class="sensorica_row">
                     <form method="post">
                         <?php wp_nonce_field('sensorica_edit_shortcode'); ?>
                         <input type="hidden" name="edit_id" value="<?php echo esc_attr($editing_post_id); ?>">
                         <div class="sensorica_form-section">
-
-                            <label for="NEXT_PUBLIC_MAIN_TITLE">Main Title:</label>
+                            <label for="NEXT_PUBLIC_MAIN_TITLE">
+                                <?php esc_html_e('Main Title:', 'sensorica'); ?>
+                            </label>
                             <input class="sensorica_form-control" type="text" name="NEXT_PUBLIC_MAIN_TITLE"
                                 id="NEXT_PUBLIC_MAIN_TITLE" value="<?php echo get_the_title($editing_post_id); ?>"><br>
-
                         </div>
                         <div class="sensorica_form-section">
-
-                            <label for="OPENAI_API_KEY">OpenAI API Key:</label>
+                            <label for="OPENAI_API_KEY">
+                                <?php esc_html_e('OpenAI API Key:', 'sensorica'); ?>
+                            </label>
                             <input class="sensorica_form-control" type="text" name="OPENAI_API_KEY" id="OPENAI_API_KEY"
                                 value="<?php echo esc_attr($saved_inputs['API_KEY'] ?? ''); ?>"><br>
                         </div>
                         <div class="sensorica_form-section">
-
-
-                            <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">Default System Prompt:</label>
+                            <label for="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT">
+                                <?php esc_html_e('Default System Prompt:', 'sensorica'); ?>
+                            </label>
                             <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
                                 id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
-                            
-
                         </div>
-                        <input type="submit" class="sensorica_btn" value="Update">
-
-                        <div class="sensorica_separator"><span>Codes for embeding: </span></div>
-                        <?php
-                        sensorica_show_output_links_and_iframes($editing_post_id);
-
-                        ?>
+                        <input type="submit" class="sensorica_btn" value="<?php esc_attr_e('Update', 'sensorica'); ?>">
+                        <div class="sensorica_separator"><span>
+                                <?php esc_html_e('Codes for embedding:', 'sensorica'); ?>
+                            </span></div>
+                        <?php sensorica_show_output_links_and_iframes($editing_post_id); ?>
+                    </form>
                 </div>
-                </form>
+            </main>
         </div>
-        </main>
-        </div>
+
         <?php
     } else {
         // List all posts with 'sensorica_chats' taxonomy
-        $pagenum = isset( $_GET['pagenum'] ) ? absint( $_GET['pagenum'] ) : 1;
+        $pagenum = isset($_GET['pagenum']) ? absint($_GET['pagenum']) : 1;
         $limit = 30;
-        $offset = ( $pagenum - 1 ) * $limit;
+        $offset = ($pagenum - 1) * $limit;
         global $wpdb;
-        $total = $wpdb->get_var( "SELECT COUNT(`ID`) FROM {$wpdb->posts} WHERE `post_type` = 'post' AND `post_status` = 'publish' AND `post_title` != ''" );
-        $num_of_pages = ceil( $total / $limit );
+        $total = $wpdb->get_var("SELECT COUNT(`ID`) FROM {$wpdb->posts} WHERE `post_type` = 'post' AND `post_status` = 'publish' AND `post_title` != ''");
+        $num_of_pages = ceil($total / $limit);
 
         $args = array(
             'post_type' => 'post',
@@ -220,27 +219,27 @@ function sensorica_shortcodes_page()
 
 
                 wp_reset_postdata();
-                
+
                 ?>
             </tbody>
         </table>
         <?php
         //add pagination here
-        
-        $page_links = paginate_links( array(
-            'base' => add_query_arg( 'pagenum', '%#%' ),
+
+        $page_links = paginate_links(array(
+            'base' => add_query_arg('pagenum', '%#%'),
             'format' => '',
-            'prev_text' => __( '&laquo;', 'text-domain' ),
-            'next_text' => __( '&raquo;', 'text-domain' ),
+            'prev_text' => __('&laquo;', 'text-domain'),
+            'next_text' => __('&raquo;', 'text-domain'),
             'total' => $num_of_pages,
             'current' => $pagenum
-        ) );
-        
-        if ( $page_links ) {
+        ));
+
+        if ($page_links) {
             echo '<div class="tablenav"><div class="tablenav-pages" style="margin: 1em 0">' . $page_links . '</div></div>';
         }
-        ?>
-        <?php
+    ?>
+    <?php
 
     }
 }

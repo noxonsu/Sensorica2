@@ -89,13 +89,15 @@ function sensorica_form_shortcode($atts) {
 }
 
 function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
-    <hr>
-    
-    <?php esc_html_e('Shortcode:', 'sensorica'); ?> <code>[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]</code>
+    <div class="sensorica_form-section">
+    <?php esc_html_e('WordPress Shortcode:', 'sensorica'); ?><br>
+    <input class="sensorica_form-control" type="text"
+               value='[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]' readonly>
+</div>
     <hr>
     <div class="sensorica_form-section">
         <?php esc_html_e('HTML widget:', 'sensorica'); ?>
-        <textarea rows="3" cols="50" readonly><?php 
+        <textarea class="sensorica_form-control" cols="50" rows=20 readonly><?php 
             $shortcode_html = sensorica_chat_shortcode(array(
                 'id' => $editing_post_id,
             ));
@@ -111,8 +113,6 @@ function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
     </div>
     <?php
 }
-
-    
 
 
 
@@ -137,6 +137,5 @@ add_action('rest_api_init', function () {
         'permission_callback' => '__return_true',
     ));
 });
-
 
 

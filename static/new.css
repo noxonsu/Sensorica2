@@ -1415,3 +1415,53 @@ details summary::-webkit-details-marker {
 .sensorica_light_theme .sensorica ol li::before {
   content: counter(my-counter) ". ";
 }
+
+.sensorica_light_theme .sensorica_form-section .sensorica_form-control
+{
+  background-color: #fff;
+  color: #1E2839;
+  border: 2px solid #1E2839;
+}
+
+.sensorica_magic-prompt {
+
+  right: 15px;
+  top: 161px;
+  position: absolute;
+  width: 40px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.fade-out {
+  animation: fadeOut 0.1s;
+  opacity: 0;
+}
+
+.fade-in {
+  animation: fadeIn 0.1s;
+  opacity: 1;
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
