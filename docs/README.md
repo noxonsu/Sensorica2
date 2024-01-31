@@ -38,4 +38,4 @@ create telegram bots or embed to website
 ![](https://sensorica.onout.org/wp-content/uploads/2024/01/admin-1024x760.png)
 
 ## See comparsion with other projects
-https://onout.org/embedGPT - Overview of servicies to embed chatgpt to website 
+https://onout.org/embedGPT - Overview of startups who offer to embed chatgpt to website 
