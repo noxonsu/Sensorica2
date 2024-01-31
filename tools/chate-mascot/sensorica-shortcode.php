@@ -93,14 +93,15 @@ function sensorica_form_shortcode($atts)
 function sensorica_show_output_links_and_iframes($editing_post_id)
 { ?>
     <?php
-    if (is_admin()) {
+    //current user can edit posts
+    if (current_user_can('edit_posts')) {
         ?>
         <div class="sensorica_form-section">
             <?php esc_html_e('WordPress Shortcode:', 'sensorica'); ?><br>
             <input class="sensorica_form-control" type="text"
                 value='[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]' readonly>
         </div>
-        <hr>
+        
     <? } ?>
     <div class="sensorica_form-section">
         <?php esc_html_e('HTML widget:', 'sensorica'); ?>
@@ -112,7 +113,7 @@ function sensorica_show_output_links_and_iframes($editing_post_id)
         ?>
             </textarea>
     </div>
-    <hr>
+    
     <div class="sensorica_form-section">
         <?php esc_html_e('Direct url to this chat iframe:', 'sensorica'); ?>
         <input class="sensorica_form-control" type="text"

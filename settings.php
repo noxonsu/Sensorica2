@@ -153,7 +153,7 @@ function sensorica_settings_page() {
                     <input type="text" name="sensorica_openaiproxy" id="sensorica_openaiproxy"
                       value="<?php echo esc_attr(get_option('sensorica_openaiproxy', 'https://yourproxy.url/')); ?>" />
                     <p class="description">
-                      <?php esc_html_e('You may setup your own with instructions or use a shared one.', 'sensorica'); ?>
+                      <?php esc_html_e("This API endpoint doesn't store prompts, messages and openai keys. You may setup your own with instructions or use a shared one.", 'sensorica'); ?>
                       <a href=""><?php esc_html_e("Read more","sensorica"); ?></a>
                     </p>
                   </td>
@@ -169,7 +169,7 @@ function sensorica_settings_page() {
                     <input type="checkbox" name="sensorica_use_openaiproxy" id="sensorica_use_openaiproxy"
                       value="1" <?php checked(get_option('sensorica_use_openaiproxy', '1'), '1'); ?> /> Use OpenAI proxy (recommended).
                     <p class="description">
-                      <?php esc_html_e("Uncheck this box if you do not wish to use the external backend (features such as streaming or the 'stop generating' option require the backend).", 'sensorica'); ?>
+                      <?php esc_html_e("Uncheck this box if you do not wish to use the external backend. Warning! features such as streaming or the 'stop generating' option require the OpenAI proxy since they use nodejs).", 'sensorica'); ?>
                     </p>
                   </td>
                 </tr>
