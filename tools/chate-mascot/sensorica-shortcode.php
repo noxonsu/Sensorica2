@@ -1,7 +1,7 @@
 <?php
 use phpseclib\Crypt\RSA;
 
-include sensorica_PATH.'tools/chate-mascot/admin.php';
+include sensorica_PATH . 'tools/chate-mascot/admin.php';
 
 
 function register_sensorica_chats_taxonomy()
@@ -29,18 +29,19 @@ function sensorica_get_iframe_url($post_id)
 function sensorica_chat_shortcode($atts)
 {
     // Get the 'id' attribute from the shortcode
-   
+
 
     //iframre rest api call 'sensorica/v1', '/chat/(?P<id>\d+)'
     $iframe_url = sensorica_get_iframe_url($atts['id']);
 
 
-    return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe> '.get_option('sensorica_chat_footer', '');
+    return '<iframe src="' . esc_url($iframe_url) . '" style="border: 0; width: 100%; height: 100%; min-height:700px; border-radius: 15px;" allowfullscreen></iframe> ' . get_option('sensorica_chat_footer', '');
 }
 
 
 
-function sensorica_get_shortcode_data($data) {
+function sensorica_get_shortcode_data($data)
+{
     $shortcode_id = $data['id'];
     $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
 
@@ -51,12 +52,12 @@ function sensorica_get_shortcode_data($data) {
     $rsa->loadKey(base64_decode($rsapublic));
     $encrypted = $rsa->encrypt(json_encode($saved_inputs));
 
-    
+
     // Decrypt the data using the private key
 
     //$decrypted = $rsa->decrypt($encrypted);
 
-    
+
 
     if (!$saved_inputs) {
         return new WP_Error('no_data', 'No data found', array('status' => 404));
@@ -66,11 +67,12 @@ function sensorica_get_shortcode_data($data) {
     return new WP_REST_Response($json_res, 200);
 }
 
-function sensorica_form_shortcode($atts) {
+function sensorica_form_shortcode($atts)
+{
 
     wp_enqueue_script('jquery');
-    wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION."_".rand(1,44), 'all');
-  
+    wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION . "_" . rand(1, 44), 'all');
+
     // Set the tool parameter
     $_GET['tool'] = 'chate-mascot';
 
@@ -88,28 +90,33 @@ function sensorica_form_shortcode($atts) {
     }
 }
 
-function sensorica_show_output_links_and_iframes($editing_post_id) { ?>
-    <div class="sensorica_form-section">
-    <?php esc_html_e('WordPress Shortcode:', 'sensorica'); ?><br>
-    <input class="sensorica_form-control" type="text"
-               value='[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]' readonly>
-</div>
-    <hr>
+function sensorica_show_output_links_and_iframes($editing_post_id)
+{ ?>
+    <?php
+    if (is_admin()) {
+        ?>
+        <div class="sensorica_form-section">
+            <?php esc_html_e('WordPress Shortcode:', 'sensorica'); ?><br>
+            <input class="sensorica_form-control" type="text"
+                value='[sensorica_chat id="<?php echo esc_attr($editing_post_id); ?>"]' readonly>
+        </div>
+        <hr>
+    <? } ?>
     <div class="sensorica_form-section">
         <?php esc_html_e('HTML widget:', 'sensorica'); ?>
-        <textarea class="sensorica_form-control" cols="50" rows=20 readonly><?php 
-            $shortcode_html = sensorica_chat_shortcode(array(
-                'id' => $editing_post_id,
-            ));
-            echo esc_textarea($shortcode_html);
-            ?>
-        </textarea>
+        <textarea class="sensorica_form-control" cols="50" rows=20 readonly><?php
+        $shortcode_html = sensorica_chat_shortcode(array(
+            'id' => $editing_post_id,
+        ));
+        echo esc_textarea($shortcode_html);
+        ?>
+            </textarea>
     </div>
     <hr>
     <div class="sensorica_form-section">
         <?php esc_html_e('Direct url to this chat iframe:', 'sensorica'); ?>
         <input class="sensorica_form-control" type="text"
-               value="<?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?>" readonly>
+            value="<?php echo esc_url(sensorica_get_iframe_url($editing_post_id)); ?>" readonly>
     </div>
     <?php
 }

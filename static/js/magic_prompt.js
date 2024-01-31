@@ -63,7 +63,7 @@ jQuery(document).ready(function () {
             "content": userInput
           }
         ],
-        "model": 'gpt-4',
+        "model": 'gpt-4-turbo-preview',
         "temperature": 1
       })
     }).then(response => {

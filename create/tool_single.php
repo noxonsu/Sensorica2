@@ -42,37 +42,14 @@ if (!$tool) {
 <div class="sensorica_content">
   <form action="" method="post">
     <?php
-
-    if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
-      //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
-      if (!isset($tool['main_action_php_file'])) {
-        $tool['main_action_php_file'] = 'action.php';
-      }
-      include("tools/" . $tool['slug'] . "/" . $tool['main_action_php_file']); //include the main action file
-    
-    } else {
-      //if user click on apply and next button, save input to hidden input in use already send its value
-      foreach ($tool['inputs'] as $input => $input_data) {
-        if (isset($_POST[$input])) {
-          echo '<input type="hidden" name="' . $input . '" value="' . $_POST[$input] . '" />';
-        }
-      }
-    }
-    foreach ($tool['inputs'] as $input => $input_data) {
-      if (isset($_POST[$input])) {
-        //save input to hidden input in use already send its value
-        echo '<input type="hidden" id="hd_' . $input . '" name="' . $input . '" value="' . $_POST[$input] . '" />';
-
-        //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
-        // Assign the array keys to a variable
-        $keys = array_keys($tool['inputs']);
-
-        // Now use end() on the variable
-        if ($input == end($keys) && !isset($sensorica_hide_final_form)) {
-          echo '<div class="sensorica_title">Confirm & finalize</div>';
+function sensorica_show_confirmation_form($tool) {
+  global $_POST;
+  echo '<div class="sensorica_title">Confirm & finalize</div>';
           foreach ($tool['inputs'] as $input => $input_data) {
             // Check if $_POST[$input] is set to avoid undefined index notice
-            $postValue = isset($_POST[$input]) ? $_POST[$input] : '';
+            
+            $postValue = isset($_POST[$input]) ? stripslashes($_POST[$input]) : '';
+
             if ($input == 'NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT') {
               echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><textarea class="sensorica_prompt-area" disabled name="' . $input . '" id="' . $input . '">' . $postValue . '</textarea></div>';
             } else {
@@ -80,7 +57,40 @@ if (!$tool) {
             }
 
           }
-          echo '<input type="submit" value="Finalize" name="action" class="sensorica_btn" />';
+          echo '<input type="submit" value="' . esc_attr__('Finalize', 'sensorica') . '" name="action" class="sensorica_btn" />';
+        
+}
+    if (isset($_POST['action']) && $_POST['action'] == 'Finalize') {
+      //if user click on finalize button, show the confrimation screen with all the inputs and it's value and submit button
+      if (!isset($tool['main_action_php_file'])) {
+        $tool['main_action_php_file'] = 'action.php';
+      }
+      include(sensorica_PATH."tools/" . esc_attr($tool['slug']) . "/" . esc_attr($tool['main_action_php_file'])); //include the main action file
+    
+    } else {
+      //if user click on apply and next button, save input to hidden input in use already send its value
+      foreach ($tool['inputs'] as $input => $input_data) {
+        if (isset($_POST[$input])) {
+          //sanitize the input the same as in wp admin editor (wp_kses_post)
+          $_POST[$input] = stripslashes($_POST[$input]);
+          $sensorica_value = wp_kses_post($_POST[$input]);
+          //save it to wordpress session
+          $_SESSION[$input] = $sensorica_value;
+          echo '<textarea id="hd_'.esc_attr($input).'" name="' . esc_attr($input) . '" style="display:none;">' . $sensorica_value . '</textarea>';
+          
+        }
+      }
+    }
+    foreach ($tool['inputs'] as $input => $input_data) {
+      if (isset($_POST[$input])) {
+        
+        //if this input is the last one show the confrimation screen with all the inputs and it's value and submit button
+        // Assign the array keys to a variable
+        $keys = array_keys($tool['inputs']);
+
+        // Now use end() on the variable
+        if ($input == end($keys) && !isset($sensorica_hide_final_form)) {
+          sensorica_show_confirmation_form($tool);
         }
 
         //if this input is not the last one, continue

@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['NEXT_PUBLIC_MAIN_TITL
         wp_set_object_terms($post_id, 'sensorica-chat', 'sensorica_chats');
 
         echo '<div class="sensorica_form-section">';
-        esc_html_e("Shortcode created successfully. Copy and paste the following shortcode into a page or post to display the chat form.");
+        esc_html_e("Chat created successfully. Copy and paste the following code into a page or post to display the chat form.");
         sensorica_show_output_links_and_iframes($post_id);
         $sensorica_hide_final_form = true;
         echo '</div>';
