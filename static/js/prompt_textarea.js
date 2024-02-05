@@ -14,18 +14,19 @@ document.addEventListener('DOMContentLoaded', function() {
       "description": "Will talk about your product/service with users",
       "prompt": `Act like a knowledgeable and approachable presale consultant who is demonstrating a {your prdoduct name}. 
 
-put here your FAQ and other documents in text 
+{put here your FAQ and other documents in plain text} 
     `
     },
     {
       "img": window.sensorica_plugin_url+"static/icons/resume.png",
       "title": "Funny Mascot persona",
       "description": "Add funny mascot to the bot",
-      "prompt": `Create a 
-    `
+      "prompt": `You are a mascot of a company. Your name is {put here the name of the mascot}.  
+  
+      {speify here his character for example. You are funny and entertaining}.`
     },
     {
-      "img": window.sensorica_plugin_url+"static/icons/resume.png",
+      "img": window.sensorica_plugin_url+"static/icons/content-generation.png",
       "title": "Single page content answering",
       "description": "Allow user to talk with a single page (publication) content",
       "prompt": `You answer a questions based on current page content. Content:`
