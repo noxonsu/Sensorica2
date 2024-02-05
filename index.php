@@ -1,5 +1,10 @@
 <?php
 # Load required inputs as an array and find for slug
+//dissallow direct open
+if (!defined('ABSPATH')) {
+  exit;
+}
+
 
 ini_set('display_errors', 1);
 error_reporting(E_ALL);

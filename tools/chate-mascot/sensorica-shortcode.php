@@ -41,26 +41,19 @@ function sensorica_chat_shortcode($atts)
 
 
 function sensorica_get_shortcode_data($data)
-{
+{   
     $shortcode_id = $data['id'];
+    $secret_envato_key = $data['arg'];
+    $sensorica_envato_key_only_numbers = preg_replace('/[^0-9]/', '', get_option( "sensorica_envato_key" ));
+    $md5_secret_envato_key = md5(get_option( "sensorica_envato_key" ));
+    if ($secret_envato_key != $md5_secret_envato_key) {
+        return new WP_Error('no_data', 'No data found wring sensorica_envato_key', array('status' => 404));
+    }
     $saved_inputs = get_post_meta($shortcode_id, '_sensorica_chat_saved_inputs', true);
-
-    $rsapublic = get_option('sensorica_backend_rsa_openkey_base64', '');
-    // Create a new RSA object
-    $rsa = new RSA();
-
-    $rsa->loadKey(base64_decode($rsapublic));
-    $encrypted = $rsa->encrypt(json_encode($saved_inputs));
-
-
-    // Decrypt the data using the private key
-
-    //$decrypted = $rsa->decrypt($encrypted);
-
 
 
     if (!$saved_inputs) {
-        return new WP_Error('no_data', 'No data found', array('status' => 404));
+        return new WP_Error('no_data2', 'No data found', array('status' => 404));
     }
     $json_res['data'] = $saved_inputs;
     $json_res['encrypted'] = base64_encode($encrypted);
@@ -139,7 +132,7 @@ add_action('rest_api_init', function () {
 });
 
 add_action('rest_api_init', function () {
-    register_rest_route('sensorica/v1', '/shortcode/(?P<id>\d+)', array(
+    register_rest_route('sensorica/v1', '/shortcode/(?P<id>\d+)/(?P<arg>\w+)', array(
         'methods' => 'GET',
         'callback' => 'sensorica_get_shortcode_data',
         'permission_callback' => '__return_true',

@@ -1,7 +1,7 @@
 <?php
 /**
  * Plugin Name: Sensorica
- * Description: Run own AI wrapper.
+ * Description: simple AI chat for WordPress
  * Author: Aleksandr Noxon
  * Version: 0.1.2
  * Requires PHP: 7.1
@@ -130,34 +130,6 @@ function sensorica_promptbase($atts)
         preg_match_all('/```markdown\n(.*?)```/s', $body, $matches);
         
         
-        // Insert a new post with the 'sensorica_chats' taxonomy
-        $post_exists = get_page_by_title($main_title, OBJECT, 'post');
-
-        if (!$post_exists) {
-            $post_id = wp_insert_post(array(
-                'post_type' => 'post',
-                'post_status' => 'publish',
-                'post_title' => $main_title,
-                'tax_input' => array('sensorica_chats' => $body),
-            ));
-        } else {
-            $post_id = $post_exists->ID;
-        }
-        
-        if ($post_id) {
-            // Save the POST values as post meta
-            ob_start();
-            update_post_meta($post_id, '_sensorica_chat_saved_inputs', array(
-                
-                'API_KEY' => $api_key,
-                'SYSTEM_PROMPT' => $body,
-            ));
-    
-            wp_set_object_terms($post_id, 'sensorica-chat', 'sensorica_chats');
-            
-            echo sensorica_chat_shortcode(array("id"=>$post_id));
-            $chat .= ob_get_clean();
-        }
         $body = '<textarea disabled class="sensorica_prompt-area">'.$body.'</textarea>';
     } else {
 
@@ -188,6 +160,25 @@ function sensorica_promptbase($atts)
     }
     return $body;
 }
+
+function sensorica_show_confirmation_form($tool) {
+    global $_POST;
+    echo '<div class="sensorica_title">Confirm & finalize</div>';
+            foreach ($tool['inputs'] as $input => $input_data) {
+              // Check if $_POST[$input] is set to avoid undefined index notice
+              
+              $postValue = isset($_POST[$input]) ? stripslashes($_POST[$input]) : '';
+  
+              if ($input == 'NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT') {
+                echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><textarea class="sensorica_prompt-area" disabled name="' . $input . '" id="' . $input . '">' . $postValue . '</textarea></div>';
+              } else {
+                echo '<div class="sensorica_form-section"><label for="' . $input . '">' . $input_data['description'] . '</label><input type="text" class="sensorica_form-control sensorica_userinput" name="' . $input . '" id="' . $input . '" value="' . $postValue . '" disabled /></div>';
+              }
+  
+            }
+            echo '<input type="submit" value="' . esc_attr__('Finalize', 'sensorica') . '" name="action" class="sensorica_btn" />';
+          
+  }
 
 add_action('admin_menu', 'sensorica_menu');
 add_filter('body_class', 'sensorica_body_class');

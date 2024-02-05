@@ -19,6 +19,9 @@
 </div>
 
 <?php 
+if (!function_exists('sensorica_enqueue_scripts_prompt_textarea')) {
+  
+
 function sensorica_enqueue_scripts_prompt_textarea() {
   // Enqueue the script first
   wp_enqueue_script(
@@ -34,6 +37,8 @@ function sensorica_enqueue_scripts_prompt_textarea() {
 
   // Add the inline script to 'prompt-textarea-script'
   wp_add_inline_script('prompt-textarea-script', $inline_script);
+}
+
 }
 
 add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
