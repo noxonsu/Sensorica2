@@ -56,7 +56,7 @@ function sensorica_get_shortcode_data($data)
         return new WP_Error('no_data2', 'No data found', array('status' => 404));
     }
     $json_res['data'] = $saved_inputs;
-    $json_res['encrypted'] = base64_encode($encrypted);
+    
     return new WP_REST_Response($json_res, 200);
 }
 

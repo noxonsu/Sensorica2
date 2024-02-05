@@ -19,31 +19,10 @@
 </div>
 
 <?php 
-if (!function_exists('sensorica_enqueue_scripts_prompt_textarea')) {
-  
 
-function sensorica_enqueue_scripts_prompt_textarea() {
-  // Enqueue the script first
-  wp_enqueue_script(
-      'prompt-textarea-script', // Handle for the script, using a more descriptive name
-      sensorica_URL . '/static/js/prompt_textarea.js?r=' . rand(1, 22222), // Script URL with cache-busting
-      array('jquery'), // Dependencies
-      sensorica_VERSION, // Version
-      true // In footer
-  );
-
-  // JavaScript code to set the global variable
-  $inline_script = 'window.sensorica_plugin_url = "' . sensorica_URL . '";';
-
-  // Add the inline script to 'prompt-textarea-script'
-  wp_add_inline_script('prompt-textarea-script', $inline_script);
-}
-
-}
 
 add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
-
 ?>
 <style>
-  #sensorinca_next {display:none}
+    #sensorinca_next { display: none; }
 </style>

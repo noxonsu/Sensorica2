@@ -1,8 +1,5 @@
 <?php
 
-
-
-
 function sensorica_enqueue_block_editor_assets()
 {
     wp_enqueue_script(
@@ -12,9 +9,7 @@ function sensorica_enqueue_block_editor_assets()
         sensorica_VERSION,
         true
     );
-
 }
-
 
 function sensorica_get_chats()
 {
@@ -48,22 +43,18 @@ function sensorica_shortcodes_page()
 {
     wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
 
-    echo '<h2>Sensorica Prompts</h2>';
+    echo '<h2>' . esc_html_e('Sensorica Prompts', 'sensorica') . '</h2>';
     // Debugging: Check if the taxonomy has any terms and associated posts
     $terms = get_terms(array(
         'taxonomy' => 'sensorica_chats',
         'hide_empty' => false,
     ));
 
-
-
     // Check if a specific post is being edited
     $editing_post_id = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
 
     // Handle form submission for edits
     if ('POST' === $_SERVER['REQUEST_METHOD'] && $editing_post_id > 0 && is_admin()) {
-
-
         $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
         $system_prompt = sanitize_textarea_field($_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'] ?? '');
@@ -82,7 +73,7 @@ function sensorica_shortcodes_page()
             'SYSTEM_PROMPT' => $system_prompt,
         ));
 
-        echo '<div class="notice notice-success"><p>Shortcode updated successfully.</p></div>';
+        echo '<div class="notice notice-success"><p>' . esc_html_e('Shortcode updated successfully.', 'sensorica') . '</p></div>';
     }
 
     // Edit form for a specific post
@@ -90,7 +81,7 @@ function sensorica_shortcodes_page()
         $saved_inputs = get_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', true);
         //check if admin is editing the post
         if (!current_user_can('edit_post', $editing_post_id)) {
-            wp_die('You do not have sufficient permissions to access this page.');
+            wp_die(esc_html_e('You do not have sufficient permissions to access this page.', 'sensorica'));
         }
         ?>
         <div class="sensorica_wrapper">
@@ -160,13 +151,13 @@ function sensorica_shortcodes_page()
             <thead>
                 <tr>
                     <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
-                        <span>Title</span>
+                        <span><?php esc_html_e('Title', 'sensorica'); ?></span>
                     </th>
                     <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
-                        <span>Shortcode</span>
+                        <span><?php esc_html_e('Shortcode', 'sensorica'); ?></span>
                     </th>
                     <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
-                        <span>Embed</span>
+                        <span><?php esc_html_e('Embed', 'sensorica'); ?></span>
                     </th>
                 </tr>
             </thead>
@@ -183,43 +174,41 @@ function sensorica_shortcodes_page()
                         $post_embed = '<iframe src="' . $post_permalink . '" width="100%" height="500px"></iframe>';
                         ?>
                         <tr>
-                            <td class="title column-title has-row-actions column-primary page-title" data-colname="Title">
+                            <td class="title column-title has-row-actions column-primary page-title" data-colname="<?php esc_attr_e('Title', 'sensorica'); ?>">
                                 <strong>
                                     <a class="row-title" href="<?php echo esc_url($post_edit_link); ?>"
-                                        aria-label="“<?php echo esc_attr($post_title); ?>” (Edit)">
+                                        aria-label="<?php echo esc_attr_e('Edit', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>” (Edit)">
                                         <?php echo esc_html($post_title); ?>
                                     </a>
                                 </strong>
                                 <div class="row-actions">
                                     <span class="edit">
                                         <a href="<?php echo esc_url($post_edit_link); ?>"
-                                            aria-label="Edit “<?php echo esc_attr($post_title); ?>”">Edit</a> |
+                                            aria-label="<?php echo esc_attr_e('Edit', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>”"><?php esc_html_e('Edit', 'sensorica'); ?></a> |
                                     </span>
                                     <span class="trash">
                                         <a href="<?php echo get_delete_post_link($post_id); ?>" class="submitdelete"
-                                            aria-label="Move “<?php echo esc_attr($post_title); ?>” to the Trash"
-                                            onclick="return confirm('Are you sure you want to delete this shortcode?');">Trash</a>
+                                            aria-label="<?php echo esc_attr_e('Move', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>” <?php echo esc_attr_e('to the Trash', 'sensorica'); ?>"
+                                            onclick="return confirm('<?php echo esc_js(esc_html_e('Are you sure you want to delete this shortcode?', 'sensorica')); ?>');"><?php esc_html_e('Trash', 'sensorica'); ?></a>
                                     </span>
                                 </div>
                             </td>
-                            <td class="shortcode column-shortcode" data-colname="Shortcode">
+                            <td class="shortcode column-shortcode" data-colname="<?php esc_attr_e('Shortcode', 'sensorica'); ?>">
                                 <input type="text" readonly="readonly" class="large-text">
                                 <button class="button button-secondary"
-                                    onclick="copyToClipboard('<?php echo esc_attr($post_shortcode); ?>')">Copy</button>
+                                    onclick="copyToClipboard('<?php echo esc_attr($post_shortcode); ?>')"><?php esc_html_e('Copy', 'sensorica'); ?></button>
                             </td>
-                            <td class="shortcode column-shortcode" data-colname="Embed">
+                            <td class="shortcode column-shortcode" data-colname="<?php esc_attr_e('Embed', 'sensorica'); ?>">
                                 <input type="text" readonly="readonly" class="large-text">
                                 <button class="button button-secondary"
-                                    onclick="copyToClipboard('<?php echo esc_attr($post_embed); ?>')">Copy</button>
+                                    onclick="copyToClipboard('<?php echo esc_attr($post_embed); ?>')"><?php esc_html_e('Copy', 'sensorica'); ?></button>
                             </td>
                         </tr>
                         <?php
                     }
                 }
 
-
                 wp_reset_postdata();
-
                 ?>
             </tbody>
         </table>
@@ -240,6 +229,5 @@ function sensorica_shortcodes_page()
         }
     ?>
     <?php
-
     }
 }

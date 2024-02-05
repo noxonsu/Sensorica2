@@ -58,27 +58,6 @@ if (isset($input_data['magic_prompt'])) {
       }
     }
   </style>
-  <?php 
-function sensorica_enqueue_scripts_magic_prompt() {
-    // Enqueue the script first
-    wp_enqueue_script(
-        'magic-prompt-script', // Updated handle for the new script
-        sensorica_URL . '/static/js/magic_prompt.js?r=' . rand(1, 22222), // Updated script URL for 'magic_prompt.js' with cache-busting
-        array('jquery'), // Dependencies remain the same
-        sensorica_VERSION, // Version
-        true // In footer
-    );
-
-    // JavaScript code to set the global variable remains the same
-    $inline_script = 'window.sensorica_plugin_url = "' . sensorica_URL . '";';
-
-    // Add the inline script to 'magic-prompt-script' (updated handle)
-    wp_add_inline_script('magic-prompt-script', $inline_script);
-}
-
-// Updated hook function name to reflect the new script's purpose
-add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
-?>
 
   <?php
 }

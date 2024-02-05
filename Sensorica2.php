@@ -104,6 +104,8 @@ function admin_body_class( $classes ) {
    return $classes;
 }
 
+
+
 function sensorica_promptbase($atts)
 {   wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
 
@@ -185,3 +187,47 @@ add_filter('body_class', 'sensorica_body_class');
 add_filter("admin_body_class", "admin_body_class", 9999); 
 
 add_shortcode('sensorica_promptbase', 'sensorica_promptbase');
+
+function sensorica_enqueue_scripts_prompt_textarea() {
+  wp_enqueue_script(
+    'prompt-textarea-script',
+    sensorica_URL . '/static/js/prompt_textarea.js?r=' . rand(1, 22222),
+    array('jquery'), // Make sure jQuery is properly loaded
+    sensorica_VERSION,
+    true
+);
+
+// JavaScript code to set the global variable
+$inline_script = 'window.sensorica_plugin_url = "' . sensorica_URL . '";';
+
+// Add the inline script to 'prompt-textarea-script'
+wp_add_inline_script('prompt-textarea-script', $inline_script);
+}
+
+
+
+function sensorica_enqueue_scripts_magic_prompt() {
+  // Enqueue the script first
+  wp_enqueue_script(
+      'magic-prompt-script', // Updated handle for the new script
+      sensorica_URL . '/static/js/magic_prompt.js?r=' . rand(1, 22222), // Updated script URL for 'magic_prompt.js' with cache-busting
+      array('jquery'), // Dependencies remain the same
+      sensorica_VERSION, // Version
+      true // In footer
+  );
+
+  // JavaScript code to set the global variable remains the same
+  $inline_script = 'window.sensorica_plugin_url = "' . sensorica_URL . '";';
+
+  // Add the inline script to 'magic-prompt-script' (updated handle)
+  wp_add_inline_script('magic-prompt-script', $inline_script);
+}
+
+// Updated hook function name to reflect the new script's purpose
+add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
+add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
+
+add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
+
+add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
+

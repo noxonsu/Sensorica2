@@ -9,6 +9,7 @@ if (!defined('ABSPATH')) {
 ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
+
 if (isset($_GET['tool'])) {
   $tool = getToolInfo($_GET['tool']);
 }
