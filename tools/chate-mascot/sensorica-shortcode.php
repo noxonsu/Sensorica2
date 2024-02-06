@@ -65,10 +65,12 @@ function sensorica_form_shortcode($atts)
 
     wp_enqueue_script('jquery');
     wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION . "_" . rand(1, 44), 'all');
-
+  
     // Set the tool parameter
-    $_GET['tool'] = 'chate-mascot';
+    //echo $atts['create/tool_name'];
+    $_GET['tool'] = esc_attr( $atts['tool_name'] );
 
+    
     // Define the path to the file
     $file_path = sensorica_PATH . 'index.php';
 

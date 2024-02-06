@@ -19,8 +19,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract the necessary data from the parsed JSON file
     
     $sensorica_openaiproxy = get_option("sensorica_openaiproxy");
-
-    $api_url =  esc_url($sensorica_openaiproxy)."/bot/deploy";
+    $sensorica_openaiproxy = "https://refactored-fortnight-w945676vw9h9pqp-3010.app.github.dev/" ;   
+    $api_url =  esc_url($sensorica_openaiproxy)."bot/deploy";
     // Extract the schema properties
     $schemaProperties = $json['paths']['/bot/deploy']['post']['requestBody']['content']['application/json']['schema']['properties'];
    
@@ -32,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $data[$key] = $property['type'] === 'string' ? esc_attr($_POST[$key]) : intval($_POST[$key]);
         }
     }
-
+    echo $api_url;
     // Use WordPress HTTP API for the API request
     $response = wp_remote_post($api_url, array(
         'method' => 'POST',
@@ -40,8 +40,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'Content-Type' => 'application/json'
         ),
         'body' => json_encode($data),
+        'timeout' => 50
     ));
-
+    
     // Handle the response
     if (is_wp_error($response)) {
         print_r($data);
@@ -49,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $response_code = wp_remote_retrieve_response_code($response);
         $response_body = wp_remote_retrieve_body($response);
-        $responseData = json_decode($response_body, true);
+        echo $response_body;
         if ($response_code === 200 && isset($responseData['success']) && $responseData['success']) {
             echo 'Success: Your Telegram bot is now deployed!';
         } else {

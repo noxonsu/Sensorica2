@@ -47,7 +47,8 @@
                 "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
                 "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",
                 "Copy the API key to your clipboard"
-            ]
+            ],
+            "background_color_svg": "#000"
         },
         "tg_token": {
             "title": "Telegram Bot API Token",
@@ -61,7 +62,8 @@
                 "Message <a href='https://t.me/BotFather' target=_blank>BotFather</a> on Telegram.",
                 "Use the /newbot command to create a new bot.",
                 "Copy the API token to your clipboard."
-            ]
+            ],
+            "background_color_svg": "#0088cc"
         },
         "system_prompt": {
             "title": "System Prompt",
@@ -71,14 +73,8 @@
             "required": true,
             "placeholder": "You are an AI chatbot.",
             "svg_icon_id": "ico-1",
-            "textarea": true
-        },
-        "free_messages": {
-            "title": "Monetization",
-            "description": "Optional monetization settings for your bot. Set a number of free messages and an activation code.",
-            "confirmation": "Do you wish to monetize your bot? (Yes/No)",
-            "required": false,
-            "svg_icon_id": "ico-5"
+            "textarea": true,
+            "background_color_svg": "#f38020"
         }
     },
     "deployment_confirmation": "Do you want to proceed with deploying your Telegram bot with the provided details? (Yes/No)",
