@@ -6,6 +6,17 @@
     "description": "Deploy a Telegram bot that uses the ChatGPT API to chat with users.",
     "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot.",
     "inputs": {
+        "system_prompt": {
+            "title": "System Prompt",
+            "description": "Optional custom system prompt for your bot. You can set one if you like.",
+            "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
+            "type": "prompt_textarea",
+            "required": true,
+            "placeholder": "You are an AI chatbot.",
+            "svg_icon_id": "ico-1",
+            "textarea": true,
+            "background_color_svg": "#f38020"
+        },
         "cf_account_id": {
             "title": "CloudFlare Account ID",
             "description": "CloudFlare account ID",
@@ -64,18 +75,8 @@
                 "Copy the API token to your clipboard."
             ],
             "background_color_svg": "#0088cc"
-        },
-        "system_prompt": {
-            "title": "System Prompt",
-            "description": "Optional custom system prompt for your bot. You can set one if you like.",
-            "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
-            "type": "prompt_textarea",
-            "required": true,
-            "placeholder": "You are an AI chatbot.",
-            "svg_icon_id": "ico-1",
-            "textarea": true,
-            "background_color_svg": "#f38020"
         }
+        
     },
     "deployment_confirmation": "Do you want to proceed with deploying your Telegram bot with the provided details? (Yes/No)",
     "completion_message": "Your Telegram bot is now deployed! You can access it at [Bot URL]. For any changes, you can restart this setup process."
