@@ -40,19 +40,22 @@
 
                 <ul class="<?php echo esc_attr('sensorica_accordionOptionsList'); ?>" id="listOfPrompts">
                     <?php
-                    $tools = json_decode(file_get_contents(sensorica_PATH . 'platforms.json'), true);
+                    $sensorica_platforms = json_decode(file_get_contents(sensorica_PATH . 'platforms.json'), true);
 
-                    foreach ($tools as $tool) {
-                        if (!isset($tool['img'])) {
-                            $tool['img'] = sensorica_URL . 'tools/' . $tool['slug'] . '/icon.png';
+                    foreach ($sensorica_platforms as $sensorica_tool) {
+                       
+                        if (!isset($sensorica_tool['img'])) {
+                            //echo sensorica_URL;
+                            $sensorica_tool['img'] = sensorica_URL . 'tools/' . $sensorica_tool['slug'] . '/icon.png';
+                           
                         }
                         // Use admin_url() to generate the correct admin URL with query parameters
                         $create_tool_url = esc_url(add_query_arg(array(
                             'page' => 'sensorica',
-                            'tool' => $tool['slug'],
-                        ), admin_url('admin.php')));
+                            'tool' => $sensorica_tool['slug'],
+                        ), admin_url('list_in_admin_panel.php')));
 
-                        echo '<li><button onclick="window.location=\'' . $create_tool_url . '\'" data-prompt="' . $tool['slug'] . '" type="button"><img src="' . esc_url(plugin_dir_url(__FILE__) . 'tools/' . $tool['slug'] . '/icon.png') . '" /><span>' . esc_html($tool['title']) . '</span>' . esc_html($tool['description']) . '</button></li>';
+                        echo '<li><button onclick="window.location=\'' . $create_tool_url . '\'" data-prompt="' . $sensorica_tool['slug'] . '" type="button"><img src="' . esc_url($sensorica_tool['img']) . '" /><span>' . esc_html($sensorica_tool['title']) . '</span>' . esc_html($sensorica_tool['description']) . '</button></li>';
                     }
                     ?>
                 </ul>

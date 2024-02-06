@@ -11,8 +11,8 @@ function sensorica_settings_page() {
     // Save settings
     $sensorica_theme = sanitize_text_field($_POST['sensorica_theme']);
     update_option('sensorica_theme', $sensorica_theme);
-    $sensorica_use_openaiproxy = sanitize_text_field($_POST['sensorica_use_openaiproxy']);
-    update_option('sensorica_use_openaiproxy', $sensorica_use_openaiproxy);
+    $sensorica_dont_use_openaiproxy = sanitize_text_field($_POST['sensorica_dont_use_openaiproxy']);
+    update_option('sensorica_dont_use_openaiproxy', $sensorica_dont_use_openaiproxy);
     
     $sensorica_back = sanitize_text_field($_POST['sensorica_openaiproxy']);
     update_option('sensorica_envato_key', sanitize_text_field($_POST['sensorica_envato_key']));
@@ -162,19 +162,19 @@ function sensorica_settings_page() {
                   <?php //dont use openai proxy ?>
                   <th scope="row">
                     <label>
-                      <?php esc_html_e('Use OpenAI proxy', 'sensorica'); ?>
+                      <?php esc_html_e("Don't Use OpenAI proxy", 'sensorica'); ?>
                     </label>
                   </th>
                   <td>
-                    <input type="checkbox" name="sensorica_use_openaiproxy" id="sensorica_use_openaiproxy"
-                      value="1" <?php checked(get_option('sensorica_use_openaiproxy', '1'), '1'); ?> /> Use OpenAI proxy (recommended).
+                    <input type="checkbox" name="sensorica_dont_use_openaiproxy" id="sensorica_dont_use_openaiproxy"
+                      value="1" <?php checked(get_option('sensorica_dont_use_openaiproxy', '1'), '1'); ?> /> Don't Use OpenAI proxy.
                     <p class="description">
-                      <?php esc_html_e("Uncheck this box if you do not wish to use the external backend. Warning! features such as streaming or the 'stop generating' option require the OpenAI proxy since they use nodejs).", 'sensorica'); ?>
+                      <?php esc_html_e("check this box if you do not wish to use the external backend. Warning! features such as streaming or the 'stop generating' option require the OpenAI proxy since they use nodejs).", 'sensorica'); ?>
                     </p>
                   </td>
                 </tr>
                 <?php
-                if (!empty($sensorica_client_id) && !empty($sensorica_backend_rsa_openkey_base64)) {
+                if (!empty($sensorica_client_id)) {
                   ?>
                   <tr>
                     <th scope="row">
@@ -190,20 +190,7 @@ function sensorica_settings_page() {
                       </p>
                     </td>
                   </tr>
-                  <tr>
-                    <th scope="row">
-                      <label>
-                        <?php esc_html_e('Backend public key', 'sensorica'); ?>
-                      </label>
-                    </th>
-                    <td>
-                      <textarea disabled name="sensorica_backend_rsa_openkey_base64" id="sensorica_backend_rsa_openkey_base64"
-                        rows="10" cols="100"><?php echo esc_textarea(base64_decode($sensorica_backend_rsa_openkey_base64)); ?></textarea>
-                      <p class="description">
-                        <?php esc_html_e('Backend public key.', 'sensorica'); ?>
-                      </p>
-                    </td>
-                  </tr>
+                  
                   <?php
                 }
                 ?>

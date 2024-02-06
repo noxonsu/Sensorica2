@@ -29,7 +29,7 @@ wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), s
       }
       
       if (!isset($_GET['tool'])) {
-        include(sensorica_PATH . "select_tool.php");
+        include(sensorica_PATH . "/create/select_tool.php");
       }
       ?>
     </div>

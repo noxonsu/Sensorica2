@@ -153,12 +153,7 @@ function sensorica_shortcodes_page()
                     <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
                         <span><?php esc_html_e('Title', 'sensorica'); ?></span>
                     </th>
-                    <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
-                        <span><?php esc_html_e('Shortcode', 'sensorica'); ?></span>
-                    </th>
-                    <th scope="col" id="shortcode" class="manage-column column-shortcode column-primary sortable desc">
-                        <span><?php esc_html_e('Embed', 'sensorica'); ?></span>
-                    </th>
+                    
                 </tr>
             </thead>
             <tbody id="the-list">
@@ -169,7 +164,7 @@ function sensorica_shortcodes_page()
                         $post_id = get_the_ID();
                         $post_title = get_the_title();
                         $post_permalink = get_the_permalink();
-                        $post_edit_link = admin_url('admin.php?page=sensorica_shortcodes&edit=' . get_the_ID());
+                        $post_edit_link = admin_url('list_in_admin_panel.php?page=sensorica_shortcodes&edit=' . get_the_ID());
                         $post_shortcode = '[sensorica_chat id="' . $post_id . '"]';
                         $post_embed = '<iframe src="' . $post_permalink . '" width="100%" height="500px"></iframe>';
                         ?>
@@ -193,16 +188,7 @@ function sensorica_shortcodes_page()
                                     </span>
                                 </div>
                             </td>
-                            <td class="shortcode column-shortcode" data-colname="<?php esc_attr_e('Shortcode', 'sensorica'); ?>">
-                                <input type="text" readonly="readonly" class="large-text">
-                                <button class="button button-secondary"
-                                    onclick="copyToClipboard('<?php echo esc_attr($post_shortcode); ?>')"><?php esc_html_e('Copy', 'sensorica'); ?></button>
-                            </td>
-                            <td class="shortcode column-shortcode" data-colname="<?php esc_attr_e('Embed', 'sensorica'); ?>">
-                                <input type="text" readonly="readonly" class="large-text">
-                                <button class="button button-secondary"
-                                    onclick="copyToClipboard('<?php echo esc_attr($post_embed); ?>')"><?php esc_html_e('Copy', 'sensorica'); ?></button>
-                            </td>
+                            
                         </tr>
                         <?php
                     }
