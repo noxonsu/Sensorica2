@@ -1,16 +1,15 @@
 <?php
-function esc_attr($v) {
-    return $v;
-}
-function esc_url($v) {
-    return $v;
-}
 
+
+//check we are in wordpress
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 // Check if the script is accessed via a POST request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Load and parse the JSON file
-    $jsonString = file_get_contents("tools/aigram/actions.json");
+    $jsonString = file_get_contents(sensorica_PATH."tools/aigram/actions.json");
     
     $json = json_decode($jsonString, true);
     if ($json === null) {
@@ -19,8 +18,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // Extract the necessary data from the parsed JSON file
     
+    $sensorica_openaiproxy = get_option("sensorica_openaiproxy");
 
-    $api_url = addslashes($json['servers'][0]['url'] . "/bot/deploy");
+    $api_url =  esc_url($sensorica_openaiproxy)."/bot/deploy";
     // Extract the schema properties
     $schemaProperties = $json['paths']['/bot/deploy']['post']['requestBody']['content']['application/json']['schema']['properties'];
    
@@ -33,31 +33,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
     }
 
-    // Use cURL for the API request
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $api_url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Content-Type: application/json'
-    ]);
-    
-    // Execute the request and capture the response
-    $response = curl_exec($ch);
-    
-    curl_close($ch);
+    // Use WordPress HTTP API for the API request
+    $response = wp_remote_post($api_url, array(
+        'method' => 'POST',
+        'headers' => array(
+            'Content-Type' => 'application/json'
+        ),
+        'body' => json_encode($data),
+    ));
 
     // Handle the response
-    if ($response === false) {
+    if (is_wp_error($response)) {
         print_r($data);
-        echo 'Error: Failed to deploy the bot. err '.curl_error($ch);
+        echo 'Error: Failed to deploy the bot. ' . $response->get_error_message();
     } else {
-        $responseData = json_decode($response, true);
-        if (isset($responseData['success']) && $responseData['success']) {
+        $response_code = wp_remote_retrieve_response_code($response);
+        $response_body = wp_remote_retrieve_body($response);
+        $responseData = json_decode($response_body, true);
+        if ($response_code === 200 && isset($responseData['success']) && $responseData['success']) {
             echo 'Success: Your Telegram bot is now deployed!';
         } else {
-            echo 'Error: ' . ($responseData['message'] ?? 'Failed to deploy the bot. '.$responseData['message']);
+            echo 'Error: ' . ($responseData['message'] ?? 'Failed to deploy the bot. ' . $responseData['message']);
         }
     }
 } else {

@@ -3,7 +3,7 @@
  * Plugin Name: Sensorica
  * Description: simple AI chat for WordPress
  * Author: Aleksandr Noxon
- * Version: 0.1.2
+ * Version: 0.1.21
  * Requires PHP: 7.1
  * Text Domain: sensorica
  * Domain Path: /languages
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define Plugin Constants.
-define('sensorica_VERSION', '0.1.2');
+define('sensorica_VERSION', '0.1.21');
 $plugin_url = plugins_url('', __FILE__);
 
 // Check if the site is accessed via HTTPS and adjust the URL if necessary
@@ -223,9 +223,6 @@ function sensorica_enqueue_scripts_magic_prompt() {
   wp_add_inline_script('magic-prompt-script', $inline_script);
 }
 
-// Updated hook function name to reflect the new script's purpose
-add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
-add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
 
 add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
 

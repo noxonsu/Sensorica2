@@ -43,17 +43,25 @@
                     $sensorica_platforms = json_decode(file_get_contents(sensorica_PATH . 'platforms.json'), true);
 
                     foreach ($sensorica_platforms as $sensorica_tool) {
-                       
+                        
                         if (!isset($sensorica_tool['img'])) {
                             //echo sensorica_URL;
                             $sensorica_tool['img'] = sensorica_URL . 'tools/' . $sensorica_tool['slug'] . '/icon.png';
                            
                         }
+
+                        //if optiion sensorica_dont_use_openaiproxy is set, skip skip tools with ['only_with_proxy'] set to true
+                        if (get_option('sensorica_dont_use_openaiproxy') == 1 && isset($sensorica_tool['only_with_proxy']) && $sensorica_tool['only_with_proxy']) {
+                            //show button but visibility 0.5 and disabled
+                            echo '<li style="opacity: 0.5;"><button  onclick="alert(\'Please enable proxy api\')" data-prompt="' . esc_attr($sensorica_tool['slug']) . '" type="button"><img src="' . esc_url($sensorica_tool['img']) . '" /><span>' . esc_html($sensorica_tool['title']) . '</span>' . esc_html($sensorica_tool['description']) . '</button></li>';
+                            continue;
+                        }
+
                         // Use admin_url() to generate the correct admin URL with query parameters
                         $create_tool_url = esc_url(add_query_arg(array(
                             'page' => 'sensorica',
                             'tool' => $sensorica_tool['slug'],
-                        ), admin_url('list_in_admin_panel.php')));
+                        ), admin_url('admin.php')));
 
                         echo '<li><button onclick="window.location=\'' . $create_tool_url . '\'" data-prompt="' . $sensorica_tool['slug'] . '" type="button"><img src="' . esc_url($sensorica_tool['img']) . '" /><span>' . esc_html($sensorica_tool['title']) . '</span>' . esc_html($sensorica_tool['description']) . '</button></li>';
                     }

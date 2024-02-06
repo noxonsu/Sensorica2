@@ -9,7 +9,8 @@
     "title": "Telegram",
     "slug": "aigram",
     "description": "💬 Boosts engagement with AI-powered Telegram bot. 📈 Creates a viral effect for more customer interactions."
-  , "group": "retention"
+  , "group": "retention",
+  "only_with_proxy": true
   }
   
 ]

@@ -1410,6 +1410,12 @@ details summary::-webkit-details-marker {
 .sensorica_light_theme .sensorica ol li {
   color: #1E2839;
   counter-increment: my-counter;
+  list-style: number;
+}
+
+.sensorica_dark_theme ol li {
+  counter-increment: my-counter;
+  list-style: number;
 }
 
 .sensorica_light_theme .sensorica ol li::before {
@@ -1464,4 +1470,13 @@ details summary::-webkit-details-marker {
   to {
     opacity: 1;
   }
+}
+
+.sensorica_summary-content ol {
+  list-style: number;
+  counter-reset: point;
+}
+
+.sensorica_light_theme .sensorica_tab-content label {
+  color: #1E2839;
 }

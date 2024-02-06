@@ -1,8 +1,10 @@
 <?php 
 
 
-//check is admin can create shortcodes
-
+//check we are in wordpress
+if (!defined('ABSPATH')) {
+    exit;
+}
 
 // Process form submission
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['NEXT_PUBLIC_MAIN_TITLE'])) {

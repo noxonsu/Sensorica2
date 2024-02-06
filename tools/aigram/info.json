@@ -16,7 +16,8 @@
             "error_message": "Please enter a valid Cloudflare account ID.",
             "required": true,
             "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "svg_icon_id": "ico-3"
+            "svg_icon_id": "ico-3",
+            "background_color_svg": "#f38020"
         },
         "cf_wrangler_key": {
             "title": "CloudFlare API Key",
@@ -32,7 +33,8 @@
             "error_message": "Please enter a valid Cloudflare API key.",
             "required": true,
             "placeholder": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "svg_icon_id": "ico-3"
+            "svg_icon_id": "ico-3",
+            "background_color_svg": "#f38020"
         },
         "openai_sk": {
             "title": "OpenAI API Key",
@@ -54,13 +56,19 @@
             "error_message": "Please enter a valid Telegram Bot API token.",
             "required": true,
             "placeholder": "xxxxxxxxx:xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
-            "svg_icon_id": "ico-4"
+            "svg_icon_id": "ico-4",
+            "help_image": [
+                "Message <a href='https://t.me/BotFather' target=_blank>BotFather</a> on Telegram.",
+                "Use the /newbot command to create a new bot.",
+                "Copy the API token to your clipboard."
+            ]
         },
         "system_prompt": {
             "title": "System Prompt",
             "description": "Optional custom system prompt for your bot. You can set one if you like.",
             "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
-            "required": false,
+            "type": "prompt_textarea",
+            "required": true,
             "placeholder": "You are an AI chatbot.",
             "svg_icon_id": "ico-1",
             "textarea": true

@@ -19,9 +19,10 @@
 </div>
 
 <?php 
-
-
+// Updated hook function name to reflect the new script's purpose
 add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
+add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
+
 ?>
 <style>
     #sensorinca_next { display: none; }

@@ -146,7 +146,7 @@ function sensorica_settings_page() {
                 <tr>
                   <th scope="row">
                     <label>
-                      <?php esc_html_e('OpenAI proxy url', 'sensorica'); ?>
+                      <?php esc_html_e('Sensorica Proxy url', 'sensorica'); ?>
                     </label>
                   </th>
                   <td>
@@ -154,7 +154,7 @@ function sensorica_settings_page() {
                       value="<?php echo esc_attr(get_option('sensorica_openaiproxy', 'https://yourproxy.url/')); ?>" />
                     <p class="description">
                       <?php esc_html_e("This API endpoint doesn't store prompts, messages and openai keys. You may setup your own with instructions or use a shared one.", 'sensorica'); ?>
-                      <a href=""><?php esc_html_e("Read more","sensorica"); ?></a>
+                      <a href="https://github.com/noxonsu/Sensorica?tab=readme-ov-file#12-setup-backend-on-vps-alternative-to-aws" target="_blank"><?php esc_html_e("Read more","sensorica"); ?></a>
                     </p>
                   </td>
                 </tr>
@@ -162,7 +162,7 @@ function sensorica_settings_page() {
                   <?php //dont use openai proxy ?>
                   <th scope="row">
                     <label>
-                      <?php esc_html_e("Don't Use OpenAI proxy", 'sensorica'); ?>
+                      <?php esc_html_e("Don't Use Sensorica proxy", 'sensorica'); ?>
                     </label>
                   </th>
                   <td>
