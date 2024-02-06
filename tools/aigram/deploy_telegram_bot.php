@@ -19,7 +19,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Extract the necessary data from the parsed JSON file
     
     $sensorica_openaiproxy = get_option("sensorica_openaiproxy");
-    $sensorica_openaiproxy = "https://refactored-fortnight-w945676vw9h9pqp-3010.app.github.dev/" ;   
+    //for debug use $sensorica_openaiproxy = "https://refactored-fortnight-w945676vw9h9pqp-3010.app.github.dev/" ;   
     $api_url =  esc_url($sensorica_openaiproxy)."bot/deploy";
     // Extract the schema properties
     $schemaProperties = $json['paths']['/bot/deploy']['post']['requestBody']['content']['application/json']['schema']['properties'];
