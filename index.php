@@ -10,8 +10,8 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 
-if (isset($_GET['tool'])) {
-  $tool = getToolInfo($_GET['tool']);
+if (isset($_GET['sensorica_tool'])) {
+  $sensorica_tool = getToolInfo($_GET['sensorica_tool']);
 }
 
 // Enqueue jQuery script and CSS
@@ -24,49 +24,19 @@ wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), s
   <main>
     <div class="sensorica_row">
       <?php
-      if (isset($_GET['tool'])) {
+      if (isset($_GET['sensorica_tool'])) {
         include(sensorica_PATH . "create/tool_single.php");
       }
       
-      if (!isset($_GET['tool'])) {
+      if (!isset($_GET['sensorica_tool'])) {
         include(sensorica_PATH . "/create/select_tool.php");
       }
       ?>
     </div>
     <!-- footer -->
-    
-    <footer class='sensorica'>
-      <?php // Only for admin
-      if (current_user_can('administrator')) :
-      ?>
-        <div class="sensorica_supportWrapper">
-          <?php esc_html_e('Support:', 'sensorica'); ?>
-          <a href="mailto:support@onout.org" target="_blank" rel="noreferrer">
-            <svg class="icon">
-              <use xlink:href="#ico-eml"></use>
-            </svg>
-            <?php esc_html_e('Email', 'sensorica'); ?>
-          </a>
-          <?php esc_html_e('or', 'sensorica'); ?>
-          <a href="https://t.me/onoutsupportbot" target="_blank" rel="noreferrer">
-            <svg class="icon">
-              <use xlink:href="#ico-tlg"></use>
-            </svg>
-            <?php esc_html_e('Telegram', 'sensorica'); ?>
-          </a>
-        </div>
-        <div class="sensorica_supportWrapper">
-          <?php esc_html_e('Community:', 'sensorica'); ?>
-          <a href="https://discord.com/channels/898545581591506975/1078964362783506442" target="_blank">
-            <?php esc_html_e('Discord', 'sensorica'); ?>
-          </a>
-          <?php esc_html_e('or', 'sensorica'); ?>
-          <a href="https://t.me/sensorica" target="_blank">
-            <?php esc_html_e('Telegram', 'sensorica'); ?>
-          </a>
-        </div>
-      <?php endif; ?>
-    </footer>
+    <?php 
+    echo sensorica_show_footer();
+    ?>
     <!--/ footer -->
   </main>
 </div>

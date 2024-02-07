@@ -5,8 +5,8 @@ include(sensorica_PATH."create/tool_single_prompt_textarea.php");
 include_once(sensorica_PATH."create/tool_single_magic_button.php");
        
 
-if ($_GET['tool']) {
-  $sensorica_tool = getToolInfo($_GET['tool']);
+if ($_GET['sensorica_tool']) {
+  $sensorica_tool = getToolInfo($_GET['sensorica_tool']);
 }
 if (!$sensorica_tool) {
   die("Error: Tool not found");
