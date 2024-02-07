@@ -1,7 +1,7 @@
 <?php
 
 
-include sensorica_PATH . 'tools/chate-mascot/admin.php';
+include sensorica_PATH . 'tools/chate-mascot/list_in_admin_panel.php';
 
 
 function register_sensorica_chats_taxonomy()

@@ -43,12 +43,6 @@ function sensorica_shortcodes_page()
 {
     wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
 
-    echo '<h2>' . esc_html_e('Sensorica Prompts', 'sensorica') . '</h2>';
-    // Debugging: Check if the taxonomy has any terms and associated posts
-    $terms = get_terms(array(
-        'taxonomy' => 'sensorica_chats',
-        'hide_empty' => false,
-    ));
 
     // Check if a specific post is being edited
     $editing_post_id = isset($_GET['edit']) ? intval($_GET['edit']) : 0;
@@ -123,6 +117,7 @@ function sensorica_shortcodes_page()
 
         <?php
     } else {
+        echo '<div class="wrap"><br><br></div>';
         // List all posts with 'sensorica_chats' taxonomy
         $pagenum = isset($_GET['pagenum']) ? absint($_GET['pagenum']) : 1;
         $limit = 30;
@@ -164,7 +159,7 @@ function sensorica_shortcodes_page()
                         $post_id = get_the_ID();
                         $post_title = get_the_title();
                         $post_permalink = get_the_permalink();
-                        $post_edit_link = admin_url('list_in_admin_panel.php?page=sensorica_shortcodes&edit=' . get_the_ID());
+                        $post_edit_link = admin_url('admin.php?page=sensorica_shortcodes&edit=' . get_the_ID());
                         $post_shortcode = '[sensorica_chat id="' . $post_id . '"]';
                         $post_embed = '<iframe src="' . $post_permalink . '" width="100%" height="500px"></iframe>';
                         ?>
