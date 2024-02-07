@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
     saveLastClickedPromptIndex(-1);
     promptArea.value = '';
     handleTextareaChange();
-  }
+  };
 
   document.getElementById("resetToOriginal").addEventListener("click", handleReset);
 
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
       button.onclick = function () {
         const prompt = this.dataset.prompt;
-        if (prompt) promptArea.value = prompt;
+        if (prompt) {promptArea.value = prompt;}
         changeHeader(img, alt, title);
         changeDescription(description);
         changeSection();
