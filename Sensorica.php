@@ -27,7 +27,6 @@ define('sensorica_URL', $plugin_url);
 define('sensorica_PATH', plugin_dir_path(__FILE__));
 define('sensorica_BASENAME', plugin_basename(__FILE__));
 
-require_once sensorica_PATH . '/vendor/autoload.php';
 include sensorica_PATH . 'tools/chate-mascot/sensorica-shortcode.php';
 include sensorica_PATH . 'settings.php';
 include sensorica_PATH . 'promptbase_shortcode.php';

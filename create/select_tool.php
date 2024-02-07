@@ -31,12 +31,7 @@
                             <use xlink:href="#ico-1"></use>
                         </svg> </span><?php echo esc_html('Select a platform where you want to deploy your bot'); ?>
                 </div>
-                <div class="<?php echo esc_attr('sensorica_form-section'); ?>" id="descriptionSection">
-                    <p>
-                        <?php echo esc_html('This is AI tools suite.'); ?>
-                    </p>
-                </div>
-
+                
 
                 <ul class="<?php echo esc_attr('sensorica_accordionOptionsList'); ?>" id="listOfPrompts">
                     <?php
@@ -60,7 +55,7 @@
                         // Use admin_url() to generate the correct admin URL with query parameters
                         $create_tool_url = esc_url(add_query_arg(array(
                             'page' => 'sensorica',
-                            'tool' => $sensorica_tool['slug'],
+                            'sensorica_tool' => $sensorica_tool['slug'],
                         ), admin_url('admin.php')));
 
                         echo '<li><button onclick="window.location=\'' . $create_tool_url . '\'" data-prompt="' . $sensorica_tool['slug'] . '" type="button"><img src="' . esc_url($sensorica_tool['img']) . '" /><span>' . esc_html($sensorica_tool['title']) . '</span>' . esc_html($sensorica_tool['description']) . '</button></li>';
@@ -71,7 +66,7 @@
 
                 <ul class="<?php echo esc_attr('sensorica_accordionOptionsList'); ?>" id="listOfPrompts"></ul>
                 <div class="<?php echo esc_attr('sensorica_more'); ?>">
-                    <a href="<?php echo esc_url('https://onout.org/sponsor.md'); ?>" target="_blank"><?php echo esc_html('Request a tool'); ?></a>
+                    <a href="<?php echo esc_url('https://onout.org/sponsor.md'); ?>" target="_blank"><?php echo esc_html('Request a platforrm'); ?></a>
                 </div>
                 <div class="<?php echo esc_attr('sensorica_button-wrap'); ?>">
                     <button type="submit" class="<?php echo esc_attr('sensorica_btn sensorica_btn-prompt'); ?>" id="resetToOriginal"><?php echo esc_html('Reset to Original'); ?></button>
