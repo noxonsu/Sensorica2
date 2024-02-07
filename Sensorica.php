@@ -29,7 +29,7 @@ define('sensorica_BASENAME', plugin_basename(__FILE__));
 
 include sensorica_PATH . 'tools/chate-mascot/sensorica-shortcode.php';
 include sensorica_PATH . 'settings.php';
-include sensorica_PATH . 'promptbase_shortcode.php';
+//include sensorica_PATH . 'promptbase_shortcode.php';
 function sensorica_default_slug()
 {
     return 'sensorica';
@@ -260,6 +260,6 @@ add_action('wp_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
 
 add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
 
-if ($_GET['sensorica_tool'] == 'chate-mascot') {
+if (isset($_GET['sensorica_tool']) && $_GET['sensorica_tool'] == 'chate-mascot') {
   add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
 }
