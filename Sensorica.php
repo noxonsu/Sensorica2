@@ -48,18 +48,18 @@ function sensorica_page_slug()
 function sensorica_menu()
 {
     // Add the top-level menu page.
-    add_menu_page('Sensorica', 'Sensorica', 'manage_options', 'sensorica', 'sensorica_admin_page');
+    add_menu_page('Sensorica', 'Sensorica', 'manage_options', 'sensorica_newchat', 'sensorica_admin_new_chat');
 
     // Add the submenus - New Run and Runs
-    add_submenu_page('sensorica', 'Sensorica Shortcodes', 'All Prompts', 'manage_options', 'sensorica_shortcodes', 'sensorica_shortcodes_page');
-    add_submenu_page('sensorica', 'Sensorica Settings', 'Settings', 'manage_options', 'sensorica_settings', 'sensorica_settings_page');
+    add_submenu_page('sensorica_newchat', 'Sensorica Shortcodes', 'All Prompts', 'manage_options', 'sensorica_shortcodes', 'sensorica_shortcodes_page');
+    add_submenu_page('sensorica_newchat', 'Sensorica Settings', 'Settings', 'manage_options', 'sensorica_settings', 'sensorica_settings_page');
     
     
     // WordPress will automatically create a submenu with the same slug as the main menu.
     // Rename this automatically created submenu to "Settings"
     global $submenu;
-    if (isset($submenu['sensorica'])) {
-        $submenu['sensorica'][0][0] = 'New AI Chat';
+    if (isset($submenu['sensorica_newchat'])) {
+        $submenu['sensorica_newchat'][0][0] = 'New AI Chat';
     }
 }
 
@@ -97,9 +97,28 @@ function sensorica_show_footer() { ?>
       <?php endif; ?>
     </footer> <?php 
 }
-function sensorica_admin_page()
+function sensorica_admin_new_chat()
 {
-    include sensorica_PATH . 'index.php';
+    //check if get_option sensorica_envato_key is not set ask him to enter the key
+    if (!get_option('sensorica_envato_key')) {
+      $sensorica_settings_message = 'Please enter your Envato purchase code to activate the plugin. Go to Sensorica -> Settings';  
+      if (get_option('sensorica_client_id') == '') {
+        $sensorica_settings_message .= '. Error: Client ID is not set';
+      }
+      ?>
+      <br><br>
+      <div class=wrap>
+      <div id="message" class="notice is-dismissible">
+      <br>
+        <?php esc_html_e( $sensorica_settings_message, 'sensorica' ); ?>
+        <br> <br>
+      </div>
+      </div>
+      <?
+    } else {
+        include sensorica_PATH . 'new_chat.php';
+    }
+
 }
 
 // add settings link to plugin page

@@ -54,7 +54,7 @@
 
                         // Use admin_url() to generate the correct admin URL with query parameters
                         $create_tool_url = esc_url(add_query_arg(array(
-                            'page' => 'sensorica',
+                            'page' => 'sensorica_newchat',
                             'sensorica_tool' => $sensorica_tool['slug'],
                         ), admin_url('admin.php')));
 

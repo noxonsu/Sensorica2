@@ -1,7 +1,7 @@
 <?php
-use phpseclib\Crypt\RSA;
 
-function sensorica_settings_page() {
+function sensorica_settings_page()
+{
   // Check admin permission
   if (!current_user_can('manage_options')) {
     return;
@@ -9,11 +9,15 @@ function sensorica_settings_page() {
 
   if (isset($_POST['sensorica_envato_key'])) {
     // Save settings
+    if (!isset($_POST['sensorica_dont_use_openaiproxy'])) {
+      $_POST['sensorica_dont_use_openaiproxy'] = 0;
+    }
+
     $sensorica_theme = sanitize_text_field($_POST['sensorica_theme']);
     update_option('sensorica_theme', $sensorica_theme);
     $sensorica_dont_use_openaiproxy = sanitize_text_field($_POST['sensorica_dont_use_openaiproxy']);
     update_option('sensorica_dont_use_openaiproxy', $sensorica_dont_use_openaiproxy);
-    
+
     $sensorica_back = sanitize_text_field($_POST['sensorica_openaiproxy']);
     update_option('sensorica_envato_key', sanitize_text_field($_POST['sensorica_envato_key']));
     update_option('OPENAI_API_KEY', sanitize_text_field($_POST['OPENAI_API_KEY']));
@@ -21,56 +25,69 @@ function sensorica_settings_page() {
 
     $envato_key = sanitize_text_field($_POST['sensorica_envato_key']);
 
-    $rsa = new RSA();
-    $rsa_key = $rsa->createKey();
+    //check key match regex pattern of envato keys 
+    if (false) {
+      //temproray disable this check
+      //if (!preg_match('/^([a-zA-Z0-9]{8})-([a-zA-Z0-9]{4})-([a-zA-Z0-9]{4})-([a-zA-Z0-9]{4})-([a-zA-Z0-9]{12})$/', $envato_key)) {
+      ?>
+      <div id="message" class="notice is-dismissible">
+        <p>
+          <span style="color: red;">
+            <?php esc_html_e('Invalid Envato Key', 'sensorica'); ?>
+          </span>
+        </p>
+      </div>
+      <?php
 
-    if (substr($sensorica_back, -1) !== '/') {
-      $sensorica_back .= '/';
+    } else {
+
+      if (substr($sensorica_back, -1) !== '/') {
+        $sensorica_back .= '/';
+      }
+
+      $url = $sensorica_back . "envatocheckandsave";
+
+      $post_data = [
+        'registeredurl' => base64_encode(home_url() . "/wp-json/sensorica/v1/shortcode/{id}"),
+        'key' => $envato_key,
+        'rsa_private_key' => 'not used in this version'
+      ];
+
+      $ch = curl_init();
+      curl_setopt($ch, CURLOPT_URL, $url);
+      curl_setopt($ch, CURLOPT_POST, true);
+      curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+      curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+      curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
+      $con = curl_exec($ch);
+      curl_close($ch);
+
+      ?>
+      <div id="message" class="notice is-dismissible">
+        <p>
+          <?php
+          $con_json = json_decode($con);
+          if (isset($con_json->id)) {
+            update_option('sensorica_openaiproxy', sanitize_text_field($_POST['sensorica_openaiproxy']));
+            update_option('sensorica_client_id', esc_attr($con_json->id));
+            
+            echo '<span style="color: green;">';
+            esc_html_e('Settings saved.', 'sensorica');
+            echo esc_html($con_json->message);
+            echo '</span>';
+
+          } else {
+            echo '<span style="color: red;">';
+            esc_html_e('Invalid Envato Key or Proxy Url', 'sensorica');
+            echo "<br>";
+            echo esc_html($con);
+            echo '</span>';
+          }
+          ?>
+        </p>
+      </div>
+      <?php
     }
-
-    $url = $sensorica_back . "envatocheckandsave";
-
-    $post_data = [
-      'rsa_private_key' => $rsa_key['privatekey'],
-      'registeredurl' => base64_encode(home_url()."/wp-json/sensorica/v1/shortcode/{id}"),
-      'key' => $envato_key
-    ];
-
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, $url);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($post_data));
-    $con = curl_exec($ch);
-    curl_close($ch);
-
-    ?>
-    <div id="message" class="notice is-dismissible">
-      <p>
-        <?php
-        $con_json = json_decode($con);
-        if (isset($con_json->id)) {
-          update_option('sensorica_openaiproxy', sanitize_text_field($_POST['sensorica_openaiproxy']));
-          update_option('sensorica_client_id', esc_attr($con_json->id));
-          update_option('sensorica_backend_rsa_openkey_base64', esc_attr($con_json->publicKeyBase64));
-
-          echo '<span style="color: green;">';
-          esc_html_e('Settings saved.', 'sensorica');
-          echo esc_html($con_json->message);
-          echo '</span>';
-
-        } else {
-          echo '<span style="color: red;">';
-          esc_html_e('Invalid Envato Key or Proxy Url', 'sensorica');
-          echo "<br>";
-          echo esc_html($con);
-          echo '</span>';
-        }
-        ?>
-      </p>
-    </div>
-    <?php
   }
   ?>
 
@@ -98,7 +115,7 @@ function sensorica_settings_page() {
                     </label>
                   </th>
                   <td>
-                    <input type="text" name="sensorica_envato_key" id="sensorica_envato_key"
+                    <input type="text" name="sensorica_envato_key" required id="sensorica_envato_key"
                       value="<?php echo esc_attr(get_option('sensorica_envato_key', '...')); ?>" />
                     <p class="description">
                       <?php esc_html_e('Put your envato license key here.', 'sensorica'); ?>
@@ -129,7 +146,7 @@ function sensorica_settings_page() {
                     </p>
                   </td>
                 </tr>
-                <tr>
+                <tr style='display:none'>
                   <th scope="row">
                     <label>
                       <?php esc_html_e('Default OpenAI API key', 'sensorica'); ?>
@@ -154,7 +171,10 @@ function sensorica_settings_page() {
                       value="<?php echo esc_attr(get_option('sensorica_openaiproxy', 'https://yourproxy.url/')); ?>" />
                     <p class="description">
                       <?php esc_html_e("This API endpoint doesn't store prompts, messages and openai keys. You may setup your own with instructions or use a shared one.", 'sensorica'); ?>
-                      <a href="https://github.com/noxonsu/Sensorica?tab=readme-ov-file#12-setup-backend-on-vps-alternative-to-aws" target="_blank"><?php esc_html_e("Read more","sensorica"); ?></a>
+                      <a href="https://github.com/noxonsu/Sensorica?tab=readme-ov-file#12-setup-backend-on-vps-alternative-to-aws"
+                        target="_blank">
+                        <?php esc_html_e("Read more", "sensorica"); ?>
+                      </a>
                     </p>
                   </td>
                 </tr>
@@ -167,7 +187,8 @@ function sensorica_settings_page() {
                   </th>
                   <td>
                     <input type="checkbox" name="sensorica_dont_use_openaiproxy" id="sensorica_dont_use_openaiproxy"
-                      value="1" <?php checked(get_option('sensorica_dont_use_openaiproxy', '1'), '1'); ?> /> Don't Use OpenAI proxy.
+                      value="1" <?php checked(get_option('sensorica_dont_use_openaiproxy', '1'), '1'); ?> /> Don't Use
+                    OpenAI proxy.
                     <p class="description">
                       <?php esc_html_e("check this box if you do not wish to use the external backend. Warning! features such as streaming or the 'stop generating' option require the OpenAI proxy since they use nodejs).", 'sensorica'); ?>
                     </p>
@@ -190,7 +211,7 @@ function sensorica_settings_page() {
                       </p>
                     </td>
                   </tr>
-                  
+
                   <?php
                 }
                 ?>
@@ -210,6 +231,6 @@ function sensorica_settings_page() {
       </div>
     </div>
   </div>
-<?php
+  <?php
 }
 ?>
