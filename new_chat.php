@@ -15,8 +15,6 @@ if (isset($_GET['sensorica_tool'])) {
 }
 
 // Enqueue jQuery script and CSS
-wp_enqueue_script('jquery');
-wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
 
 ?>
 <div class="sensorica_wrapper <?php echo esc_attr(get_option('sensorica_theme', 'sensorica_light_theme')); ?> sensorica">

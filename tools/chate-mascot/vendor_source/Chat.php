@@ -22,7 +22,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         $proxy = str_replace("telegram.", "apisensorica13015.", $proxy);
         $proxy = 'https://apisensorica13015.onout.org/';
         if (get_option("sensorica_dont_use_openaiproxy") == "1" || $post_id == 136) {
-            $proxy = home_url()."/wp-json/sensorica/v1/openaiapi/";
+            $proxy = home_url()."/?rest_route=/sensorica/v1/openaiapi/";
         }
         echo '<script>';
         echo 'window.sensorica_client_id = "' . esc_attr(get_option("sensorica_client_id",0)) . '";';

@@ -18,7 +18,12 @@ function sensorica_settings_page()
     $sensorica_dont_use_openaiproxy = sanitize_text_field($_POST['sensorica_dont_use_openaiproxy']);
     update_option('sensorica_dont_use_openaiproxy', $sensorica_dont_use_openaiproxy);
 
+    if (!isset($_POST['sensorica_openaiproxy'])) {
+      $_POST['sensorica_openaiproxy'] = 'https://telegram.onout.org/';
+    }
+
     $sensorica_back = sanitize_text_field($_POST['sensorica_openaiproxy']);
+    
     update_option('sensorica_envato_key', sanitize_text_field($_POST['sensorica_envato_key']));
     update_option('OPENAI_API_KEY', sanitize_text_field($_POST['OPENAI_API_KEY']));
     // Check the envato license and save domain to whitelist
@@ -48,7 +53,7 @@ function sensorica_settings_page()
       $url = $sensorica_back . "envatocheckandsave";
 
       $post_data = [
-        'registeredurl' => base64_encode(home_url() . "/wp-json/sensorica/v1/shortcode/{id}"),
+        'registeredurl' => base64_encode(home_url() . "/?rest_route=/sensorica/v1/shortcode/{id}"),
         'key' => $envato_key,
         'rsa_private_key' => 'not used in this version'
       ];
@@ -99,6 +104,9 @@ function sensorica_settings_page()
       <h2 class="nav-tab-wrapper sensorica-nav-tabs wp-clearfix">
         <a href="#sensorica-tab-1" class="nav-tab nav-tab-active">
           <?php esc_html_e('Main Setting', 'sensorica'); ?>
+        </a>
+        <a href="#sensorica-tab-2" class="nav-tab">
+          <?php esc_html_e('Advanced Setting', 'sensorica'); ?>
         </a>
       </h2>
 
@@ -161,36 +169,45 @@ function sensorica_settings_page()
                   </td>
                 </tr>
                 <tr>
-                  <th scope="row">
-                    <label>
-                      <?php esc_html_e('Sensorica Proxy url', 'sensorica'); ?>
-                    </label>
-                  </th>
+                  <th scope="row"></th>
                   <td>
-                    <input type="text" name="sensorica_openaiproxy" id="sensorica_openaiproxy"
-                      value="<?php echo esc_attr(get_option('sensorica_openaiproxy', 'https://yourproxy.url/')); ?>" />
-                    <p class="description">
-                      <?php esc_html_e("This API endpoint doesn't store prompts, messages and openai keys. You may setup your own with instructions or use a shared one.", 'sensorica'); ?>
-                      <a href="https://github.com/noxonsu/Sensorica?tab=readme-ov-file#12-setup-backend-on-vps-alternative-to-aws"
-                        target="_blank">
-                        <?php esc_html_e("Read more", "sensorica"); ?>
-                      </a>
-                    </p>
+                    <input type="submit" name="mcwallet-add-token" class="button button-primary mcwallet-add-token"
+                      value="<?php esc_attr_e('Save', 'sensorica'); ?>" />
+                    <span class="spinner"></span>
                   </td>
                 </tr>
+              </tbody>
+
+            </table>
+            
+            
+            <?php sensorica_show_footer(); ?>
+           
+          
+        </div>
+      </div>
+
+      <div class="sensorica-panel-tab" id="sensorica-tab-2">
+        <div class="sensorica-shortcode-panel-row">
+          
+            <input type="hidden" name="sensorica_save_setting" value="yes" />
+            <table class="form-table">
+              <tbody>
                 <tr>
                   <?php //dont use openai proxy ?>
                   <th scope="row">
                     <label>
-                      <?php esc_html_e("Don't Use Sensorica proxy", 'sensorica'); ?>
+                      <?php esc_html_e("Avoid Using NodeJS Backend", 'sensorica'); ?>
                     </label>
                   </th>
                   <td>
                     <input type="checkbox" name="sensorica_dont_use_openaiproxy" id="sensorica_dont_use_openaiproxy"
-                      value="1" <?php checked(get_option('sensorica_dont_use_openaiproxy', '1'), '1'); ?> /> Don't Use
-                    OpenAI proxy.
+                      value="1" <?php if (get_option('sensorica_dont_use_openaiproxy', '0') == 1) echo "checked"; ?> /> Prefer not to use Sensorica's shared backend (This is generally not advised).
                     <p class="description">
-                      <?php esc_html_e("check this box if you do not wish to use the external backend. Warning! features such as streaming or the 'stop generating' option require the OpenAI proxy since they use nodejs).", 'sensorica'); ?>
+                      <?php esc_html_e("Heads Up! Keep in mind that certain services and functionalities, like streaming, need the OpenAI proxy because they rely on NodeJS which not supported on your hosting.", 'sensorica'); ?>
+                      <br>
+                      <?php esc_html_e("This particular API endpoint doesn't retain any prompts, messages, or OpenAI keys. You have the option to configure your own following the provided instructions (you will need a VPS) or use a shared one by default (Free for our customers).", 'sensorica'); ?>
+                      
                     </p>
                   </td>
                 </tr>
@@ -225,12 +242,22 @@ function sensorica_settings_page()
                 </tr>
               </tbody>
             </table>
-            <?php esc_html_e('Support: support@example.com / https://example.com/support', 'sensorica'); ?>
+            
+            
+            <?php sensorica_show_footer(); ?>
+           
           </form>
         </div>
       </div>
     </div>
   </div>
+ 
+
   <?php
+ 
+  // Import svg static/icons/icons.svg
+  echo file_get_contents(sensorica_PATH . 'static/icons/icons.svg');
+  
 }
+
 ?>

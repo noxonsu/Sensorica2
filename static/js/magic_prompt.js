@@ -79,3 +79,31 @@ jQuery(document).ready(function () {
       complete(); // Call complete even if there is an error
     });
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    // Get all tabs
+    var tabs = document.querySelectorAll('.nav-tab');
+
+    // Add click event to all tabs
+    tabs.forEach(function(tab) {
+      tab.addEventListener('click', function(event) {
+        event.preventDefault();
+
+        // Remove active class from all tabs and hide all tab content
+        tabs.forEach(function(tab) {
+          tab.classList.remove('nav-tab-active');
+          document.getElementById(tab.getAttribute('href').substring(1)).style.display = 'none';
+        });
+
+        // Add active class to clicked tab and show associated tab content
+        tab.classList.add('nav-tab-active');
+        var contentId = tab.getAttribute('href').substring(1);
+        document.getElementById(contentId).style.display = 'block';
+      });
+    });
+
+    // Click the first tab to show its content by default
+    if (tabs.length > 0) {
+      tabs[0].click();
+    }
+  });

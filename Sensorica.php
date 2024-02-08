@@ -239,6 +239,14 @@ add_filter("admin_body_class", "admin_body_class", 9999);
 
 add_shortcode('sensorica_promptbase', 'sensorica_promptbase');
 
+add_action("init", "sensorica_init");
+
+function sensorica_init()
+{
+  wp_enqueue_script('jquery');
+  wp_enqueue_style('sensorica-style', sensorica_URL . 'static/new.css', array(), sensorica_VERSION, 'all');
+}  
+
 function sensorica_enqueue_scripts_prompt_textarea() {
   wp_enqueue_script(
     'prompt-textarea-script',
@@ -282,3 +290,5 @@ add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_magic_prompt');
 if (isset($_GET['sensorica_tool']) && $_GET['sensorica_tool'] == 'chate-mascot') {
   add_action('admin_enqueue_scripts', 'sensorica_enqueue_scripts_prompt_textarea');
 }
+
+
