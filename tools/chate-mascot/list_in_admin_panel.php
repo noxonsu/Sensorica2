@@ -52,6 +52,7 @@ function sensorica_shortcodes_page()
         $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
         $system_prompt = sanitize_textarea_field($_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'] ?? '');
+        $sensorica_openai_model = sanitize_text_field($_POST['sensorica_openai_model'] ?? 'gpt-3.5-turbo-0125');
 
         // Update the post title
         if ($editing_post_id > 0) {
@@ -61,10 +62,10 @@ function sensorica_shortcodes_page()
             );
             wp_update_post($post_data);
         }
-
         update_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', array(
             'API_KEY' => $api_key,
             'SYSTEM_PROMPT' => $system_prompt,
+            'sensorica_openai_model' => $sensorica_openai_model
         ));
 
         echo '<div class="notice notice-success"><p>' . esc_html_e('Shortcode updated successfully.', 'sensorica') . '</p></div>';
@@ -104,6 +105,16 @@ function sensorica_shortcodes_page()
                             </label>
                             <textarea class="sensorica_prompt-area" name="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"
                                 id="NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT"><?php echo esc_textarea($saved_inputs['SYSTEM_PROMPT'] ?? ''); ?></textarea>
+                        </div>
+                        
+                        <div class="sensorica_form-section">
+                            <label for="NEXT_PUBLIC_MODEL">
+                                <?php esc_html_e('Model:', 'sensorica'); ?>
+                            </label>
+                            <select name="sensorica_openai_model" id="NEXT_PUBLIC_MODEL">
+                                <option value="gpt-3.5-turbo-0125" <?php echo ($saved_inputs['sensorica_openai_model'] ?? '') === 'gpt-3.5-turbo-0125' ? 'selected' : ''; ?>>GPT-3.5 Turbo</option>
+                                <option value="gpt-4-turbo-preview" <?php echo ($saved_inputs['sensorica_openai_model'] ?? '') === 'gpt-4-turbo-preview' ? 'selected' : ''; ?>>GPT-4 Turbo Preview</option>
+                            </select>
                         </div>
                         <input type="submit" class="sensorica_btn" value="<?php esc_attr_e('Update', 'sensorica'); ?>">
                         <div class="sensorica_separator"><span>
@@ -146,9 +157,11 @@ function sensorica_shortcodes_page()
             <thead>
                 <tr>
                     <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
-                        <span><?php esc_html_e('Title', 'sensorica'); ?></span>
+                        <span>
+                            <?php esc_html_e('Title', 'sensorica'); ?>
+                        </span>
                     </th>
-                    
+
                 </tr>
             </thead>
             <tbody id="the-list">
@@ -164,7 +177,8 @@ function sensorica_shortcodes_page()
                         $post_embed = '<iframe src="' . $post_permalink . '" width="100%" height="500px"></iframe>';
                         ?>
                         <tr>
-                            <td class="title column-title has-row-actions column-primary page-title" data-colname="<?php esc_attr_e('Title', 'sensorica'); ?>">
+                            <td class="title column-title has-row-actions column-primary page-title"
+                                data-colname="<?php esc_attr_e('Title', 'sensorica'); ?>">
                                 <strong>
                                     <a class="row-title" href="<?php echo esc_url($post_edit_link); ?>"
                                         aria-label="<?php echo esc_attr_e('Edit', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>” (Edit)">
@@ -174,16 +188,20 @@ function sensorica_shortcodes_page()
                                 <div class="row-actions">
                                     <span class="edit">
                                         <a href="<?php echo esc_url($post_edit_link); ?>"
-                                            aria-label="<?php echo esc_attr_e('Edit', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>”"><?php esc_html_e('Edit', 'sensorica'); ?></a> |
+                                            aria-label="<?php echo esc_attr_e('Edit', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>”">
+                                            <?php esc_html_e('Edit', 'sensorica'); ?>
+                                        </a> |
                                     </span>
                                     <span class="trash">
                                         <a href="<?php echo get_delete_post_link($post_id); ?>" class="submitdelete"
                                             aria-label="<?php echo esc_attr_e('Move', 'sensorica'); ?> “<?php echo esc_attr($post_title); ?>” <?php echo esc_attr_e('to the Trash', 'sensorica'); ?>"
-                                            onclick="return confirm('<?php echo esc_js(esc_html_e('Are you sure you want to delete this shortcode?', 'sensorica')); ?>');"><?php esc_html_e('Trash', 'sensorica'); ?></a>
+                                            onclick="return confirm('<?php echo esc_js(esc_html_e('Are you sure you want to delete this shortcode?', 'sensorica')); ?>');">
+                                            <?php esc_html_e('Trash', 'sensorica'); ?>
+                                        </a>
                                     </span>
                                 </div>
                             </td>
-                            
+
                         </tr>
                         <?php
                     }

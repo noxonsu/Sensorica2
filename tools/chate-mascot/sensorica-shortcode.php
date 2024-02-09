@@ -142,12 +142,12 @@ add_action('rest_api_init', function () {
 
     register_rest_route('sensorica/v1', '/openaiapi/api/chat', array(
         'methods' => ['POST', 'GET'],
-        'callback' => 'sensorica_openaiapi_chat',
+        'callback' => 'sensorica_openaiapi_local_chat',
         'permission_callback' => '__return_true',
     ));
 });
 
-function sensorica_openaiapi_chat($request)
+function sensorica_openaiapi_local_chat($request)
 {
     $post_id = $request->get_param('post_id');
 
@@ -160,7 +160,7 @@ function sensorica_openaiapi_chat($request)
 
         $api_key = $saved_inputs['API_KEY'];
         $system_prompt = $saved_inputs['SYSTEM_PROMPT']; // Assuming this is the prompt you want to include
-
+        $sensorica_openai_model = $saved_inputs['OPENAI_MODEL'];
         $messages = $request->get_param('messages'); // Messages from the request
 
         if (!is_array($messages) || empty($messages)) {
@@ -181,7 +181,7 @@ function sensorica_openaiapi_chat($request)
         //print_r($messages);
         // Prepare the data payload
         $data = json_encode([
-            'model' => "gpt-3.5-turbo-1106",
+            'model' => $sensorica_openai_model,
             'messages' => $sanitized_messages,
             'max_tokens' => 1000,
             'temperature' => 0.5, // Adjust temperature as necessary

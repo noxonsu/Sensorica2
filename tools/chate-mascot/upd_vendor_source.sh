@@ -6,7 +6,7 @@
 # cd /home/ubuntu/chate_13015 && git pull && pm2 restart ecosystem.config.js && pm2 logs chat_13015
 # check (need ~ 1 min) https://apisensorica13015.onout.org/ is up and running
 # enable developr mode in cf for onout.org
-# run this script (cd tools/chate-mascot && sh upd_vendor_source.sh)
+# run this script (cd /workspaces/Sensorica2/tools/chate-mascot && sh upd_vendor_source.sh)
 # upload to ftp (using codespace sftp extention) sensorica.onout.org 
 
 # Change directory to vendor_source
