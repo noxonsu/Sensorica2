@@ -72,7 +72,7 @@ function sensorica_form_shortcode($atts)
 
     
     // Define the path to the file
-    $file_path = sensorica_PATH . 'index.php';
+    $file_path = sensorica_PATH . 'new_chat.php';
 
     // Check if the file exists
     if (file_exists($file_path)) {
