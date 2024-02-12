@@ -68,7 +68,7 @@ function sensorica_shortcodes_page()
             'sensorica_openai_model' => $sensorica_openai_model
         ));
 
-        echo '<div class="notice notice-success"><p>' . esc_html_e('Shortcode updated successfully.', 'sensorica') . '</p></div>';
+        echo '<div class="notice notice-success"><p>' . esc_html__('Shortcode updated successfully.', 'sensorica') . '</p></div>';
     }
 
     // Edit form for a specific post
