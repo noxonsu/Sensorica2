@@ -9,17 +9,6 @@ function generate_magic_prompt($input_data) {
     echo '</div>';
     echo '</div>';
     echo '<style>';
-    echo '.sensorica_magic-prompt {';
-    echo 'right: 15px;';
-    echo 'top: 161px;';
-    echo 'position: absolute;';
-    echo 'width: 40px;';
-    echo 'color: #fff;';
-    echo 'display: flex;';
-    echo 'align-items: center;';
-    echo 'justify-content: center;';
-    echo 'cursor: pointer;';
-    echo '}';
     echo '.fade-out {';
     echo 'animation: fadeOut 0.1s;';
     echo 'opacity: 0;';

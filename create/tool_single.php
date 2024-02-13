@@ -114,7 +114,7 @@ if (!$sensorica_tool) {
         } else if ($sensorica_input_data['type'] == 'prompt_textarea') {
           echo generate_sensorica_prompt_section($sensorica_input, $sensorica_input_data);
         } 
-        echo generate_magic_prompt($sensorica_input_data);
+        
         ?>
 
         <input type="submit" id="sensorinca_next" value="<?php esc_html_e("Apply & Next", "sensorica") ?>"

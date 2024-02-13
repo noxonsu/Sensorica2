@@ -10,9 +10,12 @@
   } elseif ($input_data['default'] == 'window.location.href') {
     $input_data['default'] = "https://" . $_SERVER['HTTP_HOST'];
   }
-  
+  ?>
+  <?php
+  echo '<div class="sensorica_input-wrapper">';
   echo '<input class="sensorica_form-control sensorica_userinput" value="' . esc_attr($input_data['default']) . '" type="text" name="' . esc_attr($input) . '" id="' . esc_attr($input) . '" placeholder="' . esc_attr($input_data['placeholder'] ?? '') . '" />';
-  
+  generate_magic_prompt($input_data); // Call this function here to include the magic prompt in the wrapper
+  echo '</div>';
   echo '<details>';
   echo '<summary>';
   esc_html_e('Instructions', 'sensorica');

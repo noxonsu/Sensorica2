@@ -1420,10 +1420,16 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   border: 2px solid #1E2839;
 }
 
+.sensorica_input-wrapper {
+  position: relative;
+  display: inline-block; /* or block, depending on your layout */
+  width: 100%;
+}
+
 .sensorica_magic-prompt {
 
   right: 15px;
-  top: 161px;
+  top: 12px;
   position: absolute;
   width: 40px;
   color: #fff;
