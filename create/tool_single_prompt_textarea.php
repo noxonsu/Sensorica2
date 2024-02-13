@@ -3,7 +3,7 @@
 function generate_sensorica_prompt_section($input) {
   echo '<div class="sensorica_form-section" id="descriptionSection">';
   echo '<p>';
-  esc_html_e('The System Prompt (instruction for GPT) consists of instructions for the bot. Note that users will not be able to see this text. This field is optional.', 'sensorica');
+  esc_html_e('The System Prompt (instruction for GPT) consists of instructions for the bot with your custom context. Note that users will not be able to see this text. This field is optional.', 'sensorica');
   echo '</p>';
   echo '</div>';
 

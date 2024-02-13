@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', function() {
     {
       "img": window.sensorica_plugin_url+"static/icons/content-generation.png",
       "title": "Single page content answering",
-      "description": "Allow user to talk with a single page (publication) content",
+      "description": "Allow user to talk with a custom context",
       "prompt": `You answer a questions based on current page content. Content:`
     }
   ];
