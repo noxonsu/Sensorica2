@@ -15,7 +15,12 @@ require_once $wordpress_root_dir.'wp-load.php';
 if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
     $post_id = intval($_GET['post_id']);
     $post = get_post($post_id);
-
+    $saved_inputs = get_post_meta($post_id, '_sensorica_chat_saved_inputs', true);
+    if (isset($saved_inputs['sensorica_theme'])) {
+        $sensorica_theme = $saved_inputs['sensorica_theme'];
+    } else {
+        $sensorica_theme = "dark";
+    }
     if ($post) {
         // Include your HTML file here if the post exists and the user has permission.
         $proxy = get_option("sensorica_openaiproxy");
@@ -30,6 +35,7 @@ if (isset($_GET['post_id']) && is_numeric($_GET['post_id'])) {
         echo 'window.main_title = "' .esc_attr($post->post_title). '";';
         echo 'window.sensorica_openaiproxy = "' . esc_url($proxy) . '";';
         echo 'window.chatUniqId = "' . esc_attr(get_option("sensorica_client_id",0)) . '_' . esc_attr($post_id) . '";';
+        echo 'window.sensorica_theme = "' . esc_attr($sensorica_theme) . '";';
         echo '</script>';
         
         include("index.html");

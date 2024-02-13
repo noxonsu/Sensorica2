@@ -14,7 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['NEXT_PUBLIC_MAIN_TITL
     $main_title = sanitize_text_field($_POST['NEXT_PUBLIC_MAIN_TITLE'] ?? '');
     $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
     $system_prompt = sanitize_textarea_field($_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'] ?? '');
-
+    $sensorica_theme = sanitize_text_field($_POST['sensorica_theme'] ?? '');
+    $sensorica_openai_model = sanitize_text_field($_POST['sensorica_openai_model'] ?? '');
     // Insert a new post with the 'sensorica_chats' taxonomy
     $post_id = wp_insert_post(array(
         'post_type' => 'post',
@@ -29,6 +30,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['NEXT_PUBLIC_MAIN_TITL
             'MAIN_TITLE' => $main_title,
             'API_KEY' => $api_key,
             'SYSTEM_PROMPT' => $system_prompt,
+            'sensorica_theme' => $sensorica_theme,
+            'sensorica_openai_model' => $sensorica_openai_model
         ));
 
         wp_set_object_terms($post_id, 'sensorica-chat', 'sensorica_chats');

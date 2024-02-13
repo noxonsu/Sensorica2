@@ -1477,3 +1477,15 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
 .sensorica_light_theme .sensorica_tab-content label {
   color: #1E2839;
 }
+
+
+.sensorica_light_theme select.sensorica_select {
+  background-color: #fff;
+  color: #1E2839;
+  border: 2px solid #1E2839;
+}
+.sensorica_dark_theme select.sensorica_select {
+  background-color: #1E2839;
+  color: #fff;
+  border: 2px solid #fff;
+}

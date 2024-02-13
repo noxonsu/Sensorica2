@@ -53,6 +53,7 @@ function sensorica_shortcodes_page()
         $api_key = sanitize_text_field($_POST['OPENAI_API_KEY'] ?? '');
         $system_prompt = sanitize_textarea_field($_POST['NEXT_PUBLIC_DEFAULT_SYSTEM_PROMPT'] ?? '');
         $sensorica_openai_model = sanitize_text_field($_POST['sensorica_openai_model'] ?? 'gpt-3.5-turbo-0125');
+        $sensorica_theme = sanitize_text_field($_POST['sensorica_theme'] ?? 'light');
 
         // Update the post title
         if ($editing_post_id > 0) {
@@ -65,7 +66,8 @@ function sensorica_shortcodes_page()
         update_post_meta($editing_post_id, '_sensorica_chat_saved_inputs', array(
             'API_KEY' => $api_key,
             'SYSTEM_PROMPT' => $system_prompt,
-            'sensorica_openai_model' => $sensorica_openai_model
+            'sensorica_openai_model' => $sensorica_openai_model,
+            'sensorica_theme' => $sensorica_theme
         ));
 
         echo '<div class="notice notice-success"><p>' . esc_html__('Shortcode updated successfully.', 'sensorica') . '</p></div>';
@@ -116,6 +118,17 @@ function sensorica_shortcodes_page()
                                 <option value="gpt-4-turbo-preview" <?php echo ($saved_inputs['sensorica_openai_model'] ?? '') === 'gpt-4-turbo-preview' ? 'selected' : ''; ?>>GPT-4 Turbo Preview</option>
                             </select>
                         </div>
+
+                        <div class="sensorica_form-section">
+                            <label for="NEXT_PUBLIC_THEME">
+                                <?php esc_html_e('Theme:', 'sensorica'); ?>
+                            </label>
+                            <select name="sensorica_theme" id="NEXT_PUBLIC_THEME">
+                                <option value="light" <?php echo ($saved_inputs['sensorica_theme'] ?? '') === 'light' ? 'selected' : ''; ?>>Light</option>
+                                <option value="dark" <?php echo ($saved_inputs['sensorica_theme'] ?? '') === 'dark' ? 'selected' : ''; ?>>Dark</option>
+                            </select>
+                        </div>
+
                         <input type="submit" class="sensorica_btn" value="<?php esc_attr_e('Update', 'sensorica'); ?>">
                         <div class="sensorica_separator"><span>
                                 <?php esc_html_e('Codes for embedding:', 'sensorica'); ?>

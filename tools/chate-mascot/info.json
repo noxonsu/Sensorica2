@@ -32,6 +32,38 @@
         "Copy the API key to your clipboard and paste it here."
       ]
     },
+    "sensorica_openai_model": {
+      "title": "AI Model",
+      "description": "OpenAI model to use for generating responses.",
+      "required": true,
+      "svg_icon_id": "ico-2",
+      "background_color_svg": "#10a37f",
+      "help_image": [
+        "GPT-3.5 - fast and cheap",
+        "GPT-4-turbo - more accurate and expensive"
+      ],
+      "type": "select",
+      "options": {
+        "gpt-3.5-turbo-0125": "GPT-3.5-turbo",
+        "gpt-4-turbo-preview": "gpt-4-turbo-preview"
+      }
+    },
+    "sensorica_theme": {
+      "title": "Theme style",
+      "description": "Dark or light theme for the chat interface.",
+      "required": true,
+      "svg_icon_id": "ico-1",
+      "background_color_svg": "#10a37f",
+      "help_image": [
+        "dark theme <img src='https://onout.org/Chate/admin.png' width='100%'>",
+        "light theme <img src='https://onout.org/Chate/admin_light.png' width='100%'>"
+      ],
+      "type": "select",
+      "options": {
+        "dark": "Dark",
+        "light": "Light"
+      }
+    },
     "NEXT_PUBLIC_MAIN_TITLE": {
       "title": "Welcome Message",
       "description": "Main title (name) for the chat interface.",
@@ -41,6 +73,7 @@
       ],
       "required": true,
       "svg_icon_id": "ico-1",
+      "background_color_svg": "#10a37f",
       "magic_prompt": "Welcome to our website. I am a mascot of our company. I can help you with any questions you have."
     }
   },
