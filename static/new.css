@@ -838,10 +838,7 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   width: 100%;
 }
 
-.sensorica ol {
-  list-style: none;
-  counter-reset: point;
-}
+
 .sensorica ol li {
   color: #94ABCF;
   font-size: 20px;
@@ -1394,14 +1391,12 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   color: #1E2839;
 }
 
-.sensorica_light_theme .sensorica ol {
-  counter-reset: my-counter;
-}
+
 
 .sensorica_light_theme .sensorica ol li {
   color: #1E2839;
   counter-increment: my-counter;
-  list-style: number;
+  list-style: none;
 }
 
 .sensorica_dark_theme ol li {
@@ -1411,6 +1406,12 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
 
 .sensorica_light_theme .sensorica ol li::before {
   content: counter(my-counter) ". ";
+  color: #1E2839;
+}
+
+.sensorica_dark_theme .sensorica ol li::before {
+  content: counter(my-counter) ". ";
+  color: #fff;
 }
 
 .sensorica_light_theme .sensorica_form-section .sensorica_form-control
@@ -1469,10 +1470,6 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   }
 }
 
-.sensorica_summary-content ol {
-  list-style: number;
-  counter-reset: point;
-}
 
 .sensorica_light_theme .sensorica_tab-content label {
   color: #1E2839;
@@ -1483,6 +1480,7 @@ A.sensorica_tab-title.filled SVG.sensorica_filled_step {
   background-color: #fff;
   color: #1E2839;
   border: 2px solid #1E2839;
+  padding: 8px 20px
 }
 .sensorica_dark_theme select.sensorica_select {
   background-color: #1E2839;
