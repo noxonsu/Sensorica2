@@ -166,14 +166,14 @@ function sensorica_shortcodes_page()
 
         $query = new WP_Query($args);
         ?>
-        <table class='wp-list-table widefat fixed striped table-view-list'>
+        <table class='widefat wp-list-table widefat fixed striped table-view-list posts'>
             <thead>
                 <tr>
-                    <th scope="col" id="title" class="manage-column column-title column-primary sortable desc">
+                    <td scope="col" id="title" class="manage-column column-title column-primary sortable desc">
                         <span>
                             <?php esc_html_e('Title', 'sensorica'); ?>
                         </span>
-                    </th>
+    </td>
 
                 </tr>
             </thead>
