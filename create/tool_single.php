@@ -147,6 +147,7 @@ if (!$sensorica_tool) {
 
           echo generate_sensorica_form_section($sensorica_input, $sensorica_input_data);
         } else if ($sensorica_input_data['type'] == 'prompt_textarea') {
+          $sensorica_no_next = 1;
           echo generate_sensorica_prompt_section($sensorica_input, $sensorica_input_data);
         } else if ($sensorica_input_data['type'] == 'select') {
           echo generate_sensorica_select_section($sensorica_input, $sensorica_input_data);
@@ -154,11 +155,13 @@ if (!$sensorica_tool) {
           echo generate_sensorica_form_section($sensorica_input, $sensorica_input_data);
         }
 
-        ?>
+        if (!isset($sensorica_no_next)) {
+          ?>
+        
 
         <input type="submit" id="sensorinca_next" value="<?php esc_html_e("Apply & Next", "sensorica") ?>"
           class='sensorica_btn' />
-
+        <?php } ?>
       </div>
       <?php
       //show only one setting per step
