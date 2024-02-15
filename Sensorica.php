@@ -3,7 +3,7 @@
  * Plugin Name: Sensorica
  * Description: simple AI chat for WordPress
  * Author: Aleksandr Noxon
- * Version: 0.1.21
+ * Version: 0.1.0
  * Requires PHP: 7.1
  * Text Domain: sensorica
  * Domain Path: /languages
@@ -15,7 +15,7 @@ if (!defined('ABSPATH')) {
 }
 
 // Define Plugin Constants.
-define('sensorica_VERSION', '0.1.21');
+define('sensorica_VERSION', '0.1.0');
 $plugin_url = plugins_url('', __FILE__);
 
 // Check if the site is accessed via HTTPS and adjust the URL if necessary
