@@ -179,6 +179,10 @@ function sensorica_shortcodes_page()
             </thead>
             <tbody id="the-list">
                 <?php
+                //if no items show mase message
+                if (!$query->have_posts()) {
+                    echo '<tr><td colspan="2">' . esc_html__('No chat found.', 'sensorica') . '</td></tr>';
+                } 
                 if ($query->have_posts()) {
                     while ($query->have_posts()) {
                         $query->the_post();

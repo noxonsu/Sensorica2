@@ -51,7 +51,7 @@ function sensorica_menu()
     add_menu_page('Sensorica', 'Sensorica', 'manage_options', 'sensorica_newchat', 'sensorica_admin_new_chat');
 
     // Add the submenus - New Run and Runs
-    add_submenu_page('sensorica_newchat', 'Sensorica Shortcodes', 'All Prompts', 'manage_options', 'sensorica_shortcodes', 'sensorica_shortcodes_page');
+    add_submenu_page('sensorica_newchat', 'Sensorica Shortcodes', 'All Chats', 'manage_options', 'sensorica_shortcodes', 'sensorica_shortcodes_page');
     add_submenu_page('sensorica_newchat', 'Sensorica Settings', 'Settings', 'manage_options', 'sensorica_settings', 'sensorica_settings_page');
     
     
