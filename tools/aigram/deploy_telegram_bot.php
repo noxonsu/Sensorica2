@@ -40,7 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             'Content-Type' => 'application/json'
         ),
         'body' => json_encode($data),
-        'timeout' => 50
+        'timeout' => 80
     ));
     
     // Handle the response

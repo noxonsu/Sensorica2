@@ -54,6 +54,10 @@
                   "payment_link": {
                     "type": "string",
                     "description": "URL to pay for an activation code"
+                  },
+                  "openai_model": {
+                    "type": "string",
+                    "description": "OpenAI model to use for the bot"
                   }
                 },
                 "required": [

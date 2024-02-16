@@ -61,6 +61,22 @@
             ],
             "background_color_svg": "#000"
         },
+        "openai_model": {
+            "title": "AI Model",
+            "description": "OpenAI model to use for generating responses.",
+            "required": true,
+            "svg_icon_id": "ico-2",
+            "background_color_svg": "#10a37f",
+            "help_image": [
+                "GPT-3.5 - fast and cheap",
+                "GPT-4-turbo - more accurate and expensive"
+            ],
+            "type": "select",
+            "options": {
+                "gpt-3.5-turbo-0125": "GPT-3.5-turbo",
+                "gpt-4-turbo-preview": "gpt-4-turbo-preview"
+            }
+        },
         "tg_token": {
             "title": "Telegram Bot API Token",
             "description": "Telegram Bot API token. Get this from the BotFather on Telegram.",
@@ -76,7 +92,6 @@
             ],
             "background_color_svg": "#0088cc"
         }
-        
     },
     "deployment_confirmation": "Do you want to proceed with deploying your Telegram bot with the provided details? (Yes/No)",
     "completion_message": "Your Telegram bot is now deployed! You can access it at [Bot URL]. For any changes, you can restart this setup process."
