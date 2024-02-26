@@ -13,7 +13,7 @@
   ?>
   <?php
   echo '<div class="sensorica_input-wrapper">';
-  echo '<input class="sensorica_form-control sensorica_userinput" value="' . esc_attr($input_data['default']) . '" type="text" name="' . esc_attr($input) . '" id="' . esc_attr($input) . '" placeholder="' . esc_attr($input_data['placeholder'] ?? '') . '" />';
+  echo '<input class="sensorica_form-control sensorica_userinput" value="' . esc_attr($input_data['default']) . '" type="text" name="' . esc_attr($input) . '" id="' . esc_attr($input) . '" data-regex="'.$input_data['regex'].'" placeholder="' . esc_attr($input_data['placeholder'] ?? '') . '" />';
   generate_magic_prompt($input_data); // Call this function here to include the magic prompt in the wrapper
   echo '</div>';
   echo '<details>';
@@ -34,6 +34,21 @@
   echo '</ol>';
   echo '</div>';
   echo '</details>';
-  
+  //if $input_data['regex'] exists
+  if (isset($input_data['regex'])) {
+  ?>
+  <script>
+    jQuery(document).ready(function() {
+      jQuery('.sensorica_userinput').on('input', function() {
+        var regex = new RegExp(this.getAttribute('data-regex'));
+        if (!regex.test(this.value)) {
+          this.setCustomValidity('Invalid input');
+        } else {
+          this.setCustomValidity('');
+        }
+      });
+    });
+  </script>
+  <?php }
   echo '</div>';
 }

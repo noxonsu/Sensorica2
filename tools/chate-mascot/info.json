@@ -24,6 +24,7 @@
       "description": "OpenAI API key for generating responses.",
       "error_message": "Please enter a valid OpenAI API key.",
       "required": true,
+      "regex": "^sk-[A-Za-z0-9].*?$",
       "svg_icon_id": "ico-2",
       "background_color_svg": "#10a37f",
       "help_image": [

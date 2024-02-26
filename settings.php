@@ -119,7 +119,7 @@ function sensorica_settings_page()
                 <tr>
                   <th scope="row">
                     <label>
-                      <?php esc_html_e('Your envato license key', 'sensorica'); ?>
+                      <?php esc_html_e('Your license key', 'sensorica'); ?>
                     </label>
                   </th>
                   <td>
