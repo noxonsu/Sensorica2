@@ -54,6 +54,7 @@
             "required": true,
             "placeholder": "sk-...",
             "svg_icon_id": "ico-2",
+            "regex": "^sk-[A-Za-z0-9].*?$",
             "help_image": [
                 "Sign up for a OpenAi account <a href='https://platform.openai.com' target=_blank>https://platform.openai.com</a> if you don't already have one. Skip the onboarding process.",
                 "Open this page <a href='https://platform.openai.com/api-keys'>https://platform.openai.com/api-keys</a> here. And create a new API key.",

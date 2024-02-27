@@ -90,7 +90,7 @@ function sensorica_show_footer() { ?>
             <?php esc_html_e('Discord', 'sensorica'); ?>
           </a>
           <?php esc_html_e('or', 'sensorica'); ?>
-          <a href="https://t.me/sensorica" target="_blank">
+          <a href="https://t.me/sensorica2" target="_blank">
             <?php esc_html_e('Telegram', 'sensorica'); ?>
           </a>
         </div>

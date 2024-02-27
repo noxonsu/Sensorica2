@@ -13,7 +13,7 @@
   ?>
   <?php
   echo '<div class="sensorica_input-wrapper">';
-  echo '<input class="sensorica_form-control sensorica_userinput" value="' . esc_attr($input_data['default']) . '" type="text" name="' . esc_attr($input) . '" id="' . esc_attr($input) . '" data-regex="'.$input_data['regex'].'" placeholder="' . esc_attr($input_data['placeholder'] ?? '') . '" />';
+  echo '<input class="sensorica_form-control sensorica_userinput" value="' . esc_attr($input_data['default']) . '" type="text" name="' . esc_attr($input) . '" id="' . esc_attr($input) . '" data-regex="'.@$input_data['regex'].'" placeholder="' . esc_attr($input_data['placeholder'] ?? '') . '" />';
   generate_magic_prompt($input_data); // Call this function here to include the magic prompt in the wrapper
   echo '</div>';
   echo '<details>';
