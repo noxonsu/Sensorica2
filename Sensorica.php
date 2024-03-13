@@ -269,7 +269,7 @@ function sensorica_enqueue_scripts_magic_prompt() {
   // Enqueue the script first
   wp_enqueue_script(
       'magic-prompt-script', // Updated handle for the new script
-      sensorica_URL . '/static/js/magic_prompt.js?r=' . rand(1, 22222), // Updated script URL for 'magic_prompt.js' with cache-busting
+      sensorica_URL . 'static/js/magic_prompt.js', 
       array('jquery'), // Dependencies remain the same
       sensorica_VERSION, // Version
       true // In footer
