@@ -39,7 +39,7 @@
                     "type": "string",
                     "description": "Telegram Bot API Token"
                   },
-                  "system_prompt": {
+                  "prompt": {
                     "type": "string",
                     "description": "Custom system prompt for the bot"
                   },

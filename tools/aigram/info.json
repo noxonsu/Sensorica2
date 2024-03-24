@@ -6,7 +6,7 @@
     "description": "Deploy a Telegram bot that uses the ChatGPT API to chat with users.",
     "introduction": "Welcome to the ChatGPT Telegram Bot setup. I'll guide you through the steps to deploy your bot.",
     "inputs": {
-        "system_prompt": {
+        "prompt": {
             "title": "System Prompt",
             "description": "Optional custom system prompt for your bot. You can set one if you like.",
             "confirmation": "Would you like to set a custom system prompt? (Yes/No)",
